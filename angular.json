@@ -1,5 +1,8 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "analytics": false
+  },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
@@ -31,9 +34,23 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/assets/css/styles.css",
+              "src/assets/css/admin-style.css",
+              "src/assets/vendor/bootstrap/css/bootstrap.min.css",
+              "src/assets/vendor/fontawesome-free/css/all.min.css"
+
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/js/jquery-3.4.1.min.js",
+              "src/assets/vendor/bootstrap/js/bootstrap.bundle.min.js",
+              "src/assets/vendor/chart/highcharts.js",
+              "src/assets/vendor/chart/exporting.js",
+              "src/assets/vendor/chart/export-data.js",
+              "src/assets/vendor/chart/accessibility.js",
+              "src/assets/js/scripts.js",
+              "src/assets/js/chart.js"
+            ]
           },
           "configurations": {
             "production": {
