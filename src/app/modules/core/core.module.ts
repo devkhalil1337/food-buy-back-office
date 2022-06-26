@@ -7,6 +7,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from '../backoffice/dashboard/dashboard.component';
 import { ProductsComponent } from '../backoffice/products/products.component';
 import { AddProductComponent } from '../backoffice/products/add-product/add-product.component';
+import { CategoryComponent } from '../backoffice/category/category.component';
+import { AddCategoryComponent } from '../backoffice/category/add-category/add-category.component';
+import { OrdersComponent } from '../backoffice/orders/orders.component';
+import { OrderDetailsComponent } from '../backoffice/orders/order-details/order-details.component';
 const routes: Routes = [{
 	path: 'dashboard',
 	component: DashboardComponent
@@ -16,6 +20,18 @@ const routes: Routes = [{
 }, {
 	path: 'add-product',
 	component: AddProductComponent
+},{
+  path:'category',
+  component:CategoryComponent
+},{
+  path:'add-category',
+  component:AddCategoryComponent
+},{
+  path:'orders',
+  component:OrdersComponent
+},{
+  path:'orders/:id',
+  component:OrderDetailsComponent
 }];
 
 @NgModule({
