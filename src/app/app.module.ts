@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -18,7 +19,8 @@ import { UserAuthModule } from './modules/user-auth/user-auth.module';
     AppRoutingModule,
     BackofficeModule,
     CoreModule,
-    UserAuthModule
+    UserAuthModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
