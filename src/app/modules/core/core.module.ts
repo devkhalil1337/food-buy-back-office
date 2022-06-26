@@ -11,6 +11,7 @@ import { CategoryComponent } from '../backoffice/category/category.component';
 import { AddCategoryComponent } from '../backoffice/category/add-category/add-category.component';
 import { OrdersComponent } from '../backoffice/orders/orders.component';
 import { OrderDetailsComponent } from '../backoffice/orders/order-details/order-details.component';
+import { LoginComponent } from '../user-auth/login/login.component';
 const routes: Routes = [{
 	path: 'dashboard',
 	component: DashboardComponent
@@ -32,6 +33,9 @@ const routes: Routes = [{
 },{
   path:'orders/:id',
   component:OrderDetailsComponent
+},{
+  path:'login',
+  component:LoginComponent
 }];
 
 @NgModule({
