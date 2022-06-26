@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BackofficeModule } from './modules/backoffice/backoffice.module';
 import { DashboardComponent } from './modules/backoffice/dashboard/dashboard.component';
+import { CoreModule } from './modules/core/core.module';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { DashboardComponent } from './modules/backoffice/dashboard/dashboard.com
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BackofficeModule
+    BackofficeModule,
+    CoreModule
   ],
   providers: [],
   bootstrap: [AppComponent]
