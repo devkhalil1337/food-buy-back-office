@@ -1,0 +1,7 @@
+::ng-deep{
+    .custom-checkbox-reverse .custom-control-label::before,
+    .custom-checkbox-reverse .custom-control-label::after {
+        left: auto;
+        right: -1.5rem;
+    }
+}

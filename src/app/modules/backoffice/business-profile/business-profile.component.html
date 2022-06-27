@@ -1,0 +1,98 @@
+<app-header></app-header>
+<div id="layoutSidenav">
+    <app-sidepanel></app-sidepanel>
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid">
+                <h2 class="mt-30 page-title">Business Info</h2>
+                <ol class="breadcrumb mb-30">
+                    <li class="breadcrumb-item"><a routerLink="/dashboard">Dashboard</a></li>
+                    <li class="breadcrumb-item active">Business Profile</li>
+                </ol>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="card card-static-2 mb-30">
+                            <div class="card-title-2">
+                                <h4>Business Profile</h4> 
+                            </div>
+                            <div class="card-body-table">
+                                <div class="news-content-right pd-20">
+                                    <div class="row">
+                                        <div class="form-group col-sm-6">
+                                          <label for="businessName">Name</label>
+                                          <input class="form-control" type="text" placeholder="FlyEats" id="businessName" name="businessName"> 
+                                        </div>
+                                        <div class="form-group col-sm-6">
+                                            <label for="emailAddress">Email address</label>
+                                            <input type="email" class="form-control" id="emailAddress" aria-describedby="emailHelp" placeholder="Enter email"> 
+                                        </div>
+                                        <div class="form-group col-sm-6">
+                                          <label for="businessName">Details</label>
+                                          <textarea class="form-control" type="text" placeholder="FlyEats is an online service provider.." id="businessName" name="businessName"></textarea>
+                                        </div>
+                                        <div class="form-group col-sm-6">
+                                          <label for="phone">Phone number</label>
+                                          <input class="form-control" type="tel" placeholder="1-(555)-555-5555" id="phone" name="phone" /> 
+                                        </div>
+                                        <div class="form-group col-sm-6">
+                                          <label for="zipCode">Post Code</label>
+                                          <input class="form-control" type="text" placeholder="FlyEats" id="zipCode" name="zipCode"> 
+                                        </div>
+                                        <div class="form-group col-sm-6">
+                                          <label for="address">Address</label>
+                                          <input class="form-control" type="text" placeholder="FlyEats SL1 Nh" id="address" name="address"> 
+                                        </div>
+                                        <div class="form-group col-sm-6">
+                                          <label for="currency">Currency</label>
+                                          <select class="form-control" id="currency" name="currency">
+                                            <option>£</option>
+                                          </select>
+                                        </div>
+                                        <div class="form-group col-sm-6">
+                                          <label for="country">Country</label>
+                                          <select class="form-control" name="country" id="country">
+                                            <option>United Kingdom</option>
+                                          </select>
+                                        </div>
+                                        <div class="form-group col-sm-6">
+                                          <label for="longitude">Longitude</label>
+                                          <input class="form-control" type="text" placeholder="-132.3321" id="longitude" /> 
+                                        </div>
+                                        <div class="form-group col-sm-6">
+                                          <label for="latitude">Latitude</label>
+                                          <input class="form-control" type="text" placeholder="-132.3321" id="latitude" name="latitude" /> 
+                                        </div>
+                                        <div class="form-group col-sm-6">
+                                          <label for="websiteUrl">Website URL</label>
+                                          <input class="form-control" type="text" placeholder="flyeats.co.uk  " id="websiteUrl" name="websiteUrl" /> 
+                                        </div>
+                                        <div class="form-group col-sm-6">
+                                          <label for="exipryDate">Expiry Date</label>
+                                          <input class="form-control" type="date" placeholder="flyeats.co.uk  " id="exipryDate" name="exipryDate" readonly /> 
+                                        </div>
+                                        <div class="form-group col-sm-6">
+                                          <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" name="tempraryClose" id="tempraryClose" [(ngModel)]="isTempraryClose">
+                                            <label class="custom-control-label" for="tempraryClose">Temprary Close</label>
+                                          </div>
+                                        </div>
+                                        <div class="form-group col-sm-6" *ngIf="isTempraryClose">
+                                          <label for="closeTillDate">Close Until</label>
+                                          <input class="form-control" type="date"  id="closeTillDate" name="closeTillDate" /> 
+                                        </div>
+                                      </div>
+                                      <div class="row ">
+                                        <div class="col-sm-12 text-right">
+                                            <button class="save-btn hover-btn" type="submit">Save Changes</button>
+                                        </div>
+                                      </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <app-footer></app-footer>
+    </div>
+</div>

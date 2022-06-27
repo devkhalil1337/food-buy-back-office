@@ -12,6 +12,7 @@ import { AddCategoryComponent } from '../backoffice/category/add-category/add-ca
 import { OrdersComponent } from '../backoffice/orders/orders.component';
 import { OrderDetailsComponent } from '../backoffice/orders/order-details/order-details.component';
 import { LoginComponent } from '../user-auth/login/login.component';
+import { BusinessProfileComponent } from '../backoffice/business-profile/business-profile.component';
 const routes: Routes = [{
 	path: 'dashboard',
 	component: DashboardComponent
@@ -36,6 +37,9 @@ const routes: Routes = [{
 },{
   path:'login',
   component:LoginComponent
+},{
+  path:'business-profile',
+  component:BusinessProfileComponent
 }];
 
 @NgModule({

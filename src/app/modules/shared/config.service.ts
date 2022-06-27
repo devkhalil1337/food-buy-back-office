@@ -35,85 +35,85 @@ export class ConfigService {
     }
   }
 
-  // getSelectizeConfig(maxItems?: any, labelField?: string, valueField?: string, sortField?: string, excludeCustomConfig: boolean = true, direction: string = 'auto'): any {
-  //   const config = {
-  //     labelField: labelField || 'label',
-  //     searchField: [labelField || 'label', 'title'],
-  //     sortField: sortField || labelField || 'label',
-  //     loadThrottle: 300,
-  //     valueField: valueField || 'value',
-  //     maxItems: maxItems || null,
-  //     dropdownDirection: direction,
-  //     plugins: ['dropdown_direction'],
-  //     splitOn: AppRegex.selectizeSplitOn,
-  //     hideAdd: true,
-  //     create: function (input, callback) {
-  //       const key = Object.keys(this.options).find(index => {
-  //         return this.options[index][this.settings.labelField].toLowerCase() === input.toLowerCase();
-  //       });
-  //       if (key) {
-  //         return this.options[key];
-  //       }
-  //       return null;
-  //     }
-  //   };
+  getSelectizeConfig(maxItems?: any, labelField?: string, valueField?: string, sortField?: string, excludeCustomConfig: boolean = true, direction: string = 'auto'): any {
+    const config = {
+      labelField: labelField || 'label',
+      searchField: [labelField || 'label', 'title'],
+      sortField: sortField || labelField || 'label',
+      loadThrottle: 300,
+      valueField: valueField || 'value',
+      maxItems: maxItems || null,
+      dropdownDirection: direction,
+      plugins: ['dropdown_direction'],
+      // splitOn: AppRegex.selectizeSplitOn,
+      hideAdd: true,
+      create: function (input, callback) {
+        const key = Object.keys(this.options).find(index => {
+          return this.options[index][this.settings.labelField].toLowerCase() === input.toLowerCase();
+        });
+        if (key) {
+          return this.options[key];
+        }
+        return null;
+      }
+    };
 
-  //   if (maxItems !== 1) {
-  //     config.plugins.push('remove_button');
-  //   }
+    if (maxItems !== 1) {
+      config.plugins.push('remove_button');
+    }
 
-  //   if (!excludeCustomConfig) {
-  //     config['onDropdownOpen'] = function ($element) {
-  //       const self = this;
-  //       /**
-  //        * Below methods are copied from Selectize.define('dropdown_direction')
-  //        * 1: getPositions
-  //        * 2: getDropdownDirection
-  //        */
+    if (!excludeCustomConfig) {
+      config['onDropdownOpen'] = function ($element) {
+        const self = this;
+        /**
+         * Below methods are copied from Selectize.define('dropdown_direction')
+         * 1: getPositions
+         * 2: getDropdownDirection
+         */
 
-  //       // Get position information for the control and dropdown element.
-  //       const getPositions = function () {
-  //         const $control = self.$control;
-  //         const $window = $('.sidebar .filter-menu'); // replaced window with filter-menu
+        // Get position information for the control and dropdown element.
+        const getPositions = function () {
+          const $control = self.$control;
+          const $window = $('.sidebar .filter-menu'); // replaced window with filter-menu
 
-  //         const control_height = $control.outerHeight(false);
-  //         const control_above = $control.offset().top - $window.scrollTop();
-  //         const control_below = $window.height() - control_above - control_height;
+          const control_height = $control.outerHeight(false);
+          const control_above = $control.offset().top - $window.scrollTop();
+          const control_below = $window.height() - control_above - control_height;
 
-  //         const dropdown_height = self.$dropdown.outerHeight(false);
+          const dropdown_height = self.$dropdown.outerHeight(false);
 
-  //         return {
-  //           control: {
-  //             height: control_height,
-  //             above: control_above,
-  //             below: control_below
-  //           },
-  //           dropdown: {
-  //             height: dropdown_height
-  //           }
-  //         };
-  //       };
+          return {
+            control: {
+              height: control_height,
+              above: control_above,
+              below: control_below
+            },
+            dropdown: {
+              height: dropdown_height
+            }
+          };
+        };
 
-  //       // Gets direction to display dropdown in. Either up or down.
-  //       const getDropdownDirection = function (positions) {
-  //         if (positions.control.below > positions.dropdown.height) {
-  //           return 'down';
-  //         } else { // otherwise direction with most space
-  //           if (direction) {
-  //             return direction
-  //           } else {
-  //             return (positions.control.above > positions.control.below) ? 'up' : 'down';
-  //           }
-  //         }
-  //       };
+        // Gets direction to display dropdown in. Either up or down.
+        const getDropdownDirection = function (positions) {
+          if (positions.control.below > positions.dropdown.height) {
+            return 'down';
+          } else { // otherwise direction with most space
+            if (direction) {
+              return direction
+            } else {
+              return (positions.control.above > positions.control.below) ? 'up' : 'down';
+            }
+          }
+        };
 
-  //       const pt = getPositions();
-  //       this.settings.dropdownDirection = getDropdownDirection(pt);
-  //     };
-  //   }
+        const pt = getPositions();
+        this.settings.dropdownDirection = getDropdownDirection(pt);
+      };
+    }
 
-  //   return config;
-  // }
+    return config;
+  }
 
   // getChartConfig(enabledCustomPositioner: boolean = false, allowLegendTooltips: boolean = false, customExportIcon: boolean = false, sov: boolean = false): any {
   //   const self = this;
@@ -524,6 +524,9 @@ export class ConfigService {
       suppressSizeToFit: true
     };
   }
+
+  
+
 
   // getNgbModalOptions(size: 'sm' | 'md' | 'lg' | 'llg' | 'xl' | 'xxl' = 'md', easyClose: boolean = false): NgbModalOptions {
   //   const config: NgbModalOptions = {

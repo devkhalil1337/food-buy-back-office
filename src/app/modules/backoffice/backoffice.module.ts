@@ -12,7 +12,8 @@ import { OrderDetailsComponent } from './orders/order-details/order-details.comp
 import { AgGridModule } from 'ag-grid-angular';
 import { ConfigService } from '../shared/config.service';
 import { UtilityService } from '../shared/utility.service';
-
+import { BusinessProfileComponent } from './business-profile/business-profile.component';
+import { SharedModule } from '../shared/shared.module';
 const routes: Routes = [{
 	path: "**",
 	redirectTo: "dashboard",
@@ -26,12 +27,14 @@ const routes: Routes = [{
     CategoryComponent,
     AddCategoryComponent,
     OrdersComponent,
-    OrderDetailsComponent
+    OrderDetailsComponent,
+    BusinessProfileComponent
   ],
   imports: [
     CommonModule,
     CoreModule,
     AgGridModule,
+    SharedModule,
     RouterModule.forChild(routes)
   ],
   providers:[ConfigService,UtilityService],
