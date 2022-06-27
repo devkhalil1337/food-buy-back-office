@@ -8,11 +8,22 @@ import { ConfigService } from '../../shared/config.service';
 })
 export class BusinessProfileComponent implements OnInit {
 
+  filePath:string;
   isTempraryClose:boolean = false;
   constructor(private configService:ConfigService) {
    }
 
   ngOnInit(): void {
+  }
+
+
+  imagePreview(e) {
+    const file = (e.target as HTMLInputElement).files[0];
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.filePath = reader.result as string;
+    }
+    reader.readAsDataURL(file)
   }
 
 }

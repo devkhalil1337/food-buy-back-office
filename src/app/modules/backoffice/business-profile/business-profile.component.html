@@ -67,13 +67,20 @@
                                           <input class="form-control" type="text" placeholder="flyeats.co.uk  " id="websiteUrl" name="websiteUrl" /> 
                                         </div>
                                         <div class="form-group col-sm-6">
+                                          <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" name="tempraryClose" id="tempraryClose" [(ngModel)]="isTempraryClose">
+                                            <label class="custom-control-label" for="tempraryClose">Temprary Close</label>
+                                          </div>
+                                        </div>
+                                        <div class="form-group col-sm-6">
                                           <label for="exipryDate">Expiry Date</label>
                                           <input class="form-control" type="date" placeholder="flyeats.co.uk  " id="exipryDate" name="exipryDate" readonly /> 
                                         </div>
                                         <div class="form-group col-sm-6">
-                                          <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name="tempraryClose" id="tempraryClose" [(ngModel)]="isTempraryClose">
-                                            <label class="custom-control-label" for="tempraryClose">Temprary Close</label>
+                                          <label for="upload-logo" class="m-2">Upload Logo</label>
+                                          <input type='file' (change)="imagePreview($event);" id="upload-logo" name="upload-logo" />
+                                          <div class="col-sm-6">
+                                            <img [src]="filePath" style='width:"100%"'>
                                           </div>
                                         </div>
                                         <div class="form-group col-sm-6" *ngIf="isTempraryClose">
