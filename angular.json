@@ -38,7 +38,9 @@
               "src/assets/css/styles.css",
               "src/assets/css/admin-style.css",
               "src/assets/vendor/bootstrap/css/bootstrap.min.css",
-              "src/assets/vendor/fontawesome-free/css/all.min.css"
+              "src/assets/vendor/fontawesome-free/css/all.min.css",
+              "src/assets/css/ag-grid.css",
+              "src/assets/css/ag-theme-material.css"
 
             ],
             "scripts": [

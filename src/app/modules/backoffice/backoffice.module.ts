@@ -9,6 +9,9 @@ import { CategoryComponent } from './category/category.component';
 import { AddCategoryComponent } from './category/add-category/add-category.component';
 import { OrdersComponent } from './orders/orders.component';
 import { OrderDetailsComponent } from './orders/order-details/order-details.component';
+import { AgGridModule } from 'ag-grid-angular';
+import { ConfigService } from '../shared/config.service';
+import { UtilityService } from '../shared/utility.service';
 
 const routes: Routes = [{
 	path: "**",
@@ -28,8 +31,10 @@ const routes: Routes = [{
   imports: [
     CommonModule,
     CoreModule,
+    AgGridModule,
     RouterModule.forChild(routes)
   ],
+  providers:[ConfigService,UtilityService],
   exports:[RouterModule]
 })
 export class BackofficeModule { }
