@@ -50,18 +50,18 @@ export class OrdersComponent  implements OnInit {
 
 
   rowData = [
-    { status: "Pending",orderNumber:"123-2312d" , orderDate: "4 May", totalAmount: 35000 },
-    { status: "Pending", orderNumber:"123-2312d" ,orderDate: "4 April", totalAmount: 32000 },
-    { status: "Pending", orderNumber:"123-2312d" ,orderDate: "4 April", totalAmount: 32000 },
-    { status: "Pending", orderNumber:"123-2312d" ,orderDate: "4 April", totalAmount: 32000 },
-    { status: "Pending", orderNumber:"123-2312d" ,orderDate: "4 April", totalAmount: 32000 },
-    { status: "Pending", orderNumber:"123-2312d" ,orderDate: "4 April", totalAmount: 32000 },
-    { status: "Pending", orderNumber:"123-2312d" ,orderDate: "4 April", totalAmount: 32000 },
-    { status: "Pending", orderNumber:"123-2312d" ,orderDate: "4 April", totalAmount: 32000 },
-    { status: "Pending", orderNumber:"123-2312d" ,orderDate: "4 April", totalAmount: 32000 },
-    { status: "Pending", orderNumber:"123-2312d" ,orderDate: "4 April", totalAmount: 32000 },
-    { status: "Pending", orderNumber:"123-2312d" ,orderDate: "4 April", totalAmount: 32000 },
-    { status: "In Pgoress", orderNumber:"123-2312d" ,orderDate: "4 Jan", totalAmount: 72000 }
+    { status: "Pending",orderNumber:"123-2312d" , orderDate: "2023/06/10 04:47:49", totalAmount: 35000 },
+    { status: "Delivered", orderNumber:"123-2312d" ,orderDate: "2022/07/20 06:04:01", totalAmount: 32000 },
+    { status: "Pending", orderNumber:"123-2312d" ,orderDate: "2022/12/11 04:22:00", totalAmount: 32000 },
+    { status: "Delivered", orderNumber:"123-2312d" ,orderDate: "2023/01/23 05:54:19", totalAmount: 32000 },
+    { status: "On the way", orderNumber:"123-2312d" ,orderDate: "2023/02/17 15:41:59", totalAmount: 32000 },
+    { status: "Preparing", orderNumber:"123-2312d" ,orderDate: "2023/05/06 00:13:20", totalAmount: 32000 },
+    { status: "Pending", orderNumber:"123-2312d" ,orderDate: "2022/12/08 06:57:42", totalAmount: 32000 },
+    { status: "On the way", orderNumber:"123-2312d" ,orderDate: "2022/10/09 13:37:44", totalAmount: 32000 },
+    { status: "Pending", orderNumber:"123-2312d" ,orderDate: "2022/10/09 13:37:44", totalAmount: 32000 },
+    { status: "Preparing", orderNumber:"123-2312d" ,orderDate: "2022/10/09 13:37:44", totalAmount: 32000 },
+    { status: "Pending", orderNumber:"123-2312d" ,orderDate: "2023/06/15 00:31:00", totalAmount: 32000 },
+    { status: "In Pgoress", orderNumber:"123-2312d" ,orderDate: "2023/06/15 00:31:00", totalAmount: 72000 }
   ]
 
   private initGridConfig(){
@@ -69,7 +69,7 @@ export class OrdersComponent  implements OnInit {
     this.gridOptions = this.configService.getGridConfig(false,true);
     this.gridOptions.columnDefs = this.getGridColumnDefs();
     this.gridOptions.pagination = true;
-    this.gridOptions.paginationPageSize = 50;
+    this.gridOptions.paginationPageSize = 10;
     this.gridOptions.onPaginationChanged = this.onPageChange.bind(this);
     this.gridOptions.onGridReady = params => {
       params.api.sizeColumnsToFit();
@@ -94,7 +94,7 @@ export class OrdersComponent  implements OnInit {
       editable:true,
       sortable: true, 
       sort: 'desc',
-       comparator: (valueA, valueB) => (valueA == valueB) ? 0 : (valueA > valueB) ? 1 : -1,
+      comparator: (valueA, valueB) => (valueA == valueB) ? 0 : (valueA > valueB) ? 1 : -1,
       // filterParams: {
       //   data: this.StatusTypes
       // },
@@ -143,6 +143,7 @@ export class OrdersComponent  implements OnInit {
       headerClass: 'header_one',
       sortable: false,
       width:100,
+      type:GridColumnType.dateTime
     }];
   }
 

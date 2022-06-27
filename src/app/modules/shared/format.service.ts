@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AppDefaults, AppRegex, DateFormats, FormatType } from 'src/app/enums/format-type';
-
+import * as moment from 'moment'
 @Injectable({
   providedIn: 'root'
 })
@@ -59,13 +59,11 @@ export class FormatterService {
   }
 
   formatDate(date: any, format: string = DateFormats.dateSlash): string {
-    return ''
-//    return date ? moment(date).format(format) : '';
+    return date ? moment(date).format(format) : '';
   }
 
   formatDateTime(date: any, format: string = DateFormats.dateTime24hrSlash): string {
-    return ''
-//    return date ? moment(date).format(format) : '';
+    return date ? moment(date).format(format) : '';
   }
   formatCurrencyFixed(value: any, precision: number = AppDefaults.fractionDigits): string {
     return this.formatCurrency(value, precision, precision);
