@@ -13,14 +13,22 @@ import { UtilityService } from '../../shared/utility.service';
 
 export class OrdersComponent  implements OnInit {
 
-  
   gridOptions: GridOptions
 
   StatusTypes = [
     {label:"In Progress","value":"In Progress"},
     {label:"On the way","value":"On the way"},
-    {label:"Cancelled",value:"Cancelled"},
+    {label:"Cancelled","value":"Cancelled"},
   ];
+
+
+  get isEditButtonEnable(){
+    if(this.gridOptions){
+      const rows = this.gridOptions.api?.getSelectedRows();
+      return rows && rows.length > 0;
+    }
+    return false;
+  }
   
 
   constructor(private utils:UtilityService, private configService:ConfigService) { 
@@ -37,12 +45,21 @@ export class OrdersComponent  implements OnInit {
       this.gridOptions.api?.showLoadingOverlay();
       setTimeout(() => 
       this.utils.setGridData(this.gridOptions,this.rowData)
-      ,100)
+      ,3000)
   }
 
 
   rowData = [
     { status: "Pending",orderNumber:"123-2312d" , orderDate: "4 May", totalAmount: 35000 },
+    { status: "Pending", orderNumber:"123-2312d" ,orderDate: "4 April", totalAmount: 32000 },
+    { status: "Pending", orderNumber:"123-2312d" ,orderDate: "4 April", totalAmount: 32000 },
+    { status: "Pending", orderNumber:"123-2312d" ,orderDate: "4 April", totalAmount: 32000 },
+    { status: "Pending", orderNumber:"123-2312d" ,orderDate: "4 April", totalAmount: 32000 },
+    { status: "Pending", orderNumber:"123-2312d" ,orderDate: "4 April", totalAmount: 32000 },
+    { status: "Pending", orderNumber:"123-2312d" ,orderDate: "4 April", totalAmount: 32000 },
+    { status: "Pending", orderNumber:"123-2312d" ,orderDate: "4 April", totalAmount: 32000 },
+    { status: "Pending", orderNumber:"123-2312d" ,orderDate: "4 April", totalAmount: 32000 },
+    { status: "Pending", orderNumber:"123-2312d" ,orderDate: "4 April", totalAmount: 32000 },
     { status: "Pending", orderNumber:"123-2312d" ,orderDate: "4 April", totalAmount: 32000 },
     { status: "In Pgoress", orderNumber:"123-2312d" ,orderDate: "4 Jan", totalAmount: 72000 }
   ]
@@ -51,24 +68,30 @@ export class OrdersComponent  implements OnInit {
      
     this.gridOptions = this.configService.getGridConfig(false,true);
     this.gridOptions.columnDefs = this.getGridColumnDefs();
+    this.gridOptions.pagination = true;
+    this.gridOptions.paginationPageSize = 50;
+    this.gridOptions.onPaginationChanged = this.onPageChange.bind(this);
     this.gridOptions.onGridReady = params => {
       params.api.sizeColumnsToFit();
-      params.api.showNoRowsOverlay();
+      params.api.showLoadingOverlay();
     }
   }
 
+  private onPageChange = (params:GridOptions) => {
+  }
 
 
   private getGridColumnDefs(): Array<ColDef> {
      const headerColumn = this.configService.getCheckboxConfig();
+     headerColumn.headerClass = 'header_one';
     return [
       {
         ...headerColumn
       },{
       headerName: 'Status',
+      headerClass:'header_one',
       field: 'status',
       editable:true,
-      //editable: params => params.data.status && params.data.status.toLowerCase() != "eligible" && params.data.status.toLowerCase() != "disabled - ineligible",
       sortable: true, 
       sort: 'desc',
        comparator: (valueA, valueB) => (valueA == valueB) ? 0 : (valueA > valueB) ? 1 : -1,
@@ -84,46 +107,42 @@ export class OrdersComponent  implements OnInit {
           console.log(params.newValue)
         // this.onStatusUpdate(params,true);
       },
-       cellEditor: 'agSelectCellEditor',
+      cellEditor: 'agSelectCellEditor',
       valueGetter: (params) => {
         const val = params.data.status;
         return val ? val.toUpperCase() : val;
       },
-      // valueFormatter: (params) => {
-      //   if (typeof (params.value) === 'string') {
-      //     const statusInfo = RuleAllStatusTypes.find(({ value }) => {
-      //       return value === params.value;
-      //     });
-
-      //     return statusInfo ? statusInfo.label : '';
-      //   }
-      // },
       cellEditorParams: (params) => {
-        let statusTypes = this.StatusTypes; //params.data.status.toLowerCase() == 'enable' ? StatusTypes : this.ruleStatusTypes 
+        let statusTypes = this.StatusTypes;
           return { values: statusTypes.map(({ value }) => value) };
       },
       cellRenderer: (params) => { 
         return `<span class='badge-item badge-status w-100'>${params.value || ''}</span>`
       },
       maxWidth:150
-
     },
     {
       headerName: 'Order Number',
       field: 'orderNumber',
-      headerClass: 'hideFilters',
+      headerClass: 'header_one',
+      cellClass:"text-center",
       sortable: false,
+      width:100,
     },{
       headerName: 'Amount',
       field: 'totalAmount',
-      headerClass: 'hideFilters',
+      cellClass:"text-center",
+      width:100,
+      headerClass: 'header_one',
       sortable: false,
       type:GridColumnType.currency
     }, {
       headerName: 'Date',
       field: 'orderDate',
-      headerClass: 'hideFilters',
+      cellClass:"text-center",
+      headerClass: 'header_one',
       sortable: false,
+      width:100,
     }];
   }
 
