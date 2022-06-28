@@ -248,7 +248,7 @@ export class ConfigService {
       rowData: [],
       singleClickEdit: true,
       // enableColResize: true,
-      suppressCellSelection: true, // suppress cell focus
+      suppressCellFocus: true, // suppress cell focus
       suppressContextMenu: true,
       enableCellTextSelection: true,
       // enableSorting: true,
@@ -272,7 +272,7 @@ export class ConfigService {
       },
       overlayNoRowsTemplate: 'No Data To Display',
       suppressRowClickSelection: true,
-      stopEditingWhenGridLosesFocus: true,
+      stopEditingWhenCellsLoseFocus: true,
       suppressDragLeaveHidesColumns: true,
       defaultColDef: {
         resizable: true,

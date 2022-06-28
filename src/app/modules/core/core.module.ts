@@ -13,6 +13,7 @@ import { OrdersComponent } from '../backoffice/orders/orders.component';
 import { OrderDetailsComponent } from '../backoffice/orders/order-details/order-details.component';
 import { LoginComponent } from '../user-auth/login/login.component';
 import { BusinessProfileComponent } from '../backoffice/business-profile/business-profile.component';
+import { ChoiceGroupsComponent } from '../backoffice/choice-groups/choice-groups.component';
 const routes: Routes = [{
 	path: 'dashboard',
 	component: DashboardComponent
@@ -40,6 +41,9 @@ const routes: Routes = [{
 },{
   path:'business-profile',
   component:BusinessProfileComponent
+},{
+  path:'choice-groups',
+  component:ChoiceGroupsComponent
 }];
 
 @NgModule({

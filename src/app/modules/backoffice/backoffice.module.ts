@@ -14,6 +14,7 @@ import { ConfigService } from '../shared/config.service';
 import { UtilityService } from '../shared/utility.service';
 import { BusinessProfileComponent } from './business-profile/business-profile.component';
 import { SharedModule } from '../shared/shared.module';
+import { ChoiceGroupsComponent } from './choice-groups/choice-groups.component';
 const routes: Routes = [{
 	path: "**",
 	redirectTo: "dashboard",
@@ -28,7 +29,8 @@ const routes: Routes = [{
     AddCategoryComponent,
     OrdersComponent,
     OrderDetailsComponent,
-    BusinessProfileComponent
+    BusinessProfileComponent,
+    ChoiceGroupsComponent
   ],
   imports: [
     CommonModule,
