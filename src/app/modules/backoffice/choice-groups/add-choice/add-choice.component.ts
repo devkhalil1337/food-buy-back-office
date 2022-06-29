@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { choiceGroupsItems } from 'src/app/models/choice-groups.models';
 
 @Component({
   selector: 'app-add-choice',
@@ -8,24 +10,43 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class AddChoiceComponent implements OnInit {
 
-
+  selectedChoiceId:number;  
+  selectedSelection:any
   get ModifersArray():FormArray{
     return <FormArray> this.ChoiceForm.get('modifiers');
   }
 
   ChoiceForm: FormGroup;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder,private activeRoute: ActivatedRoute) { 
+    this.activeRoute.queryParams.subscribe((queryParams) => {
+      this.selectedChoiceId = queryParams['choiceId']
+      console.log('Get Router Params:', this.selectedChoiceId);
+      this.selectedSelection = choiceGroupsItems.filter(elm => elm.id == this.selectedChoiceId)[0];
+      this.ChoiceForm = this.fb.group({
+          choiceName: [null, [Validators.required]],
+          miniAllowed: [1],
+          maxAllowed: [1],
+          modifiers:this.fb.array([this.onAddMoreModifiers()],Validators.required)
+        })
+
+    });
+  }
 
   ngOnInit(): void {
-    this.ChoiceForm = this.fb.group(
-      {
-        choiceName: [null, [Validators.required]],
-        miniAllowed: [1],
-        maxAllowed: [1],
-        modifiers:this.fb.array([this.onAddMoreModifiers()],Validators.required)
-      }
-    )
+
+    if(this.selectedChoiceId){
+      this.selectedSelection.modifiers.forEach((element,index,array) => {
+        this.addMoreFields();
+      });
+      this.ChoiceForm.patchValue({
+        choiceName: this.selectedSelection.selectName,
+        miniAllowed:  this.selectedSelection.mini,
+        maxAllowed:  this.selectedSelection.max,
+        modifiers: [...this.selectedSelection.modifiers]
+      });
+    }
+
   }
 
   OnAddChoice() {

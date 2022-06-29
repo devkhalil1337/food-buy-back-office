@@ -93,7 +93,7 @@ export class ChoiceGroupsComponent implements OnInit {
      valueFormatter: params => {
       let str = "";
       params.data.modifiers.forEach(elm => {
-          str += elm.name + ',' ;
+          str += elm.modifierName + ',' ;
       });
       return str;
     },
