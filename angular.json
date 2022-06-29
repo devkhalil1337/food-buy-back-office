@@ -6,7 +6,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "Food-buy-back-office": {
+    "Fly-Eats-backoffice": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -23,7 +23,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/Food-buy-back-office",
+            "outputPath": "dist/Fly-Eats-backoffice",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -91,10 +91,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "Food-buy-back-office:build:production"
+              "browserTarget": "Fly-Eats-backoffice:build:production"
             },
             "development": {
-              "browserTarget": "Food-buy-back-office:build:development"
+              "browserTarget": "Fly-Eats-backoffice:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -102,7 +102,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "Food-buy-back-office:build"
+            "browserTarget": "Fly-Eats-backoffice:build"
           }
         },
         "test": {
@@ -126,5 +126,5 @@
       }
     }
   },
-  "defaultProject": "Food-buy-back-office"
+  "defaultProject": "Fly-Eats-backoffice"
 }
