@@ -15,7 +15,7 @@
                 <div class="input-group">
                     <div class="input-group-append">
                       <button class="status-btn hover-btn" type="button" routerLink="/add-choice">Add New</button>
-                      <button class="status-btn hover-btn" type="button" >Edit</button>
+                      <button class="status-btn hover-btn" type="button" [disabled]="!isEditButtonEnable" [routerLink]="['/add-choice']" [queryParams]="{choiceId:selectedChoice}">Edit</button>
                     </div>
                   </div>
             </div>
@@ -48,7 +48,9 @@
                   <ag-grid-angular 
                     style="width: 100%; height: 500px;" 
                     appGridResizer
-                    class="ag-theme-material" [gridOptions]="gridOptions">
+                    class="ag-theme-material" [gridOptions]="gridOptions"  [rowDragManaged]="true"
+                    [suppressMoveWhenRowDragging]="true"
+                    [animateRows]="true">
                   </ag-grid-angular>
                 </div>
               </div>
