@@ -1,0 +1,89 @@
+<app-header></app-header>
+<div id="layoutSidenav">
+    <app-sidepanel></app-sidepanel>
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid">
+                <h2 class="mt-30 page-title">Products</h2>
+                <ol class="breadcrumb mb-30">
+                    <li class="breadcrumb-item"><a routerLink="/dashboard">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a routerLink="/choice-groups">All Choice of groups</a></li>
+                    <li class="breadcrumb-item active" routerLink="/add-choice">Add Choice groups</li>
+                </ol>
+                <form [formGroup]='ChoiceForm' novalidate (ngSubmit)="OnAddChoice()">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6">
+                        <div class="card card-static-2 mb-30">
+                            <div class="card-title-2">
+                                <h4>Add New Product</h4>
+                            </div>
+                            <div class="card-body-table">
+                                <div class="news-content-right pd-20">
+                                    <div class="form-group">
+                                        <label class="form-label">Choice Name*</label>
+                                        <input type="text" class="form-control" placeholder="Category Name" formControlName='choiceName'
+                                        [ngClass]="{'border border-danger': ChoiceForm.get('choiceName').hasError('required') && ChoiceForm.get('choiceName').touched}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Minimum Number of Choice*</label>
+                                        <input type="text" class="form-control" placeholder="0" formControlName='miniAllowed'>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Maximum Number of Choice*</label>
+                                        <input type="text" class="form-control" placeholder="1" formControlName='maxAllowed'>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Status*</label>
+                                        <select id="status" name="status" class="form-control">
+                                            <option selected>Active</option>
+                                            <option value="1">Inactive</option>
+                                        </select>
+                                    </div>
+                                    <button class="save-btn hover-btn" type="submit" [disabled]="ChoiceForm.invalid">Add New Product</button>
+                                </div> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <div class="card card-static-2 mb-30">
+                            <div class="card-title-2">
+                                <h4>Add Choices</h4>
+                            </div>
+                            <div class="card-body-table">
+                                <div class="news-content-right pd-20">
+                                    <div formArrayName="modifiers" *ngFor="let t of ModifersArray.controls; let i = index">
+                                        <div class="row" [formGroupName]="i">
+                                            <div class="col-xs-6 col-sm-6 col-md-6" >
+                                                <div class="form-group" >
+                                                    <label class="form-label">Modifier Name*</label>
+                                                    <input type="text" class="form-control" placeholder="Modifier Name"  formControlName='modifierName' id="{{'modifierName'+i}}"
+                                                    [ngClass]="{'border border-danger': t.get('modifierName').hasError('required') && t.get('modifierName').touched}">
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-3 col-sm-3">
+                                                <div class="form-group">
+                                                    <label class="form-label">Price*</label>
+                                                    <input type="text" class="form-control border border-danger" formControlName='price' id="{{'price' + i}}"
+                                                    [ngClass]="{'border border-danger': t.get('price').hasError('required') && t.get('price').touched}"
+                                                    >
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-3 col-sm-3">
+                                                <div class="trash-icon">
+                                                    <a  (click)="onRemoveModifer(i);"><i class="fa fa-trash"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="save-btn hover-btn" type="button" (click)='addMoreFields()'>+ Add more</button>
+                                </div> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            </div>
+        </main>
+        <app-footer></app-footer>
+    </div>
+</div>

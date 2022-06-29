@@ -6,15 +6,15 @@
       <div class="container-fluid">
         <h2 class="mt-30 page-title">Orders</h2>
         <ol class="breadcrumb mb-30">
-          <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-          <li class="breadcrumb-item active">Orders</li>
+          <li class="breadcrumb-item"><a routerLink="/dashboard">Dashboard</a></li>
+          <li class="breadcrumb-item active"><a routerLink="/choice-groups" routerLinkActive="active">All Choice of groups</a></li>
         </ol>
         <div class="row justify-content-between">
           <div class="col-lg-3 col-md-4">
             <div class="bulk-section mb-30">
                 <div class="input-group">
                     <div class="input-group-append">
-                      <button class="status-btn hover-btn" type="button" >Add New</button>
+                      <button class="status-btn hover-btn" type="button" routerLink="/add-choice">Add New</button>
                       <button class="status-btn hover-btn" type="button" >Edit</button>
                     </div>
                   </div>

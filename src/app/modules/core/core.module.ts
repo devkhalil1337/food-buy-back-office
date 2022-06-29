@@ -14,6 +14,7 @@ import { OrderDetailsComponent } from '../backoffice/orders/order-details/order-
 import { LoginComponent } from '../user-auth/login/login.component';
 import { BusinessProfileComponent } from '../backoffice/business-profile/business-profile.component';
 import { ChoiceGroupsComponent } from '../backoffice/choice-groups/choice-groups.component';
+import { AddChoiceComponent } from '../backoffice/choice-groups/add-choice/add-choice.component';
 const routes: Routes = [{
 	path: 'dashboard',
 	component: DashboardComponent
@@ -44,6 +45,9 @@ const routes: Routes = [{
 },{
   path:'choice-groups',
   component:ChoiceGroupsComponent
+},{
+  path:'add-choice',
+  component:AddChoiceComponent
 }];
 
 @NgModule({
