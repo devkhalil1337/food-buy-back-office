@@ -38,6 +38,8 @@ export class AddChoiceComponent implements OnInit {
     if(this.selectedChoiceId){
       this.selectedSelection.modifiers.forEach((element,index,array) => {
         this.addMoreFields();
+        if(index == array.length -1 )
+          this.onRemoveModifer(index);
       });
       this.ChoiceForm.patchValue({
         choiceName: this.selectedSelection.selectName,
