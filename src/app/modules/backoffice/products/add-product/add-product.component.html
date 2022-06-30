@@ -17,14 +17,18 @@
                                 <h4>Add New Product</h4>
                             </div>
                             <div class="card-body-table">
+                                <form [formGroup]="productForm" (ngSubmit)="onProductAdd()">
+
+
                                 <div class="news-content-right pd-20">
                                     <div class="form-group">
                                         <label class="form-label">Name*</label>
-                                        <input type="text" class="form-control" placeholder="Category Name">
+                                        <input type="text" class="form-control" placeholder="Product Name" formControlName="productName"
+                                        [ngClass]="{'border border-danger': productForm.get('productName').hasError('required') && productForm.get('productName').touched}">
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Category*</label>
-                                        <select id="categtory" name="categtory" class="form-control">
+                                        <select id="categtory" name="categtory" class="form-control" formControlName="cateId" [ngClass]="{'border border-danger': productForm.get('cateId').hasError('required') && productForm.get('cateId').touched}">
                                             <option selected>--Select Category--</option>
                                             <option value="1">Fruits & Vegetables</option>
                                             <option value="2">Grocery & Staples</option>
@@ -39,17 +43,18 @@
                                             <option value="11">Electronics</option>
                                         </select>
                                     </div>
-                                    <div class="form-group">
+                                    <!-- <div class="form-group">
                                         <label class="form-label">MRP*</label>
                                         <input type="text" class="form-control" placeholder="$0">
-                                    </div>
+                                    </div> -->
                                     <div class="form-group">
                                         <label class="form-label">Discount MRP*</label>
-                                        <input type="text" class="form-control" placeholder="$0">
+                                        <input type="text" class="form-control" placeholder="$0" formControlName="productPrice" 
+                                        [ngClass]="{'border border-danger': productForm.get('productPrice').hasError('required') && productForm.get('productPrice').touched}">
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Status*</label>
-                                        <select id="status" name="status" class="form-control">
+                                        <select id="status" name="status" class="form-control" formControlName="productStatus" [ngClass]="{'border border-danger': productForm.get('productStatus').hasError('required') && productForm.get('productStatus').touched}">
                                             <option selected>Active</option>
                                             <option value="1">Inactive</option>
                                         </select>
@@ -58,7 +63,7 @@
                                         <label class="form-label">Description*</label>
                                         <div class="card card-editor">
                                             <div class="content-editor">
-                                                 <div id='edit'></div>
+                                                <textarea class="text-control" placeholder="Enter Description" formControlName="productDescription"></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -66,15 +71,16 @@
                                         <label class="form-label">Category Image*</label>
                                         <div class="input-group">
                                             <div class="custom-file">
-                                                <input type="file" class="custom-file-input" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04">
-                                                <label class="custom-file-label" for="inputGroupFile04">Choose Image</label>
+                                                <input type='file' (change)="imagePreview($event);" class="custom-file-input" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04"
+                                                formControlName="productImage">
+                                                <label class="custom-file-label"  for="inputGroupFile04">Choose Image</label>
                                             </div>
                                         </div>
                                         <div class="add-cate-img-1">
-                                            <img src="assets/images/product/img-11.jpg" alt="">
+                                            <img [src]="filePath" alt="">
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <!-- <div class="form-group">
                                         <label class="form-label">More Image*</label>
                                         <div class="input-group">
                                             <div class="custom-file">
@@ -104,8 +110,53 @@
                                                 </div>
                                             </li>
                                         </ul>
+                                    </div> -->
+                                    <button class="save-btn hover-btn" type="submit" [disabled]="productForm.invalid">Add New Product</button>
+                                </div> 
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <div class="card card-static-2 mb-30">
+                            <div class="card-title-2">
+                                <h4>Add Choice of Groups</h4>
+                            </div>
+                            <div class="card-body-table">
+                                <div class="news-content-right pd-20">
+                                    <div class="row">
+                                        <div class="form-group col-sm-6">
+                                          <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" name="choice-name-1" id="choice-name-1">
+                                            <label class="custom-control-label" for="choice-name-1">Choice Name</label>
+                                          </div>
+                                        </div>
+                                        <div class="form-group col-sm-6">
+                                          <span> Coke,Sprite</span>
+                                        </div>
                                     </div>
-                                    <button class="save-btn hover-btn" type="submit">Add New Product</button>
+                                    <div class="row">
+                                        <div class="form-group col-sm-6">
+                                          <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" name="choice-name-2" id="choice-name-2">
+                                            <label class="custom-control-label" for="choice-name-2">Choice Name</label>
+                                          </div>
+                                        </div>
+                                        <div class="form-group col-sm-6">
+                                          <span> Coke,Sprite</span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-sm-6">
+                                          <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" name="choice-name-3" id="choice-name-3">
+                                            <label class="custom-control-label" for="choice-name-3">Choice Name</label>
+                                          </div>
+                                        </div>
+                                        <div class="form-group col-sm-6">
+                                          <span> Coke,Sprite</span>
+                                        </div>
+                                    </div>
                                 </div> 
                             </div>
                         </div>
