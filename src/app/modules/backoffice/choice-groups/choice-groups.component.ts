@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ColDef } from 'ag-grid-community';
-import { GridColumnType } from 'src/app/enums/format-type';
+import { GridColumnType } from '@enums';
 import { choiceGroupsItems } from 'src/app/models/choice-groups.models';
-import { ConfigService } from '../../shared/config.service';
-import { UtilityService } from '../../shared/utility.service';
+import { UtilityService , ConfigService } from '@shared';
 
 @Component({
   selector: 'app-choice-groups',

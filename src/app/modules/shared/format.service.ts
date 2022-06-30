@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AppDefaults, AppRegex, DateFormats, FormatType } from 'src/app/enums/format-type';
+import { AppDefaults, AppRegex, DateFormats, FormatType } from '@enums';
 import * as moment from 'moment'
 @Injectable({
   providedIn: 'root'

@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ColDef, GridOptions } from 'ag-grid-community';
-import { GridColumnType } from 'src/app/enums/format-type';
+import { GridColumnType } from '@enums';
 import { products } from 'src/app/models/products.models';
 import { Product } from '../../core/models/products-models/products.model';
-import { ConfigService } from '../../shared/config.service';
-import { UtilityService } from '../../shared/utility.service';
+import { UtilityService , ConfigService } from '@shared';
 
 @Component({
   selector: 'app-products',

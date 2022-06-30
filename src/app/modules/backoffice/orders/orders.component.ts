@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ColDef, GridOptions } from 'ag-grid-community';
-import { GridColumnType } from 'src/app/enums/format-type';
-import { ConfigService } from '../../shared/config.service';
-import { UtilityService } from '../../shared/utility.service';
+import { GridColumnType } from '@enums';
+import { UtilityService , ConfigService} from '@shared';
 
 @Component({
   selector: 'app-orders',

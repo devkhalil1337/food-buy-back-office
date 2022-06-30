@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { GridOptions } from 'ag-grid-community';
-import { AppRegex } from 'src/app/enums/format-type';
+import { AppRegex } from '@enums';
 import { FormatterService } from './format.service';
 import * as $ from "jquery"
 

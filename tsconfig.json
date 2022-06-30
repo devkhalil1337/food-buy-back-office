@@ -21,6 +21,10 @@
       "es2018",
       "dom"
     ],
+    "paths": {
+      "@enums":["src/app/enums/"],
+      "@shared":["src/app/modules/shared/"],
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

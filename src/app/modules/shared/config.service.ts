@@ -1,12 +1,7 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, ReplaySubject, Subject } from 'rxjs';
 import { GridOptions, ColumnResizedEvent, GridReadyEvent, ColDef } from 'ag-grid-community';
-import * as Highcharts from 'highcharts';
-
-
-import { distinctUntilChanged } from 'rxjs/operators';
 import { FormatterService } from './format.service';
-import { DateFormats, FormatType } from 'src/app/enums/format-type';
+import { DateFormats, FormatType } from '@enums';
 
 const MIN_HEIGHT = 56;
 @Injectable()
