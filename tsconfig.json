@@ -24,6 +24,7 @@
     "paths": {
       "@enums":["src/app/enums/"],
       "@shared":["src/app/modules/shared/"],
+      "@models":["src/app/modules/core/"],
     }
   },
   "angularCompilerOptions": {
