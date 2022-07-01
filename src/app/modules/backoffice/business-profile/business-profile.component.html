@@ -36,11 +36,11 @@
                                         </div>
                                         <div class="form-group col-sm-6">
                                           <label for="zipCode">Post Code</label>
-                                          <input class="form-control" type="text" placeholder="FlyEats" id="zipCode" name="zipCode"> 
+                                          <input class="form-control" type="text" placeholder="FlyEats SL1 Nh"  id="zipCode" name="zipCode"> 
                                         </div>
                                         <div class="form-group col-sm-6">
                                           <label for="address">Address</label>
-                                          <input class="form-control" type="text" placeholder="FlyEats SL1 Nh" id="address" name="address"> 
+                                          <input class="form-control" type="text" placeholder="FlyEats"  id="address" name="address"> 
                                         </div>
                                         <div class="form-group col-sm-6">
                                           <label for="currency">Currency</label>
@@ -77,11 +77,15 @@
                                           <input class="form-control" type="date" placeholder="flyeats.co.uk  " id="exipryDate" name="exipryDate" readonly /> 
                                         </div>
                                         <div class="form-group col-sm-6">
-                                          <label for="upload-logo" class="m-2">Upload Logo</label>
-                                          <input type='file' (change)="imagePreview($event);" id="upload-logo" name="upload-logo" />
-                                          <div class="col-sm-6">
-                                            <img [src]="filePath" style='width:"100%"'>
-                                          </div>
+                                            <div class="custom-file">
+                                                <input type='file' (change)="imagePreview($event);" class="custom-file-input" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04">
+                                                <label class="custom-file-label"  for="inputGroupFile04">Choose Image</label>
+                                            </div>
+                                            <div class="add-cate-img-1">
+                                              <img [src]="filePath" alt="">
+                                            </div>
+                                          <!-- <label for="upload-logo" class="m-2">Upload Logo</label>
+                                          <input type='file' (change)="imagePreview($event);" id="upload-logo" name="upload-logo" /> -->
                                         </div>
                                         <div class="form-group col-sm-6" *ngIf="isTempraryClose">
                                           <label for="closeTillDate">Close Until</label>
