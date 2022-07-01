@@ -6,51 +6,54 @@
             <div class="container-fluid">
                 <h2 class="mt-30 page-title">Categories</h2>
                 <ol class="breadcrumb mb-30">
-                    <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                    <li class="breadcrumb-item"><a href="category.html">Categories</a></li>
+                    <li class="breadcrumb-item"><a routerLink="/dashboard">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a routerLink="/category">Categories</a></li>
                     <li class="breadcrumb-item active">Add Category</li>
                 </ol>
                 <div class="row">
-                    <div class="col-lg-6 col-md-6">
+                    <div class="col-lg-12 col-md-6">
                         <div class="card card-static-2 mb-30">
                             <div class="card-title-2">
                                 <h4>Add New Category</h4>
                             </div>
                             <div class="card-body-table">
+                                <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
                                 <div class="news-content-right pd-20">
-                                    <div class="form-group">
+                                    <div class="row">
+
+                                   
+                                    <div class="form-group col-sm-6">
                                         <label class="form-label">Name*</label>
-                                        <input type="text" class="form-control" placeholder="Category Name">
+                                        <input type="text" class="form-control" placeholder="Category Name" formControlName="categoryName"
+                                        [ngClass]="{'border border-danger': categoryForm.get('categoryName').hasError('required') && categoryForm.get('categoryName').touched}">
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group col-sm-3">
+                                        <label class="form-label">Sort Number*</label>
+                                            <input type="number" class="form-control" placeholder="Sort number" formControlName="categorySortBy"
+                                            [ngClass]="{'border border-danger': 
+                                            (categoryForm.get('categorySortBy').hasError('required') || categoryForm.get('categorySortBy').hasError('min'))
+                                            && categoryForm.get('categorySortBy').touched}">
+                                    </div>
+                                    <div class="form-group col-sm-3">
                                         <label class="form-label">Status*</label>
-                                        <select id="status" name="status" class="form-control">
-                                            <option selected>Active</option>
-                                            <option value="1">Inactive</option>
+                                        <select id="status" name="status" class="form-control" formControlName="active" [ngClass]="{'border border-danger': categoryForm.get('active').hasError('required') && categoryForm.get('active').touched}">
+                                            <option value="1" selected>Active</option>
+                                            <option value="0">Inactive</option>
                                         </select>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="form-label">Category Image*</label>
-                                        <div class="input-group">
-                                            <div class="custom-file">
-                                                <input type="file" class="custom-file-input" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04">
-                                                <label class="custom-file-label" for="inputGroupFile04">Choose Image</label>
-                                            </div>
-                                        </div>
-                                        <div class="add-cate-img">
-                                            <img src="images/category/icon-1.svg" alt="">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label">Description*</label>
+                                    <div class="form-group col-sm-12">
+                                        <label class="form-label">Description</label>
                                         <div class="card card-editor">
                                             <div class="content-editor">
-                                                <textarea class="text-control" placeholder="Enter Description"></textarea>
+                                                <textarea class="text-control" placeholder="Enter Description" formControlName="categoryDetails"></textarea>
                                             </div>
                                         </div>
                                     </div>
-                                    <button class="save-btn hover-btn" type="submit">Add New Category</button>
+                                </div>
+                                    <button class="save-btn hover-btn" type="submit" [disabled]="categoryForm.invalid">Add New Category</button>
+                                    
                                 </div> 
+                              </form>
                             </div>
                         </div>
                     </div>

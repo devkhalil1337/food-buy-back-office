@@ -20,7 +20,7 @@
                             <div class="card-body-table">
                                 <div class="news-content-right pd-20">
                                     <div class="form-group">
-                                        <label class="form-label">Choice Name*</label>
+                                        <label class="form-label">Choice Name* {{ChoiceForm.get('choiceName')}}</label>
                                         <input type="text" class="form-control" placeholder="Category Name" formControlName='choiceName'
                                         [ngClass]="{'border border-danger': ChoiceForm.get('choiceName').hasError('required') && ChoiceForm.get('choiceName').touched}">
                                     </div>
