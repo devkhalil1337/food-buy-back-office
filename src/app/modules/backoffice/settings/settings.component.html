@@ -1,0 +1,96 @@
+<app-header></app-header>
+<div id="layoutSidenav">
+    <app-sidepanel></app-sidepanel>
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid">
+                <h2 class="mt-30 page-title">Business Info</h2>
+                <ol class="breadcrumb mb-30">
+                    <li class="breadcrumb-item"><a routerLink="/dashboard">Dashboard</a></li>
+                    <li class="breadcrumb-item active">Settings</li>
+                </ol>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="card card-static-2 mb-30">
+                            <div class="card-title-2">
+                                <h4>Business Profile</h4> 
+                            </div>
+                            <div class="card-body-table">
+                                <div class="news-content-right pd-20">
+                                    <div class="row">
+                                        <div class="form-group col-sm-3">
+                                          <label for="businessRegNum">Reg Number*</label>
+                                          <input class="form-control" type="text" placeholder="12322" id="businessRegNum" name="businessRegNum"> 
+                                        </div>
+                                        <div class="form-group col-sm-3">
+                                            <label for="vat">VAT*</label>
+                                            <input type="text" class="form-control" name="vat" id="vat" placeholder="2.5"> 
+                                        </div>
+                                        <div class="form-group col-sm-3">
+                                            <label class="form-label">VAT Type*</label>
+                                            <select id="vatType" name="vatType" class="form-control">
+                                                <option value="inclusive" selected>Inclusive</option>
+                                                <option value="exclusive">Exclusive</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-sm-3">
+                                          <label for="serviceCharges">Service Charges</label>
+                                          <input class="form-control" type="number" placeholder="1.2" id="serviceCharges" name="serviceCharges" /> 
+                                        </div>
+                                        <div class="form-group col-sm-3">
+                                          <label for="minimumOrder">Minimum Order</label>
+                                          <input class="form-control" type="number" placeholder="5"  id="minimumOrder" name="minimumOrder"> 
+                                        </div>
+                                        <div class="form-group col-sm-3">
+                                          <label for="avgpreptime">Avg Prep Time</label>
+                                          <input class="form-control" type="number" placeholder="60 minutes"  id="avgpreptime" name="avgpreptime"> 
+                                        </div>
+                                        <div class="form-group col-sm-3">
+                                          <label for="deliverytime">Delivery Time</label>
+                                          <input class="form-control" type="number" placeholder="30 minutes"  id="deliverytime" name="deliverytime"> 
+                                        </div>
+                                        <div class="form-group col-sm-3 m-auto">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" name="guestLogin" id="guestLogin">
+                                                <label class="custom-control-label" for="guestLogin">Guest Login</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-6 pt-5">
+                                            <label> Order Types</label>
+                                            <div class="input-group">
+                                                <div class="form-group col-xs-12  col-sm-3 col-md-4">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input" name="delivery" id="delivery">
+                                                        <label class="custom-control-label" for="delivery">Delivery</label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-xs-12 col-sm-3 col-md-4">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input" name="collection" id="collection">
+                                                        <label class="custom-control-label" for="collection">Collection</label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-xs-12 col-sm-3 col-md-4">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input" name="table" id="table">
+                                                        <label class="custom-control-label" for="table">Table</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                      </div>
+                                      <div class="row ">
+                                        <div class="col-sm-12 text-right">
+                                            <button class="save-btn hover-btn" type="submit">Save Changes</button>
+                                        </div>
+                                      </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <app-footer></app-footer>
+    </div>
+</div>

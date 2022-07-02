@@ -16,6 +16,7 @@ import { BusinessProfileComponent } from './business-profile/business-profile.co
 import { SharedModule } from '../shared/shared.module';
 import { ChoiceGroupsComponent } from './choice-groups/choice-groups.component';
 import { AddChoiceComponent } from './choice-groups/add-choice/add-choice.component';
+import { SettingsComponent } from './settings/settings.component';
 const routes: Routes = [{
 	path: 'dashboard',
 	
@@ -57,6 +58,10 @@ const routes: Routes = [{
   
   component:AddChoiceComponent
 },{
+  path:'settings',
+  component:SettingsComponent
+}
+,{
 	path: "**",
 	redirectTo: "dashboard",
 	pathMatch: "full"
@@ -71,7 +76,8 @@ const routes: Routes = [{
     OrderDetailsComponent,
     BusinessProfileComponent,
     ChoiceGroupsComponent,
-    AddChoiceComponent
+    AddChoiceComponent,
+    SettingsComponent
   ],
   imports: [
     CommonModule,
