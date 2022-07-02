@@ -8,6 +8,7 @@ const MIN_HEIGHT = 56;
 export class ConfigService {
 
   constructor( private formatter: FormatterService) {
+    console.log("service called")
   }
 
 
@@ -732,6 +733,8 @@ export class ConfigService {
 
 
 export const DefaultItems = ['copy'];
+
+export const BusinessId = localStorage.getItem("bussinessId");
 
 // export const GetContextMenu = (isDefaultItems, addDefaultItems) => {
 //   let allDefaultItems;

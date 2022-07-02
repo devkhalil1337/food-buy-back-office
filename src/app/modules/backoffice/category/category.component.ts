@@ -4,6 +4,7 @@ import { GridColumnType, StatusTypes } from '@enums';
 import { UtilityService , ConfigService} from '@shared';
 import { categories } from 'src/app/models/category.model';
 import { Category } from '@models';
+import { CategoryService } from './category.service';
 
 @Component({
   selector: 'app-category',
@@ -23,7 +24,8 @@ export class CategoryComponent implements OnInit {
     return false;
   }
 
-  constructor(private utils:UtilityService, private configService:ConfigService) { 
+  constructor(private utils:UtilityService, private configService:ConfigService,
+    private categoryService:CategoryService) { 
     this.initGridConfig();
     this.getGridData();
   }
@@ -32,10 +34,14 @@ export class CategoryComponent implements OnInit {
   }
 
  private getGridData(){
-    this.gridOptions.api?.showLoadingOverlay();
-    setTimeout(() => 
-     this.utils.setGridData(this.gridOptions,categories)
-    ,100)
+    this.toggleGridOverlay(true)
+    this.categoryService.getListOfCategories().subscribe(response => {
+      this.utils.setGridData(this.gridOptions,response);
+      this.toggleGridOverlay()
+    },(error) => {
+      console.log(error);
+      this.toggleGridOverlay()
+    })
 }
 
 
@@ -54,7 +60,6 @@ export class CategoryComponent implements OnInit {
     this.gridOptions.onPaginationChanged = this.onPageChange.bind(this);
     this.gridOptions.onGridReady = params => {
       params.api.sizeColumnsToFit();
-      params.api.showLoadingOverlay();
     }
   }
 
@@ -110,14 +115,14 @@ export class CategoryComponent implements OnInit {
     },
     {
       headerName: 'Category Name',
-      field: 'itemName',
+      field: 'categoryName',
       headerClass: 'header_one',
       cellClass:"text-center",
       sortable: false,
       width:100,
     },{
       headerName: 'Sort by',
-      field: 'orderBy',
+      field: 'categorySortBy',
       cellClass:"text-center",
       width:100,
       headerClass: 'header_one',
@@ -127,7 +132,7 @@ export class CategoryComponent implements OnInit {
       type:GridColumnType.number
     }, {
       headerName: 'Date',
-      field: 'CreationDate',
+      field: 'updateDate',
       cellClass:"text-center",
       headerClass: 'header_one',
       sortable: false,
@@ -136,6 +141,9 @@ export class CategoryComponent implements OnInit {
     }];
   }
 
+  private toggleGridOverlay(showLoading:boolean = false):void{
+    this.utils.toggleGridOverlay(this.gridOptions,showLoading)
+  }
 
   private onStatusUpdate(params:any):void{
     debugger
