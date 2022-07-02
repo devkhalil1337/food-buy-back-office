@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "scripts": {
     "ng": "ng",
+    "ng-high-memory": "node --max_old_space_size=8192 ./node_modules/@angular/cli/bin/ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
+    "build:qa":"npm run ng-high-memory -- build -c",
     "test": "ng test"
   },
   "private": true,
