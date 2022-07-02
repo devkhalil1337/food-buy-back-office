@@ -17,11 +17,46 @@ import { SharedModule } from '../shared/shared.module';
 import { ChoiceGroupsComponent } from './choice-groups/choice-groups.component';
 import { AddChoiceComponent } from './choice-groups/add-choice/add-choice.component';
 const routes: Routes = [{
-	path: "**",
-	redirectTo: "dashboard",
-	pathMatch: "full"
+	path: 'dashboard',
+	
+	component: DashboardComponent
+}, {
+	path: 'products',
+  
+	component: ProductsComponent
+}, {
+	path: 'add-product',
+  
+	component: AddProductComponent
+},{
+  path:'category',
+  
+  component:CategoryComponent
+},{
+  path:'add-category',
+  
+  component:AddCategoryComponent
+},{
+  path:'orders',
+  
+  component:OrdersComponent
+},{
+  path:'orders/:id',
+  
+  component:OrderDetailsComponent
+},{
+  path:'business-profile',
+  
+  component:BusinessProfileComponent
+},{
+  path:'choice-groups',
+  
+  component:ChoiceGroupsComponent
+},{
+  path:'add-choice',
+  
+  component:AddChoiceComponent
 }];
-
 @NgModule({
   declarations: [
     ProductsComponent,
