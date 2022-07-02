@@ -56,6 +56,10 @@ const routes: Routes = [{
   path:'add-choice',
   
   component:AddChoiceComponent
+},{
+	path: "**",
+	redirectTo: "dashboard",
+	pathMatch: "full"
 }];
 @NgModule({
   declarations: [

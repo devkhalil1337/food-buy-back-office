@@ -14,6 +14,10 @@ import { AuthGuard } from './modules/core';
 import { CoreModule } from './modules/core/core.module';
 
 const routes: Routes = [{
+	path: "",
+	redirectTo: "dashboard",
+	pathMatch: "full"
+},{
 	path:'',
 	canActivate: [AuthGuard],
 	loadChildren: () =>
