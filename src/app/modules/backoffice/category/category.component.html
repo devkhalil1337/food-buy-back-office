@@ -10,16 +10,26 @@
                     <li class="breadcrumb-item active">Categories</li>
                 </ol>
                 <div class="row justify-content-between">
-                    <div class="col-lg-12">
+                    <!-- <div class="col-lg-12">
                         <div class="input-group">
                             <div class="input-group-append">
                               <button class="status-btn hover-btn" type="button" routerLink="/add-category">Add New</button>
                             </div>
                           </div>
-                    </div>
+                    </div> -->
                     <div class="col-lg-3 col-md-4">
                         <div class="bulk-section mt-30">
-                            <div class="input-group">
+                            <div class="dropdown">
+                                <button class="status-btn hover-btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  [disabled]="!isEditButtonEnable">
+                                  Bulk Edit
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                  <a class="dropdown-item status-btn hover-btn" *ngFor="let status of BulkEdit"
+                                  (click)="onActionApply(status.label)"
+                                  >{{status.label}}</a>
+                                </div>
+                              </div>
+                            <!-- <div class="input-group">
                                 <select id="action" name="action" class="form-control"  [disabled]="!isEditButtonEnable">
                                     <option selected>Bulk Actions</option>
                                     <option value="1">Active</option>
@@ -29,21 +39,21 @@
                                 <div class="input-group-append">
                                     <button class="status-btn hover-btn" type="submit"  [disabled]="!isEditButtonEnable">Apply</button>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
-                    <div class="col-lg-5 col-md-6">
+                    <div class="col-lg-2 col-md-3">
                         <div class="bulk-section mt-30">
-                            <div class="search-by-name-input">
+                            <!-- <div class="search-by-name-input">
                                 <input type="text" class="form-control" placeholder="Search">
-                            </div>
+                            </div> -->
                             <div class="input-group">
-                                <select id="categeory" name="categeory" class="form-control">
+                                <!-- <select id="categeory" name="categeory" class="form-control">
                                     <option selected>Active</option>
                                     <option value="1">Inactive</option>
-                                </select>
+                                </select> -->
                                 <div class="input-group-append">
-                                    <button class="status-btn hover-btn" type="submit">Search Category</button>
+                                    <button class="status-btn hover-btn" type="button" routerLink="/add-category">Search Category</button>
                                 </div>
                             </div>
                         </div>

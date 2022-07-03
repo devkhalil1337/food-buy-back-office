@@ -5,6 +5,7 @@ import { UtilityService , ConfigService, ToasterService} from '@shared';
 import { Category } from '@models';
 import { CategoryService } from './category.service';
 import { LinksRenderComponent } from '../../shared/components';
+import { Statuses } from 'src/app/enums/const';
 
 @Component({
   selector: 'app-category',
@@ -15,6 +16,14 @@ export class CategoryComponent implements OnInit {
 
 
   gridOptions: GridOptions;
+  BulkEdit = [
+    {label:"Active",value:true},
+    {label:"In Active",value:false},
+    {label:"Delete",value:true},
+  ]
+
+
+
 
   get isEditButtonEnable(){
     if(this.gridOptions){
@@ -44,6 +53,21 @@ export class CategoryComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+ onActionApply(action:String){
+  switch(action){
+    case Statuses.active:
+      this.onStatusUpdate(true);
+    break;
+    case Statuses.inactive:
+      this.onStatusUpdate(false);
+    break;
+    case Statuses.delete:
+      this.onDeleteCategory(true);
+    break;
+  }
+ }
+
 
  private getGridData(){
     this.toggleGridOverlay(true)
@@ -155,11 +179,18 @@ export class CategoryComponent implements OnInit {
     this.utils.toggleGridOverlay(this.gridOptions,showLoading)
   }
 
-  private onStatusUpdate(params:any):void{
-    const rows = this.gridOptions.api?.getSelectedRows();
-    console.log(rows);
-    let data = new Category();
+  private onStatusUpdate(value:any):void{
+    let rows = this.gridOptions.api?.getSelectedRows();
+    rows = rows.filter(elm => elm.active = value);
+    // let data = new Category(rows[0]);
+    // console.log(data);
 
+  }
+
+  private onDeleteCategory(value:boolean){
+    let rows = this.gridOptions.api?.getSelectedRows();
+    rows = rows.filter(elm => elm.isDeleted = value);
+    console.log(rows);
   }
 
 }
