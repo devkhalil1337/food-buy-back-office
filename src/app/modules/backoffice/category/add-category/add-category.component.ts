@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Category } from 'src/app/modules/core';
 import { FormatterService } from 'src/app/modules/shared/format.service';
 import { CategoryService } from '../category.service';
@@ -13,17 +14,33 @@ export class AddCategoryComponent implements OnInit {
 
 
   categoryForm:FormGroup;
-  
-  constructor(private categoryService:CategoryService, private formatterServoce:FormatterService) { 
+  selectedCategoryId:number;
+  constructor(private categoryService:CategoryService, private formatterServoce:FormatterService,
+    private activatedRoute: ActivatedRoute) { 
+      this.activatedRoute.queryParams.subscribe(params => {
+        this.selectedCategoryId = params['CategoryId'];
+      });
+
+
+
     this.categoryForm = new FormGroup({
-    categoryName: new FormControl("",Validators.required),
+      categoryId: new FormControl(null),
+      categoryName: new FormControl("",Validators.required),
       categoryImage: new FormControl(""),
       categoryDetails: new FormControl(""),
       categorySortBy : new FormControl(1),
-      active: new FormControl(true),
+      active: new FormControl(1),
       isDeleted: new FormControl(false),
       businessId: new FormControl(0)
-     })
+     });
+
+     if(this.selectedCategoryId){
+       this.categoryService.getCategoryById(this.selectedCategoryId).subscribe(response => {
+        this.categoryForm.patchValue(new Category(response));
+      });
+     }
+
+
   }
 
   ngOnInit(): void {
@@ -31,10 +48,16 @@ export class AddCategoryComponent implements OnInit {
 
 
   onSubmit(){
-    let category = new Category(this.categoryForm.value)
-    this.categoryService.onCreateCategory(category).subscribe(response => {
-      console.log(response);
-    },error => console.log(error))
+    let category = new Category(this.categoryForm.value);
+    if(this.selectedCategoryId){
+      this.categoryService.onUpdateCategory(category).subscribe(response => {
+        console.log(response);
+      },error => console.log(error))
+    }else{
+      this.categoryService.onCreateCategory(category).subscribe(response => {
+        console.log(response);
+      },error => console.log(error))
+    }
   }
 
 }

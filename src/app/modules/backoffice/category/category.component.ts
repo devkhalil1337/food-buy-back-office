@@ -5,6 +5,7 @@ import { UtilityService , ConfigService} from '@shared';
 import { categories } from 'src/app/models/category.model';
 import { Category } from '@models';
 import { CategoryService } from './category.service';
+import { LinksRenderComponent } from '../../shared/components';
 
 @Component({
   selector: 'app-category',
@@ -23,6 +24,16 @@ export class CategoryComponent implements OnInit {
     }
     return false;
   }
+
+  get selectedCategory(){
+    if(this.gridOptions){
+      const rows = this.gridOptions.api?.getSelectedRows();
+      if(rows && rows.length == 1)
+        return rows[0].categoryId
+    }
+    return false;
+  }
+
 
   constructor(private utils:UtilityService, private configService:ConfigService,
     private categoryService:CategoryService) { 
@@ -53,13 +64,13 @@ export class CategoryComponent implements OnInit {
     this.gridOptions.pagination = true;
     this.gridOptions.rowDragEntireRow = true;
     this.gridOptions.rowDragManaged = true;
-    // this.gridOptions.suppressMoveWhenRowDragging = true;
     this.gridOptions.animateRows = true;
     this.gridOptions.paginationPageSize = 10;
     this.gridOptions.enableCellTextSelection = false;
     this.gridOptions.onPaginationChanged = this.onPageChange.bind(this);
     this.gridOptions.onGridReady = params => {
       params.api.sizeColumnsToFit();
+      params.api.showLoadingOverlay();
     }
   }
 
@@ -98,7 +109,7 @@ export class CategoryComponent implements OnInit {
       editable:true,
       sortable: true, 
       comparator: (valueA, valueB) => (valueA == valueB) ? 0 : (valueA > valueB) ? 1 : -1,
-      valueGetter: (params) => params.data.status ? 'Active':'In Active',
+      valueGetter: (params) => params.data.active ? 'Active':'In Active',
       onCellValueChanged: (params) => {
         if(params.newValue != params.oldValue)
           this.onStatusUpdate(params);
@@ -120,21 +131,20 @@ export class CategoryComponent implements OnInit {
       cellClass:"text-center",
       sortable: false,
       width:100,
-    },{
-      headerName: 'Sort by',
-      field: 'categorySortBy',
-      cellClass:"text-center",
-      width:100,
-      headerClass: 'header_one',
-      sortable: true,
-      // sort: 'asc',
-      comparator: (valueA, valueB) => (valueA == valueB) ? 0 : (valueA > valueB) ? 1 : -1,
-      type:GridColumnType.number
     }, {
       headerName: 'Date',
       field: 'updateDate',
       cellClass:"text-center",
       headerClass: 'header_one',
+      sortable: false,
+      width:100,
+      type:GridColumnType.dateTime
+    }, {
+      headerName: 'Actions',
+      field: 'Links',
+      cellClass:"text-center",
+      headerClass: 'header_one',
+      cellRendererFramework:LinksRenderComponent,
       sortable: false,
       width:100,
       type:GridColumnType.dateTime
@@ -146,8 +156,8 @@ export class CategoryComponent implements OnInit {
   }
 
   private onStatusUpdate(params:any):void{
-    debugger
     const rows = this.gridOptions.api?.getSelectedRows();
+    console.log(rows);
     let data = new Category();
 
   }

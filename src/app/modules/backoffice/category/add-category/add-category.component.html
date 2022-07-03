@@ -11,7 +11,7 @@
                     <li class="breadcrumb-item active">Add Category</li>
                 </ol>
                 <div class="row">
-                    <div class="col-lg-12 col-md-6">
+                    <div class="col-lg-6 col-md-6 mx-auto">
                         <div class="card card-static-2 mb-30">
                             <div class="card-title-2">
                                 <h4>Add New Category</h4>
@@ -21,25 +21,10 @@
                                 <div class="news-content-right pd-20">
                                     <div class="row">
 
-                                   
-                                    <div class="form-group col-sm-6">
+                                    <div class="form-group col-sm-12">
                                         <label class="form-label">Name*</label>
                                         <input type="text" class="form-control" placeholder="Category Name" formControlName="categoryName"
                                         [ngClass]="{'border border-danger': categoryForm.get('categoryName').hasError('required') && categoryForm.get('categoryName').touched}">
-                                    </div>
-                                    <!-- <div class="form-group col-sm-3">
-                                        <label class="form-label">Sort Number*</label>
-                                            <input type="number" class="form-control" placeholder="Sort number" formControlName="categorySortBy"
-                                            [ngClass]="{'border border-danger': 
-                                            (categoryForm.get('categorySortBy').hasError('required') || categoryForm.get('categorySortBy').hasError('min'))
-                                            && categoryForm.get('categorySortBy').touched}">
-                                    </div> -->
-                                    <div class="form-group col-sm-3">
-                                        <label class="form-label">Status*</label>
-                                        <select id="status" name="status" class="form-control" formControlName="active" [ngClass]="{'border border-danger': categoryForm.get('active').hasError('required') && categoryForm.get('active').touched}">
-                                            <option value="true">Active</option>
-                                            <option value="false">Inactive</option>
-                                        </select>
                                     </div>
                                     <div class="form-group col-sm-12">
                                         <label class="form-label">Description</label>
@@ -48,6 +33,17 @@
                                                 <textarea class="text-control" placeholder="Enter Description" formControlName="categoryDetails"></textarea>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="form-group col-sm-3">
+                                        <label class="form-label">Status*</label>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" name="active" id="active" formControlName="active">
+                                            <label class="custom-control-label" for="active">Active</label>
+                                          </div>
+                                        <!-- <select id="status" name="status" class="form-control" formControlName="active" [ngClass]="{'border border-danger': categoryForm.get('active').hasError('required') && categoryForm.get('active').touched}">
+                                            <option value="1">Active</option>
+                                            <option value="0">Inactive</option>
+                                        </select> -->
                                     </div>
                                 </div>
                                     <button class="save-btn hover-btn" type="submit" [disabled]="categoryForm.invalid">Add New Category</button>

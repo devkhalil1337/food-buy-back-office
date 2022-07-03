@@ -18,10 +18,26 @@ export class CategoryService {
     }));
   }
 
+  
+  getCategoryById(categoryId){
+    return this.apiService.request("get",`Categories/GetCategoryById?categoryId=${categoryId}`).pipe(map((response:any) => {
+      return response && response[0] || [];
+    }));
+  }
+
+
   onCreateCategory(category:Category){
     return this.apiService.request("post",`Categories/AddNewCategory`,category).pipe(map((response:any) => {
       return response || [];
     }));
   }
+
+  onUpdateCategory(category:Category){
+    return this.apiService.request("put",`Categories/UpdateCategory`,category).pipe(map((response:any) => {
+      return response || [];
+    }));
+  }
+
+
   
 }

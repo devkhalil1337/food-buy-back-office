@@ -1,3 +1,4 @@
+import { BusinessId } from '@shared';
 export class Category{
     categoryId:number;
     businessId:number;
@@ -8,10 +9,10 @@ export class Category{
     active:boolean;
     isDeleted:boolean;
     constructor(category?){
-        debugger
-        this.businessId = category.businessId;
-        this.categoryName = category.categoryName;
-        this.categoryImage = category.categoryImage || "logo";
+        this.categoryId = category.categoryId || null;
+        this.businessId = category.businessId || BusinessId;
+        this.categoryName = category.categoryName || "";
+        this.categoryImage = category.categoryImage || "";
         this.categoryDetails = category.categoryDetails;
         this.categorySortBy = category.categorySortBy || 1;
         this.active = !!category.active;
