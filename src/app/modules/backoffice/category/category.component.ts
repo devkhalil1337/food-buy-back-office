@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ColDef, GridOptions } from 'ag-grid-community';
 import { GridColumnType, StatusTypes } from '@enums';
-import { UtilityService , ConfigService} from '@shared';
-import { categories } from 'src/app/models/category.model';
+import { UtilityService , ConfigService, ToasterService} from '@shared';
 import { Category } from '@models';
 import { CategoryService } from './category.service';
 import { LinksRenderComponent } from '../../shared/components';
@@ -35,8 +34,10 @@ export class CategoryComponent implements OnInit {
   }
 
 
-  constructor(private utils:UtilityService, private configService:ConfigService,
-    private categoryService:CategoryService) { 
+  constructor(private utils:UtilityService, 
+    private configService:ConfigService,
+    private categoryService:CategoryService,
+    private toasterService:ToasterService) { 
     this.initGridConfig();
     this.getGridData();
   }
@@ -52,12 +53,12 @@ export class CategoryComponent implements OnInit {
     },(error) => {
       console.log(error);
       this.toggleGridOverlay()
+      this.toasterService.error(error)
     })
 }
 
 
   private initGridConfig(){
-     
     this.gridOptions = this.configService.getGridConfig(false,true);
     this.gridOptions.columnDefs = this.getGridColumnDefs();
     this.gridOptions.onRowDragEnd = this.onDropRow.bind(this);
@@ -142,12 +143,11 @@ export class CategoryComponent implements OnInit {
     }, {
       headerName: 'Actions',
       field: 'Links',
-      cellClass:"text-center",
-      headerClass: 'header_one',
+      cellClass:"text-center pl-2 pr-0",
+      headerClass: 'header_one  pl-2 pr-0',
       cellRendererFramework:LinksRenderComponent,
       sortable: false,
       width:100,
-      type:GridColumnType.dateTime
     }];
   }
 

@@ -1,61 +1,55 @@
 <app-header></app-header>
 <div id="layoutSidenav">
-    <app-sidepanel></app-sidepanel>
-    <div id="layoutSidenav_content">
-        <main>
-            <div class="container-fluid">
-                <h2 class="mt-30 page-title">Categories</h2>
-                <ol class="breadcrumb mb-30">
-                    <li class="breadcrumb-item"><a routerLink="/dashboard">Dashboard</a></li>
-                    <li class="breadcrumb-item"><a routerLink="/category">Categories</a></li>
-                    <li class="breadcrumb-item active">Add Category</li>
-                </ol>
-                <div class="row">
-                    <div class="col-lg-6 col-md-6 mx-auto">
-                        <div class="card card-static-2 mb-30">
-                            <div class="card-title-2">
-                                <h4>Add New Category</h4>
-                            </div>
-                            <div class="card-body-table">
-                                <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
-                                <div class="news-content-right pd-20">
-                                    <div class="row">
-
-                                    <div class="form-group col-sm-12">
-                                        <label class="form-label">Name*</label>
-                                        <input type="text" class="form-control" placeholder="Category Name" formControlName="categoryName"
-                                        [ngClass]="{'border border-danger': categoryForm.get('categoryName').hasError('required') && categoryForm.get('categoryName').touched}">
-                                    </div>
-                                    <div class="form-group col-sm-12">
-                                        <label class="form-label">Description</label>
-                                        <div class="card card-editor">
-                                            <div class="content-editor">
-                                                <textarea class="text-control" placeholder="Enter Description" formControlName="categoryDetails"></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-sm-3">
-                                        <label class="form-label">Status*</label>
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name="active" id="active" formControlName="active">
-                                            <label class="custom-control-label" for="active">Active</label>
-                                          </div>
-                                        <!-- <select id="status" name="status" class="form-control" formControlName="active" [ngClass]="{'border border-danger': categoryForm.get('active').hasError('required') && categoryForm.get('active').touched}">
-                                            <option value="1">Active</option>
-                                            <option value="0">Inactive</option>
-                                        </select> -->
-                                    </div>
-                                </div>
-                                    <button class="save-btn hover-btn" type="submit" [disabled]="categoryForm.invalid">Add New Category</button>
-                                    
-                                </div> 
-                              </form>
-                            </div>
-                        </div>
+  <app-sidepanel></app-sidepanel>
+  <div id="layoutSidenav_content">
+    <main>
+      <div class="container-fluid">
+        <h2 class="mt-30 page-title">Categories</h2>
+        <ol class="breadcrumb mb-30">
+          <li class="breadcrumb-item"><a routerLink="/dashboard">Dashboard</a></li>
+          <li class="breadcrumb-item"><a routerLink="/category">Categories</a></li>
+          <li class="breadcrumb-item active">Add Category</li>
+        </ol>
+        <div class="row">
+          <div class="col-lg-6 col-md-6 mx-auto">
+            <div class="card card-static-2 mb-30">
+              <div class="card-title-2">
+                <h4>{{!selectedCategoryId ? 'Add': 'Edit'}} Category</h4>
+              </div>
+              <div class="card-body-table">
+                <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+                <div class="news-content-right pd-20">
+                  <div class="row">
+                    <div class="form-group col-sm-12">
+                      <label class="form-label">Name*</label>
+                      <input type="text" class="form-control" placeholder="Category Name" formControlName="categoryName"
+                        [ngClass]="{'border border-danger': categoryForm.get('categoryName').hasError('required') && categoryForm.get('categoryName').touched}">
                     </div>
+                    <div class="form-group col-sm-12">
+                      <label class="form-label">Description</label>
+                      <div class="card card-editor">
+                        <div class="content-editor">
+                          <textarea class="text-control" placeholder="Enter Description" formControlName="categoryDetails"></textarea>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group col-sm-3">
+                      <label class="form-label">Status*</label>
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" name="active" id="active" formControlName="active">
+                        <label class="custom-control-label" for="active">Active</label>
+                      </div>
+                    </div>
+                  </div>
+                  <button class="save-btn hover-btn" type="submit" [disabled]="categoryForm.invalid">Save</button>
                 </div>
+                </form>
+              </div>
             </div>
-        </main>
-        <app-footer></app-footer>
-    </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <app-footer></app-footer>
+  </div>
 </div>

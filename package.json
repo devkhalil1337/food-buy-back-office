@@ -7,7 +7,7 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "build:qa":"npm run ng-high-memory -- build -c",
+    "build:qa": "npm run ng-high-memory -- build -c",
     "test": "ng test"
   },
   "private": true,
@@ -27,6 +27,7 @@
     "jquery": "^3.3.1",
     "lodash": "^4.17.21",
     "moment": "^2.23.0",
+    "noty": "^3.2.0-beta",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

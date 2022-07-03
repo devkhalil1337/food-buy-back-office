@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Category } from 'src/app/modules/core';
+import { ToasterService } from 'src/app/modules/shared';
 import { FormatterService } from 'src/app/modules/shared/format.service';
 import { CategoryService } from '../category.service';
 
@@ -15,8 +16,10 @@ export class AddCategoryComponent implements OnInit {
 
   categoryForm:FormGroup;
   selectedCategoryId:number;
-  constructor(private categoryService:CategoryService, private formatterServoce:FormatterService,
-    private activatedRoute: ActivatedRoute) { 
+  constructor(private categoryService:CategoryService, 
+    private formatterServoce:FormatterService,
+    private activatedRoute: ActivatedRoute,
+    private toasterService:ToasterService) { 
       this.activatedRoute.queryParams.subscribe(params => {
         this.selectedCategoryId = params['CategoryId'];
       });
@@ -52,11 +55,19 @@ export class AddCategoryComponent implements OnInit {
     if(this.selectedCategoryId){
       this.categoryService.onUpdateCategory(category).subscribe(response => {
         console.log(response);
-      },error => console.log(error))
+        this.toasterService.success("category updated")
+      },error => {
+        console.log(error)
+        this.toasterService.error(error)
+      })
     }else{
       this.categoryService.onCreateCategory(category).subscribe(response => {
         console.log(response);
-      },error => console.log(error))
+        this.toasterService.success("category created")
+      },error => {
+        console.log(error)
+        this.toasterService.error(error)
+      })
     }
   }
 

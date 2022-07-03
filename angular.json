@@ -40,7 +40,9 @@
               "src/assets/vendor/bootstrap/css/bootstrap.min.css",
               "src/assets/vendor/fontawesome-free/css/all.min.css",
               "src/assets/css/ag-grid.css",
-              "src/assets/css/ag-theme-material.css"
+              "src/assets/css/ag-theme-material.css",
+              "node_modules/noty/lib/noty.css",
+              "node_modules/noty/lib/themes/metroui.css"
 
             ],
             "scripts": [
@@ -51,7 +53,8 @@
               "src/assets/vendor/chart/export-data.js",
               "src/assets/vendor/chart/accessibility.js",
               "src/assets/js/scripts.js",
-              "src/assets/js/chart.js"
+              "src/assets/js/chart.js",
+              "node_modules/noty/lib/noty.min.js"
             ]
           },
           "configurations": {

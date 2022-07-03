@@ -10,13 +10,12 @@ import { AddCategoryComponent } from './category/add-category/add-category.compo
 import { OrdersComponent } from './orders/orders.component';
 import { OrderDetailsComponent } from './orders/order-details/order-details.component';
 import { AgGridModule } from 'ag-grid-angular';
-import { ConfigService } from '../shared/config.service';
-import { UtilityService } from '../shared/utility.service';
+import { ConfigService, UtilityService,  ToasterService , SharedModule } from '@shared';
 import { BusinessProfileComponent } from './business-profile/business-profile.component';
-import { SharedModule } from '../shared/shared.module';
 import { ChoiceGroupsComponent } from './choice-groups/choice-groups.component';
 import { AddChoiceComponent } from './choice-groups/add-choice/add-choice.component';
 import { SettingsComponent } from './settings/settings.component';
+
 const routes: Routes = [{
 	path: 'dashboard',
 	
@@ -86,7 +85,7 @@ const routes: Routes = [{
     SharedModule,
     RouterModule.forChild(routes)
   ],
-  providers:[ConfigService,UtilityService],
+  providers:[ConfigService,UtilityService,ToasterService],
   exports:[RouterModule]
 })
 export class BackofficeModule { }
