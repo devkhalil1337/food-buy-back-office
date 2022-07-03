@@ -34,7 +34,9 @@ export class FormatterService {
     //     return ['en-US']; // prefix will be hide, for USD currency it will displayed as $123 and for CAD curreny CA$123
     // }
   }
-
+  formateDateForAPI(date){
+    moment(date).format("yyyy-mm-dd hh:mm:ss");
+  }
   formatNumber(value: any, maxFractionDigits: number = 2, minFractionDigits: number = 0): string {
     if (this.isInvalidValue(value)) {
       return '';
