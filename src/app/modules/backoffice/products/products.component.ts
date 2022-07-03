@@ -4,7 +4,7 @@ import { GridColumnType } from '@enums';
 import { products } from 'src/app/models/products.models';
 import { Product } from '../../core/models/products-models/products.model';
 import { UtilityService , ConfigService } from '@shared';
-import { ProductsService } from '@s';
+import { ProductsService } from './products.service';
 
 @Component({
   selector: 'app-products',
