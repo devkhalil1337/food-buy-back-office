@@ -4,6 +4,7 @@ import { GridColumnType } from '@enums';
 import { products } from 'src/app/models/products.models';
 import { Product } from '../../core/models/products-models/products.model';
 import { UtilityService , ConfigService } from '@shared';
+import { ProductsService } from '@s';
 
 @Component({
   selector: 'app-products',
@@ -28,7 +29,9 @@ export class ProductsComponent implements OnInit {
 
   gridOptions: GridOptions
 
-  constructor(private utils:UtilityService, private configService:ConfigService) { 
+  constructor(private utils:UtilityService, 
+    private configService:ConfigService,
+    private productService:ProductsService) { 
 
     this.initGridConfig();
     this.getGridData();
@@ -39,9 +42,9 @@ export class ProductsComponent implements OnInit {
 
   getGridData(){
     this.gridOptions.api?.showLoadingOverlay();
-    setTimeout(() => 
-    this.utils.setGridData(this.gridOptions,products)
-    ,3000)
+    this.productService.getListOfProducts().subscribe(response => {
+      this.utils.setGridData(this.gridOptions,response)
+    })
 }
 
 
@@ -78,7 +81,7 @@ export class ProductsComponent implements OnInit {
         // this.onStatusUpdate(params,true);
       },
       cellEditor: 'agSelectCellEditor',
-      valueGetter: (params) => params.data.status ? 'Active':'In Active',
+      valueGetter: (params) => params.data.active ? 'Active':'In Active',
       cellEditorParams: (params) => {
         let statusTypes = this.StatusTypes;
           return { values: statusTypes.map(({ value }) => value) };
@@ -90,7 +93,7 @@ export class ProductsComponent implements OnInit {
     },
      {
       headerName: 'Image',
-      field: 'image',
+      field: 'productImage',
       headerClass: 'header_one',
       cellClass:"text-center",
       sortable: false,
@@ -98,14 +101,14 @@ export class ProductsComponent implements OnInit {
     },
    {
      headerName: 'Product Name',
-     field: 'itemName',
+     field: 'productName',
      headerClass: 'header_one',
      cellClass:"text-center",
      sortable: false,
      width:100,
    },{
     headerName: 'Category',
-    field: 'cateId',
+    field: 'categoryId',
     cellClass:"text-center",
     width:100,
     headerClass: 'header_one',
@@ -113,7 +116,7 @@ export class ProductsComponent implements OnInit {
     type:GridColumnType.text
   },{
     headerName: 'Price',
-    field: 'itemPrice',
+    field: 'productDeliveryPrice',
     cellClass:"text-center",
     width:100,
     headerClass: 'header_one',
@@ -121,11 +124,11 @@ export class ProductsComponent implements OnInit {
     type:GridColumnType.currency
   }, {
      headerName: 'Created',
-     field: 'orderDate',
+     field: 'updateDate',
      cellClass:"text-center",
      headerClass: 'header_one',
      sortable: false,
-     width:100,
+     width:150,
      type:GridColumnType.dateTime
    }];
  }
