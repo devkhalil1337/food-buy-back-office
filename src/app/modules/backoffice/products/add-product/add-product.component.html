@@ -22,14 +22,24 @@
 
                                 <div class="news-content-right pd-20">
                                     <div class="form-group">
-                                        <label class="form-label">Name*</label>
-                                        <input type="text" class="form-control" placeholder="Product Name" formControlName="productName"
-                                        [ngClass]="{'border border-danger': productForm.get('productName').hasError('required') && productForm.get('productName').touched}">
+                                        <label class="form-label">Category Image*</label>
+                                        <div class="input-group">
+                                            <div class="custom-file">
+                                                <input type='file' (change)="imagePreview($event);" class="custom-file-input" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04"
+                                                formControlName="productImage">
+                                                <label class="custom-file-label"  for="inputGroupFile04">Choose Image</label>
+                                            </div>
+                                        </div>
+                                        <div class="add-cate-img-1">
+                                            <img [src]="filePath" alt="">
+                                        </div>
                                     </div>
+
+
                                     <div class="form-group">
                                         <label class="form-label">Category*</label>
                                         <select id="categtory" name="categtory" class="form-control" formControlName="cateId" [ngClass]="{'border border-danger': productForm.get('cateId').hasError('required') && productForm.get('cateId').touched}">
-                                            <option selected>--Select Category--</option>
+                                            <option value="0" selected disabled>--Select Category--</option>
                                             <option value="1">Fruits & Vegetables</option>
                                             <option value="2">Grocery & Staples</option>
                                             <option value="3">Dairy & Eggs</option>
@@ -43,76 +53,43 @@
                                             <option value="11">Electronics</option>
                                         </select>
                                     </div>
-                                    <!-- <div class="form-group">
-                                        <label class="form-label">MRP*</label>
-                                        <input type="text" class="form-control" placeholder="$0">
-                                    </div> -->
                                     <div class="form-group">
-                                        <label class="form-label">Discount MRP*</label>
+                                        <label class="form-label">Name*</label>
+                                        <input type="text" class="form-control" placeholder="Product Name" formControlName="productName"
+                                        [ngClass]="{'border border-danger': productForm.get('productName').hasError('required') && productForm.get('productName').touched}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Price*</label>
                                         <input type="text" class="form-control" placeholder="$0" formControlName="productPrice" 
                                         [ngClass]="{'border border-danger': productForm.get('productPrice').hasError('required') && productForm.get('productPrice').touched}">
                                     </div>
                                     <div class="form-group">
-                                        <label class="form-label">Status*</label>
-                                        <select id="status" name="status" class="form-control" formControlName="productStatus" [ngClass]="{'border border-danger': productForm.get('productStatus').hasError('required') && productForm.get('productStatus').touched}">
-                                            <option selected>Active</option>
-                                            <option value="1">Inactive</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label">Description*</label>
+                                        <label class="form-label">Description</label>
                                         <div class="card card-editor">
                                             <div class="content-editor">
                                                 <textarea class="text-control" placeholder="Enter Description" formControlName="productDescription"></textarea>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="form-label">Category Image*</label>
-                                        <div class="input-group">
-                                            <div class="custom-file">
-                                                <input type='file' (change)="imagePreview($event);" class="custom-file-input" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04"
-                                                formControlName="productImage">
-                                                <label class="custom-file-label"  for="inputGroupFile04">Choose Image</label>
+                                    <div class="row form-group ">
+                                        <div class="col-sm-3">
+                                            <label class="form-label">Status*</label>
+                                            <div class="custom-control custom-checkbox">
+                                              <input type="checkbox" class="custom-control-input" name="productStatus" id="productStatus" formControlName="productStatus">
+                                              <label class="custom-control-label" for="productStatus">Active</label>
                                             </div>
-                                        </div>
-                                        <div class="add-cate-img-1">
-                                            <img [src]="filePath" alt="">
-                                        </div>
-                                    </div>
-                                    <!-- <div class="form-group">
-                                        <label class="form-label">More Image*</label>
-                                        <div class="input-group">
-                                            <div class="custom-file">
-                                                <input type="file" class="custom-file-input" id="inputGroupFile05" aria-describedby="inputGroupFileAddon05">
-                                                <label class="custom-file-label" for="inputGroupFile05">Choose Image</label>
+                                          </div>
+                                        <div class="col-sm-3">
+                                            <label class="form-label">Feature*</label>
+                                            <div class="custom-control custom-checkbox">
+                                              <input type="checkbox" class="custom-control-input" name="productFeature" id="productFeature" formControlName="productFeature">
+                                              <label class="custom-control-label" for="productFeature">Active</label>
                                             </div>
+                                          </div>
                                         </div>
-                                        <ul class="add-produc-imgs">
-                                            <li>
-                                                <div class="add-cate-img-1">
-                                                    <img src="assets/images/product/big-1.jpg" alt="">
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="add-cate-img-1">
-                                                    <img src="assets/images/product/big-2.jpg" alt="">
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="add-cate-img-1">
-                                                    <img src="assets/images/product/big-3.jpg" alt="">
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="add-cate-img-1">
-                                                    <img src="assets/images/product/big-4.jpg" alt="">
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div> -->
-                                    <button class="save-btn hover-btn" type="submit" [disabled]="productForm.invalid">Add New Product</button>
-                                </div> 
+                                        <button class="save-btn hover-btn" type="submit" [disabled]="productForm.invalid">Add New Product</button>
+                                    </div> 
+
                             </form>
                             </div>
                         </div>

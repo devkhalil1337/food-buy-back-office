@@ -20,11 +20,12 @@ export class AddProductComponent implements OnInit {
   initlizeProductForm():void {
     this.productForm = new FormGroup({
       productName: new FormControl("",Validators.required),
-      cateId: new FormControl("",Validators.required),
+      cateId: new FormControl(0,Validators.required),
       productPrice: new FormControl("",Validators.required),
       productDescription: new FormControl(""),
       productImage: new FormControl(""),
-      productStatus: new FormControl("",Validators.required),
+      productStatus: new FormControl(true),
+      productFeature: new FormControl(false),
     })
   }
 
