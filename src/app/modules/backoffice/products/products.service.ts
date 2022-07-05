@@ -14,4 +14,9 @@ export class ProductsService {
     return this.apiService.request("get",`Products/GetAllProducts?businessId=${businessId}`);
   }
 
+  addNewProduct(product){
+    return this.apiService.request("post",`Products/AddNewProduct`,product);
+  }
+
+
 }

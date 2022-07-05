@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { BusinessId, ToasterService } from '@shared';
+import { CategoryService } from '../../category/category.service';
+import { ProductsService } from '../products.service';
 
 @Component({
   selector: 'app-add-product',
@@ -9,9 +12,15 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class AddProductComponent implements OnInit {
 
   filePath:string;
-  productForm:FormGroup
+  productForm:FormGroup;
+  categoryList:any;
 
-  constructor() { }
+  constructor(private productService:ProductsService, private CategoryService: CategoryService,
+    private toasterService:ToasterService) { 
+
+    this.getTheListOfCategories();
+
+  }
 
   ngOnInit(): void {
     this.initlizeProductForm();
@@ -19,18 +28,41 @@ export class AddProductComponent implements OnInit {
 
   initlizeProductForm():void {
     this.productForm = new FormGroup({
+      businessId: new FormControl(Number(BusinessId)),
       productName: new FormControl("",Validators.required),
-      cateId: new FormControl(0,Validators.required),
-      productPrice: new FormControl("",Validators.required),
+      categoryId: new FormControl(0,Validators.required),
       productDescription: new FormControl(""),
       productImage: new FormControl(""),
-      productStatus: new FormControl(true),
-      productFeature: new FormControl(false),
+      productTablePrice: new FormControl(0),
+      productTableVat: new FormControl(0),
+      productPickupPrice: new FormControl(0),
+      productPickupVat: new FormControl(0),
+      productDeliveryPrice: new FormControl(0),
+      productDeliveryVat: new FormControl(0),
+      productSortBy: new FormControl(0),
+      productQuantity: new FormControl(0),
+      hasVariations: new FormControl(false),
+      featured: new FormControl(false),
+      isDeleted: new FormControl(false),
+      active: new FormControl(true),
     })
   }
 
   onProductAdd(){
     console.log(this.productForm.value);
+    this.productService.addNewProduct(this.productForm.value).subscribe(response => {
+      this.toasterService.success("Product created")
+      },error => {
+        console.log(error)
+        this.toasterService.error(error)
+      })
+  }
+
+  getTheListOfCategories(){
+    this.CategoryService.getListOfCategories().subscribe(response => {
+      this.categoryList = response;
+      console.log(response);
+    },error => console.log(error));
   }
 
   imagePreview(e) {

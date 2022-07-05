@@ -62,7 +62,6 @@ export class AddCategoryComponent implements OnInit {
       })
     }else{
       this.categoryService.onCreateCategory(category).subscribe(response => {
-        console.log(response);
         this.toasterService.success("category created")
       },error => {
         console.log(error)

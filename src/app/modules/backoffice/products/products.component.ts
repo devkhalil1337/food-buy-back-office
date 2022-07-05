@@ -3,7 +3,7 @@ import { ColDef, GridOptions } from 'ag-grid-community';
 import { GridColumnType } from '@enums';
 import { products } from 'src/app/models/products.models';
 import { Product } from '../../core/models/products-models/products.model';
-import { UtilityService , ConfigService } from '@shared';
+import { UtilityService , ConfigService, ToasterService } from '@shared';
 import { ProductsService } from './products.service';
 
 @Component({
@@ -31,7 +31,8 @@ export class ProductsComponent implements OnInit {
 
   constructor(private utils:UtilityService, 
     private configService:ConfigService,
-    private productService:ProductsService) { 
+    private productService:ProductsService,
+    private toasterService:ToasterService) { 
 
     this.initGridConfig();
     this.getGridData();
@@ -43,7 +44,12 @@ export class ProductsComponent implements OnInit {
   getGridData(){
     this.gridOptions.api?.showLoadingOverlay();
     this.productService.getListOfProducts().subscribe(response => {
-      this.utils.setGridData(this.gridOptions,response)
+      this.utils.setGridData(this.gridOptions,response);
+      this.toggleGridOverlay()
+    },(error) => {
+      console.log(error);
+      this.toggleGridOverlay()
+      this.toasterService.error(error)
     })
 }
 
@@ -56,8 +62,11 @@ export class ProductsComponent implements OnInit {
     this.gridOptions.paginationPageSize = 10;
     this.gridOptions.onGridReady = params => {
       params.api.sizeColumnsToFit();
-      params.api.showLoadingOverlay();
     }
+  }
+
+  private toggleGridOverlay(showLoading:boolean = false):void{
+    this.utils.toggleGridOverlay(this.gridOptions,showLoading)
   }
 
   private getGridColumnDefs(): Array<ColDef> {
@@ -108,7 +117,7 @@ export class ProductsComponent implements OnInit {
      width:100,
    },{
     headerName: 'Category',
-    field: 'categoryId',
+    field: 'categoryName',
     cellClass:"text-center",
     width:100,
     headerClass: 'header_one',

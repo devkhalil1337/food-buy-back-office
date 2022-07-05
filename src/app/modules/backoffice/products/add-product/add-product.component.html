@@ -38,9 +38,12 @@
 
                                     <div class="form-group">
                                         <label class="form-label">Category*</label>
-                                        <select id="categtory" name="categtory" class="form-control" formControlName="cateId" [ngClass]="{'border border-danger': productForm.get('cateId').hasError('required') && productForm.get('cateId').touched}">
+                                        <select id="categtory" name="categtory" class="form-control" formControlName="categoryId" 
+                                        [ngClass]="{'border border-danger': productForm.get('categoryId').hasError('required') && productForm.get('categoryId').touched}"
+                                        >
                                             <option value="0" selected disabled>--Select Category--</option>
-                                            <option value="1">Fruits & Vegetables</option>
+                                            <option value="{{category.categoryId}}" *ngFor="let category of categoryList;">{{category.categoryName}}</option>
+                                            <!-- <option value="1">Fruits & Vegetables</option>
                                             <option value="2">Grocery & Staples</option>
                                             <option value="3">Dairy & Eggs</option>
                                             <option value="4">Beverages</option>
@@ -50,7 +53,7 @@
                                             <option value="8">Personal Care</option>
                                             <option value="9">Pet Care</option>
                                             <option value="10">Meat & Seafood</option>
-                                            <option value="11">Electronics</option>
+                                            <option value="11">Electronics</option> -->
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -60,8 +63,8 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Price*</label>
-                                        <input type="text" class="form-control" placeholder="$0" formControlName="productPrice" 
-                                        [ngClass]="{'border border-danger': productForm.get('productPrice').hasError('required') && productForm.get('productPrice').touched}">
+                                        <input type="text" class="form-control" placeholder="$0" formControlName="productDeliveryPrice" 
+                                        [ngClass]="{'border border-danger': productForm.get('productDeliveryPrice').hasError('required') && productForm.get('productDeliveryPrice').touched}">
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Description</label>
@@ -75,14 +78,14 @@
                                         <div class="col-sm-3">
                                             <label class="form-label">Status*</label>
                                             <div class="custom-control custom-checkbox">
-                                              <input type="checkbox" class="custom-control-input" name="productStatus" id="productStatus" formControlName="productStatus">
+                                              <input type="checkbox" class="custom-control-input" name="productStatus" id="productStatus" formControlName="active">
                                               <label class="custom-control-label" for="productStatus">Active</label>
                                             </div>
                                           </div>
                                         <div class="col-sm-3">
                                             <label class="form-label">Feature*</label>
                                             <div class="custom-control custom-checkbox">
-                                              <input type="checkbox" class="custom-control-input" name="productFeature" id="productFeature" formControlName="productFeature">
+                                              <input type="checkbox" class="custom-control-input" name="productFeature" id="productFeature" formControlName="featured">
                                               <label class="custom-control-label" for="productFeature">Active</label>
                                             </div>
                                           </div>
