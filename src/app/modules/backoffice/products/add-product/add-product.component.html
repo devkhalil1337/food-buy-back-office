@@ -6,15 +6,15 @@
             <div class="container-fluid">
                 <h2 class="mt-30 page-title">Products</h2>
                 <ol class="breadcrumb mb-30">
-                    <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                    <li class="breadcrumb-item"><a href="products.html">Products</a></li>
+                    <li class="breadcrumb-item"><a routerLink="/dasboard">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a routerLink="/products">Products</a></li>
                     <li class="breadcrumb-item active">Add Product</li>
                 </ol>
                 <div class="row">
                     <div class="col-lg-6 col-md-6">
                         <div class="card card-static-2 mb-30">
                             <div class="card-title-2">
-                                <h4>Add New Product</h4>
+                                <h4>{{isEditProduct ? 'Edit' : 'Add'}} Product</h4>
                             </div>
                             <div class="card-body-table">
                                 <form [formGroup]="productForm" (ngSubmit)="onProductAdd()">
@@ -90,7 +90,7 @@
                                             </div>
                                           </div>
                                         </div>
-                                        <button class="save-btn hover-btn" type="submit" [disabled]="productForm.invalid">Add New Product</button>
+                                        <button class="save-btn hover-btn" type="submit" [disabled]="productForm.invalid">{{isEditProduct ? 'Update':'Add'}} Product</button>
                                     </div> 
 
                             </form>

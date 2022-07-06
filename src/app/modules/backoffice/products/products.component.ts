@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ColDef, GridOptions } from 'ag-grid-community';
 import { GridColumnType } from '@enums';
-import { products } from 'src/app/models/products.models';
 import { Product } from '../../core/models/products-models/products.model';
 import { UtilityService , ConfigService, ToasterService } from '@shared';
 import { ProductsService } from './products.service';
+import { LinksRenderComponent } from '../../shared/components';
 
 @Component({
   selector: 'app-products',
@@ -114,10 +114,19 @@ export class ProductsComponent implements OnInit {
      headerClass: 'header_one',
      cellClass:"text-center",
      sortable: false,
-     width:100,
+     width:150,
    },{
     headerName: 'Category',
     field: 'categoryName',
+    cellClass:"text-center",
+    width:150,
+    headerClass: 'header_one',
+    sortable: false,
+    type:GridColumnType.text
+  },{
+    headerName: 'Feature',
+    valueGetter: (params) => params.data.featured ? 'Yes':'No',
+    field: 'featured',
     cellClass:"text-center",
     width:100,
     headerClass: 'header_one',
@@ -127,17 +136,25 @@ export class ProductsComponent implements OnInit {
     headerName: 'Price',
     field: 'productDeliveryPrice',
     cellClass:"text-center",
-    width:100,
+    width:150,
     headerClass: 'header_one',
     sortable: false,
     type:GridColumnType.currency
   }, {
-     headerName: 'Created',
+    headerName: 'Actions',
+    field: 'Links',
+    cellClass:"text-center pl-2 pr-0",
+    headerClass: 'header_one  pl-2 pr-0',
+    cellRendererFramework:LinksRenderComponent,
+    sortable: false,
+    width:100,
+  }, {
+     headerName: 'Last Modify date',
      field: 'updateDate',
      cellClass:"text-center",
      headerClass: 'header_one',
      sortable: false,
-     width:150,
+     width:180,
      type:GridColumnType.dateTime
    }];
  }

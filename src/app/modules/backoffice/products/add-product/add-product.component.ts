@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { BusinessId, ToasterService } from '@shared';
 import { CategoryService } from '../../category/category.service';
 import { ProductsService } from '../products.service';
@@ -14,9 +15,20 @@ export class AddProductComponent implements OnInit {
   filePath:string;
   productForm:FormGroup;
   categoryList:any;
-
+  selectedCategoryId:number = 0;
+  selectedProductId:number = 0;
+  isEditProduct:boolean = false;
   constructor(private productService:ProductsService, private CategoryService: CategoryService,
-    private toasterService:ToasterService) { 
+    private toasterService:ToasterService,
+    private activatedRoute: ActivatedRoute) { 
+      this.activatedRoute.queryParams.subscribe(params => {
+        this.selectedCategoryId = params['CategoryId'];
+        this.selectedProductId = params['productId'];
+        this.isEditProduct = true;
+        if(this.isEditProduct)
+          this.getProductById();
+      });
+
 
     this.getTheListOfCategories();
 
@@ -28,9 +40,10 @@ export class AddProductComponent implements OnInit {
 
   initlizeProductForm():void {
     this.productForm = new FormGroup({
+      productId: new FormControl(Number(this.selectedProductId)),
       businessId: new FormControl(Number(BusinessId)),
       productName: new FormControl("",Validators.required),
-      categoryId: new FormControl(0,Validators.required),
+      categoryId: new FormControl(this.selectedCategoryId ? this.selectedCategoryId: 0,Validators.required),
       productDescription: new FormControl(""),
       productImage: new FormControl(""),
       productTablePrice: new FormControl(0),
@@ -49,13 +62,21 @@ export class AddProductComponent implements OnInit {
   }
 
   onProductAdd(){
-    console.log(this.productForm.value);
-    this.productService.addNewProduct(this.productForm.value).subscribe(response => {
-      this.toasterService.success("Product created")
-      },error => {
-        console.log(error)
-        this.toasterService.error(error)
-      })
+    if(this.isEditProduct){
+      this.productService.updateProduct(this.productForm.value).subscribe(response => {
+        this.toasterService.success("Product Updated")
+        },error => {
+          console.log(error)
+          this.toasterService.error(error)
+        })
+    }else{
+      this.productService.addNewProduct(this.productForm.value).subscribe(response => {
+        this.toasterService.success("Product created")
+        },error => {
+          console.log(error)
+          this.toasterService.error(error)
+        })
+    }
   }
 
   getTheListOfCategories(){
@@ -63,6 +84,16 @@ export class AddProductComponent implements OnInit {
       this.categoryList = response;
       console.log(response);
     },error => console.log(error));
+  }
+
+  getProductById(){
+    this.productService.getProductById(this.selectedProductId).subscribe(response => {
+      console.log(response);
+      this.productForm.patchValue(response);
+      },error => {
+        console.log(error)
+        this.toasterService.error(error)
+      })
   }
 
   imagePreview(e) {

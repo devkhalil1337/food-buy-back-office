@@ -11,7 +11,7 @@ export class LinksRenderComponent implements ICellRendererAngularComp {
 
 
   params:ICellRendererParams;
-  queryParams: any = {categoryId : '',queryParamName:''}
+  queryParams: any = {categoryId : '',queryParamName:'',productId:''}
   
   
   constructor() { }
@@ -20,6 +20,11 @@ export class LinksRenderComponent implements ICellRendererAngularComp {
   get EditCategory(){
     this.queryParams = 'CategoryId';
     return "/add-category"
+  }
+
+  get isEditProduct(){
+    
+    return !!(this.queryParams.productId && this.queryParams.categoryId);
   }
   
 
@@ -30,6 +35,7 @@ export class LinksRenderComponent implements ICellRendererAngularComp {
   agInit(params: any): void {
     this.params = params;
     this.queryParams.categoryId = this.params.data.categoryId;
+    this.queryParams.productId = this.params.data.productId;
   }
 
 }

@@ -1,6 +1,10 @@
 
 
-<a [routerLink]="['/add-category']" [queryParams]="{CategoryId:queryParams.categoryId}" title="Edit">
+<a [routerLink]="['/add-category']" [queryParams]="{CategoryId:queryParams.categoryId}" title="Edit" *ngIf="!isEditProduct">
+    <i class="fa fa-edit"></i>
+</a>
+
+<a [routerLink]="['/add-product']" [queryParams]="{CategoryId:queryParams.categoryId,productId:queryParams.productId}" title="Edit" *ngIf="isEditProduct">
     <i class="fa fa-edit"></i>
 </a>
 
