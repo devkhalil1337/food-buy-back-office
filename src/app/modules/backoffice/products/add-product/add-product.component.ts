@@ -24,8 +24,8 @@ export class AddProductComponent implements OnInit {
       this.activatedRoute.queryParams.subscribe(params => {
         this.selectedCategoryId = params['CategoryId'];
         this.selectedProductId = params['productId'];
-        this.isEditProduct = true;
-        if(this.isEditProduct)
+        this.isEditProduct = this.selectedProductId > -1;
+        if(this.selectedProductId)
           this.getProductById();
       });
 
