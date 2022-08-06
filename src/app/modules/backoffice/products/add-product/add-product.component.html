@@ -11,15 +11,13 @@
                     <li class="breadcrumb-item active">Add Product</li>
                 </ol>
                 <div class="row">
-                    <div class="col-lg-6 col-md-6">
+                    <div class="col-lg-12">
                         <div class="card card-static-2 mb-30">
                             <div class="card-title-2">
                                 <h4>{{isEditProduct ? 'Edit' : 'Add'}} Product</h4>
                             </div>
                             <div class="card-body-table">
                                 <form [formGroup]="productForm" (ngSubmit)="onProductAdd()">
-
-
                                 <div class="news-content-right pd-20">
                                     <div class="form-group">
                                         <label class="form-label">Category Image*</label>
@@ -71,7 +69,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Selections</label>
-                                        <ng-selectize  [config]="selectizeConfig" id="selections" name="selections"></ng-selectize>                                       
+                                        <ng-selectize  [config]="selectizeConfig" [options]="selections" id="selections" name="selections" formControlName="selectionId"></ng-selectize>                                       
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Description</label>
@@ -101,50 +99,6 @@
                                     </div> 
 
                             </form>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6">
-                        <div class="card card-static-2 mb-30">
-                            <div class="card-title-2">
-                                <h4>Add Choice of Groups</h4>
-                            </div>
-                            <div class="card-body-table">
-                                <div class="news-content-right pd-20">
-                                    <div class="row">
-                                        <div class="form-group col-sm-6">
-                                          <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name="choice-name-1" id="choice-name-1">
-                                            <label class="custom-control-label" for="choice-name-1">Choice Name</label>
-                                          </div>
-                                        </div>
-                                        <div class="form-group col-sm-6">
-                                          <span> Coke,Sprite</span>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group col-sm-6">
-                                          <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name="choice-name-2" id="choice-name-2">
-                                            <label class="custom-control-label" for="choice-name-2">Choice Name</label>
-                                          </div>
-                                        </div>
-                                        <div class="form-group col-sm-6">
-                                          <span> Coke,Sprite</span>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group col-sm-6">
-                                          <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" name="choice-name-3" id="choice-name-3">
-                                            <label class="custom-control-label" for="choice-name-3">Choice Name</label>
-                                          </div>
-                                        </div>
-                                        <div class="form-group col-sm-6">
-                                          <span> Coke,Sprite</span>
-                                        </div>
-                                    </div>
-                                </div> 
                             </div>
                         </div>
                     </div>

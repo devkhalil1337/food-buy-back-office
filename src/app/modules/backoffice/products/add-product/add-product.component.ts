@@ -19,6 +19,7 @@ export class AddProductComponent implements OnInit {
   selectedProductId:number = 0;
   isEditProduct:boolean = false;
   selectizeConfig:any;
+  selections:any;
   constructor(private productService:ProductsService, private CategoryService: CategoryService,
     private toasterService:ToasterService,
     private activatedRoute: ActivatedRoute,
@@ -33,6 +34,7 @@ export class AddProductComponent implements OnInit {
 
     this.selectizeConfig = this.configService.getSelectizeConfig();
     this.getTheListOfCategories();
+    this.getListOfSelections();
 
   }
 
@@ -44,6 +46,7 @@ export class AddProductComponent implements OnInit {
     this.productForm = new FormGroup({
       productId: new FormControl(Number(this.selectedProductId)),
       businessId: new FormControl(Number(BusinessId)),
+      selectionId:  new FormControl([]),
       productName: new FormControl("",Validators.required),
       categoryId: new FormControl(this.selectedCategoryId ? this.selectedCategoryId: 0,Validators.required),
       productDescription: new FormControl(""),
@@ -92,11 +95,19 @@ export class AddProductComponent implements OnInit {
   getProductById(){
     this.productService.getProductById(this.selectedProductId).subscribe(response => {
       console.log(response);
+      response.productImage = "";
       this.productForm.patchValue(response);
       },error => {
         console.log(error)
         this.toasterService.error(error)
       })
+  }
+
+  getListOfSelections(){
+    this.productService.getListOfSelections().subscribe(response => {
+      this.selections = response;
+      console.log(response);
+    })
   }
 
   imagePreview(e) {
