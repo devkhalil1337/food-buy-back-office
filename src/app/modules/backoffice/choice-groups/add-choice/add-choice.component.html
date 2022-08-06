@@ -20,8 +20,8 @@
                             <div class="card-body-table">
                                 <div class="news-content-right pd-20">
                                     <div class="form-group">
-                                        <label class="form-label">Choice Name* {{ChoiceForm.get('choiceName')}}</label>
-                                        <input type="text" class="form-control" placeholder="Category Name" formControlName='choiceName'
+                                        <label class="form-label">Choice Name*</label>
+                                        <input type="text" class="form-control" placeholder="Choice Name" formControlName='choiceName'
                                         [ngClass]="{'border border-danger': ChoiceForm.get('choiceName').hasError('required') && ChoiceForm.get('choiceName').touched}">
                                     </div>
                                     <div class="form-group">
@@ -32,12 +32,14 @@
                                         <label class="form-label">Maximum Number of Choice*</label>
                                         <input type="text" class="form-control" placeholder="1" formControlName='maxAllowed'>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="form-label">Status*</label>
-                                        <select id="status" name="status" class="form-control">
-                                            <option selected>Active</option>
-                                            <option value="1">Inactive</option>
-                                        </select>
+                                    <div class="row form-group ">
+                                        <div class="col-sm-3">
+                                            <label class="form-label">Status*</label>
+                                            <div class="custom-control custom-checkbox">
+                                              <input type="checkbox" class="custom-control-input" name="status" id="status" formControlName="active">
+                                              <label class="custom-control-label" for="status">Active</label>
+                                            </div>
+                                          </div>
                                     </div>
                                     <button class="save-btn hover-btn" type="submit" [disabled]="ChoiceForm.invalid">Add New Product</button>
                                 </div> 

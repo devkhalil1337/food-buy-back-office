@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ColDef } from 'ag-grid-community';
 import { GridColumnType } from '@enums';
-import { choiceGroupsItems } from 'src/app/models/choice-groups.models';
 import { UtilityService , ConfigService } from '@shared';
+import { ChoiceGroupsService } from './choice-groups.service';
+import { LinksRenderComponent } from '../../shared/components';
 
 @Component({
   selector: 'app-choice-groups',
@@ -20,30 +21,19 @@ export class ChoiceGroupsComponent implements OnInit {
     return false;
   }
 
- 
-
-  get selectedChoice(){
-    if(this.gridOptions){
-      const rows = this.gridOptions.api?.getSelectedRows();
-      if(rows && rows.length > 0)
-        return rows[0].id
-    }
-    return false;
-  }
-
-
 
   gridOptions:any;
-  constructor(private utils:UtilityService, private configService:ConfigService) { 
+  constructor(private utils:UtilityService, private configService:ConfigService, private choiceOfGroupServices:ChoiceGroupsService) { 
 
     this.initGridConfig();
   }
 
   ngOnInit(): void {
     this.gridOptions.api?.showLoadingOverlay();
-      setTimeout(() => 
-      this.utils.setGridData(this.gridOptions,choiceGroupsItems)
-      ,2000)
+    this.choiceOfGroupServices.getListOfSelections().subscribe(response => {
+      console.log(response);
+      this.utils.setGridData(this.gridOptions,response)
+    })
   }
 
 
@@ -80,7 +70,7 @@ export class ChoiceGroupsComponent implements OnInit {
     },
    {
      headerName: 'Select Name',
-     field: 'selectName',
+     field: 'selectionName',
      headerClass: 'header_one',
      cellClass:"text-center",
      sortable: false,
@@ -91,8 +81,8 @@ export class ChoiceGroupsComponent implements OnInit {
      field: 'modifiers',
      valueFormatter: params => {
       let str = "";
-      params.data.modifiers.forEach(elm => {
-          str += elm.modifierName + ',' ;
+      params.data.selectionChocices.forEach(elm => {
+          str += elm.choiceName + ',' ;
       });
       return str;
     },
@@ -102,8 +92,16 @@ export class ChoiceGroupsComponent implements OnInit {
      sortable: false,
      type:GridColumnType.text
    }, {
+    headerName: 'Actions',
+    field: 'Links',
+    cellClass:"text-center pl-2 pr-0",
+    headerClass: 'header_one  pl-2 pr-0',
+    cellRendererFramework:LinksRenderComponent,
+    sortable: false,
+    width:100,
+  }, {
      headerName: 'Date',
-     field: 'orderDate',
+     field: 'updateDate',
      cellClass:"text-center",
      headerClass: 'header_one',
      sortable: false,

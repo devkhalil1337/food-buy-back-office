@@ -27,6 +27,7 @@ export class AddChoiceComponent implements OnInit {
           choiceName: [null, [Validators.required]],
           miniAllowed: [1],
           maxAllowed: [1],
+          active:true,
           modifiers:this.fb.array([this.onAddMoreModifiers()],Validators.required)
         })
 
