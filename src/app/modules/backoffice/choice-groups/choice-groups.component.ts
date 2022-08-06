@@ -71,6 +71,19 @@ export class ChoiceGroupsComponent implements OnInit {
     {
       ...headerColumn
     },
+    {
+     headerName: 'Status',
+     headerClass:'header_one',
+     field: 'status',
+     editable:false,
+     sortable: true, 
+     sort: 'desc',
+     valueGetter: (params) => params.data.active ? 'Active':'In Active',
+     cellRenderer: (params) => { 
+       return `<span class='badge-item badge-status w-100'>${params.value || ''}</span>`
+     },
+     maxWidth:150
+   },
    {
      headerName: 'Select Name',
      field: 'selectionName',
