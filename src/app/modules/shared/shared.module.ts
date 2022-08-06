@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LinksRenderComponent } from './components/links-render/links-render.component';
 import { RouterModule } from '@angular/router';
+import { NgSelectizeModule } from 'ng-selectize';
 
 
 @NgModule({
@@ -13,8 +14,9 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    NgSelectizeModule
   ],
-  exports:[FormsModule,ReactiveFormsModule]
+  exports:[FormsModule,ReactiveFormsModule,NgSelectizeModule]
 })
 export class SharedModule { }

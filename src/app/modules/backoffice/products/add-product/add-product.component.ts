@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { BusinessId, ToasterService } from '@shared';
+import { BusinessId, ConfigService, ToasterService } from '@shared';
 import { CategoryService } from '../../category/category.service';
 import { ProductsService } from '../products.service';
 
@@ -18,9 +18,11 @@ export class AddProductComponent implements OnInit {
   selectedCategoryId:number = 0;
   selectedProductId:number = 0;
   isEditProduct:boolean = false;
+  selectizeConfig:any;
   constructor(private productService:ProductsService, private CategoryService: CategoryService,
     private toasterService:ToasterService,
-    private activatedRoute: ActivatedRoute) { 
+    private activatedRoute: ActivatedRoute,
+    private configService:ConfigService) { 
       this.activatedRoute.queryParams.subscribe(params => {
         this.selectedCategoryId = params['CategoryId'];
         this.selectedProductId = params['productId'];
@@ -29,7 +31,7 @@ export class AddProductComponent implements OnInit {
           this.getProductById();
       });
 
-
+    this.selectizeConfig = this.configService.getSelectizeConfig();
     this.getTheListOfCategories();
 
   }

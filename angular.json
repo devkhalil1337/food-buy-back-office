@@ -41,6 +41,8 @@
               "src/assets/vendor/fontawesome-free/css/all.min.css",
               "src/assets/css/ag-grid.css",
               "src/assets/css/ag-theme-material.css",
+              "node_modules/selectize/dist/css/selectize.css",
+              "node_modules/selectize/dist/css/selectize.bootstrap3.css",
               "node_modules/noty/lib/noty.css",
               "node_modules/noty/lib/themes/metroui.css"
 
@@ -54,6 +56,8 @@
               "src/assets/vendor/chart/accessibility.js",
               "src/assets/js/scripts.js",
               "src/assets/js/chart.js",
+              "node_modules/semantic-ui-css/semantic.min.js",
+              "node_modules/ng-selectize/assets/selectize.standalone.js",
               "node_modules/noty/lib/noty.min.js"
             ]
           },
