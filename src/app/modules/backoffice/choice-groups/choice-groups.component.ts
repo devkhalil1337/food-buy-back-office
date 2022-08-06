@@ -31,8 +31,12 @@ export class ChoiceGroupsComponent implements OnInit {
   ngOnInit(): void {
     this.gridOptions.api?.showLoadingOverlay();
     this.choiceOfGroupServices.getListOfSelections().subscribe(response => {
-      console.log(response);
       this.utils.setGridData(this.gridOptions,response)
+      this.toggleGridOverlay();
+    },(error) => {
+      console.log(error);
+      this.toggleGridOverlay()
+      // this.toasterService.error(error)
     })
   }
 
@@ -49,7 +53,6 @@ export class ChoiceGroupsComponent implements OnInit {
 
     this.gridOptions.onGridReady = params => {
       params.api.sizeColumnsToFit();
-      params.api.showLoadingOverlay();
     }
   }
 
@@ -78,14 +81,8 @@ export class ChoiceGroupsComponent implements OnInit {
      rowDrag: true
    },{
      headerName: 'Modifiers',
-     field: 'modifiers',
-     valueFormatter: params => {
-      let str = "";
-      params.data.selectionChocices.forEach(elm => {
-          str += elm.choiceName + ',' ;
-      });
-      return str;
-    },
+     field: 'selectionChoices',
+     valueFormatter: params => params.value && params.value.length > 0 ? params.value.map(element => element.choiceName).join(","):'',
      cellClass:"text-center",
      width:100,
      headerClass: 'header_one',
@@ -108,6 +105,10 @@ export class ChoiceGroupsComponent implements OnInit {
      width:100,
      type:GridColumnType.dateTime
    }];
+ }
+
+ private toggleGridOverlay(showLoading:boolean = false):void{
+    this.utils.toggleGridOverlay(this.gridOptions,showLoading)
  }
 
 }
