@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ApiService,BusinessId } from '@shared';
-import { map } from 'rxjs/internal/operators/map';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
