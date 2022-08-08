@@ -1,0 +1,71 @@
+<app-header></app-header>
+<div id="layoutSidenav">
+    <app-sidepanel></app-sidepanel>
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid">
+                <h2 class="mt-30 page-title">Business Info</h2>
+                <ol class="breadcrumb mb-30">
+                    <li class="breadcrumb-item"><a routerLink="/dashboard">Dashboard</a></li>
+                    <li class="breadcrumb-item active">Settings</li>
+                </ol>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="card card-static-2 mb-30">
+                            <div class="card-title-2">
+                                <h4>Business Profile</h4> 
+                            </div>
+                            <div class="card-body-table">
+                                <div class="news-content-right pd-20">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <label> Business Hours</label>
+
+                                            
+                                            <!-- Start of time -->
+                                            <div class="row" *ngFor="let businessHr of businessHours;">
+                                                <div class="col-sm-4 form-group form-inline">
+                                                  <table>
+                                                    <td>
+                                                      <div class="form-group">
+                                                        <label class="col-sm-6 col-form-label">{{businessHr.weekDayName}}</label>
+                                                      </div>
+                                                    </td>
+                                                    <td>
+                                                      <div class="custom-control  custom-switch mr-3">
+                                                        <input type="checkbox" class="custom-control-input" id="customSwitch2-{{businessHr.businessDaysId}}" [(ngModel)]="businessHr.active">
+                                                        <label class="custom-control-label" for="customSwitch2-{{businessHr.businessDaysId}}">{{businessHr.active ? 'Open':'Closed'}}</label>
+                                                      </div>
+                                                    </td>
+                                                  </table>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                  <div class="form-group form-inline">
+                                                      <div *ngIf="businessHr.businessTimes.length > 0">
+                                                            <div class="form-group  w-100" *ngFor="let businessTimes of businessHr.businessTimes;">
+                                                            <input type="time" class="uk-input" class="form-control mr-5" id="startDate-{{businessHr.businessDaysId}}" [(ngModel)]="businessTimes.startTime" (change)="onDateChange(businessTimes,'startDate')" [disabled]="!businessHr.active">
+                                                            <input type="time" class="form-control mr-5" id="endDate-{{businessHr.businessDaysId}}" [(ngModel)]="businessTimes.endTime" (change)="onDateChange(businessTimes,'endDate')" [disabled]="!businessHr.active">
+                                                            <a href="">Add Hours</a>
+                                                        </div>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                              <!-- End of time -->
+                                          </div>
+                                      </div>
+                                      <div class="row ">
+                                        <div class="col-sm-12 text-right">
+                                            <button class="save-btn hover-btn" type="button" (click)="onSubmit()">Save Changes</button>
+                                        </div>
+                                      </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <app-footer></app-footer>
+    </div>
+</div>

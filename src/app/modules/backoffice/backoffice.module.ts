@@ -15,6 +15,7 @@ import { BusinessProfileComponent } from './business-profile/business-profile.co
 import { ChoiceGroupsComponent } from './choice-groups/choice-groups.component';
 import { AddChoiceComponent } from './choice-groups/add-choice/add-choice.component';
 import { SettingsComponent } from './settings/settings.component';
+import { BusinessHoursComponent } from './business-hours/business-hours.component';
 
 const routes: Routes = [{
 	path: 'dashboard',
@@ -59,6 +60,9 @@ const routes: Routes = [{
 },{
   path:'settings',
   component:SettingsComponent
+},{
+  path:'business-hours',
+  component:BusinessHoursComponent
 }
 ,{
 	path: "**",
@@ -76,7 +80,8 @@ const routes: Routes = [{
     BusinessProfileComponent,
     ChoiceGroupsComponent,
     AddChoiceComponent,
-    SettingsComponent
+    SettingsComponent,
+    BusinessHoursComponent
   ],
   imports: [
     CommonModule,
