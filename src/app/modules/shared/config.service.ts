@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { GridOptions, ColumnResizedEvent, GridReadyEvent, ColDef } from 'ag-grid-community';
 import { FormatterService } from './format.service';
 import { DateFormats, FormatType } from '@enums';
+import { environment } from 'src/environments/environment';
 
 const MIN_HEIGHT = 56;
 @Injectable()
@@ -734,7 +735,7 @@ export class ConfigService {
 
 export const DefaultItems = ['copy'];
 
-export const BusinessId = localStorage.getItem("bussinessId");
+export const BusinessId = environment.BusinessId; //localStorage.getItem("bussinessId");
 
 // export const GetContextMenu = (isDefaultItems, addDefaultItems) => {
 //   let allDefaultItems;

@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: "http://flyeats.somee.com/api/"
+  apiUrl: "http://flyeats.somee.com/api/",
+  BusinessId:0
 };
 
 /*
