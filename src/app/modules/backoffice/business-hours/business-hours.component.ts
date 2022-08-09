@@ -11,6 +11,7 @@ import { BusinessHoursService } from './business-hours.service';
 })
 export class BusinessHoursComponent implements OnInit {
 
+  loading:boolean = false;
   businessHours:Array<BusinessHours>;
 
   constructor(private _businessHoursService:BusinessHoursService,
@@ -31,14 +32,17 @@ export class BusinessHoursComponent implements OnInit {
 
 
   onSubmit(){
+    this.loading = true;
     this._businessHoursService.onUpdateBusinessHours(this.businessHours).subscribe(response => {
       if(response && response.message.length > 0)
         this.toasterService.warn(response.message);
       else
         this.toasterService.success("Business Time updated successfully!");
       this.getBusinessHours();
+      this.loading = false;
     },(error) => {
       console.log(error);
+      this.loading = false;
       this.toasterService.error(error)
     });
   }

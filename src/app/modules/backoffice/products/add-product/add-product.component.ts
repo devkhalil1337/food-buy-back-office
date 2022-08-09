@@ -12,6 +12,7 @@ import { ProductsService } from '../products.service';
 })
 export class AddProductComponent implements OnInit {
 
+  loading:boolean = false;
   filePath:string;
   productForm:FormGroup;
   categoryList:any;
@@ -68,18 +69,23 @@ export class AddProductComponent implements OnInit {
   }
 
   onProductAdd(){
+    this.loading = true;
     if(this.isEditProduct){
       this.productService.updateProduct(this.productForm.value).subscribe(response => {
-        this.toasterService.success("Product Updated")
+        this.toasterService.success("Product Updated");
+        this.loading = false;
         },error => {
           console.log(error)
+          this.loading = false;
           this.toasterService.error(error)
         })
     }else{
       this.productService.addNewProduct(this.productForm.value).subscribe(response => {
         this.toasterService.success("Product created")
+        this.loading = false;
         },error => {
           console.log(error)
+          this.loading = false;
           this.toasterService.error(error)
         })
     }
@@ -88,13 +94,11 @@ export class AddProductComponent implements OnInit {
   getTheListOfCategories(){
     this.CategoryService.getListOfCategories().subscribe(response => {
       this.categoryList = response;
-      console.log(response);
     },error => console.log(error));
   }
 
   getProductById(){
     this.productService.getProductById(this.selectedProductId).subscribe(response => {
-      console.log(response);
       response.productImage = "";
       this.productForm.patchValue(response);
       },error => {
@@ -106,7 +110,6 @@ export class AddProductComponent implements OnInit {
   getListOfSelections(){
     this.productService.getListOfSelections().subscribe(response => {
       this.selections = response;
-      console.log(response);
     })
   }
 

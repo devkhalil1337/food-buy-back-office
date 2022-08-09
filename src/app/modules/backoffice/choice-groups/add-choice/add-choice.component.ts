@@ -12,6 +12,7 @@ import { ChoiceGroupsService } from '../choice-groups.service';
 })
 export class AddChoiceComponent implements OnInit {
 
+  loading:boolean = false;
   selectedChoiceId:number;  
   selectedSelection:any
   get ModifersArray():FormArray{
@@ -39,20 +40,25 @@ export class AddChoiceComponent implements OnInit {
   ngOnInit(): void { }
 
   OnAddChoice() {
+    this.loading = true;
     if(this.selectedChoiceId){
       this.choiceOfGroupServices.onUpdateSelection(this.ChoiceForm.value).subscribe(response => {
         if(response && response.success)
           this.toasterService.success("Product has been updated")
+          this.loading = false;
       },(error) => {
         console.log(error);
+        this.loading = false;
         this.toasterService.error(error)
       })
     }else{
       this.choiceOfGroupServices.onAddEditSelection(this.ChoiceForm.value).subscribe(response => {
         if(response && response.success)
           this.toasterService.success("Product has been added")
+          this.loading = false;
       },(error) => {
         console.log(error);
+        this.loading = false;
         this.toasterService.error(error)
       })
     }

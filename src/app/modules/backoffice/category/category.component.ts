@@ -103,7 +103,6 @@ export class CategoryComponent implements OnInit {
   }
 
   private onDropRow(params:any){
-    console.log("Action Updated",params)
     if(params.overIndex == -1 || params.overIndex == params.overNode.rowIndex) 
       return;
   }

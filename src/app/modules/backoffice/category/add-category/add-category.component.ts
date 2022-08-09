@@ -13,7 +13,7 @@ import { CategoryService } from '../category.service';
 })
 export class AddCategoryComponent implements OnInit {
 
-
+  loading:boolean = false;
   categoryForm:FormGroup;
   selectedCategoryId:number;
   constructor(private categoryService:CategoryService, 
@@ -51,20 +51,24 @@ export class AddCategoryComponent implements OnInit {
 
 
   onSubmit(){
+    this.loading = true;
     let category = new Category(this.categoryForm.value);
     if(this.selectedCategoryId){
       this.categoryService.onUpdateCategory(category).subscribe(response => {
-        console.log(response);
-        this.toasterService.success("category updated")
+        this.toasterService.success("category updated");
+        this.loading = false;
       },error => {
         console.log(error)
+        this.loading = false;
         this.toasterService.error(error)
       })
     }else{
       this.categoryService.onCreateCategory(category).subscribe(response => {
         this.toasterService.success("category created")
+        this.loading = false;
       },error => {
         console.log(error)
+        this.loading = false;
         this.toasterService.error(error)
       })
     }

@@ -9,7 +9,6 @@ const MIN_HEIGHT = 56;
 export class ConfigService {
 
   constructor( private formatter: FormatterService) {
-    console.log("service called")
   }
 
 

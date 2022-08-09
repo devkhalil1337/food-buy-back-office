@@ -12,7 +12,7 @@ export class BusinessProfileComponent implements OnInit {
 
   filePath:string;
   isTempraryClose:boolean = false;
-
+  loading:boolean = false;
   businessProfileForm:FormGroup;
 
 
@@ -61,7 +61,6 @@ export class BusinessProfileComponent implements OnInit {
 
   getBusinessProfile(){
     this.buProfileService.getBusinessProfile().subscribe(response => {
-        console.log(response);
         this.businessProfileForm.patchValue(response); 
     },(error) => {
       console.log(error);
@@ -69,11 +68,14 @@ export class BusinessProfileComponent implements OnInit {
   }
 
   onSave():void {
+    this.loading = true;
     this.buProfileService.onUpdateBusinessProfile(this.businessProfileForm.value).subscribe(response => {
       this.toasterService.success("business info updated");
       this.getBusinessProfile();
+      this.loading = false;
     },(error) => {
       console.log(error);
+      this.loading = false;
       this.toasterService.error(error)
     });
   }

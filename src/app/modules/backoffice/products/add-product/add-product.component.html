@@ -95,7 +95,7 @@
                                             </div>
                                           </div>
                                         </div>
-                                        <button class="save-btn hover-btn" type="submit" [disabled]="productForm.invalid">{{isEditProduct ? 'Update':'Add'}} Product</button>
+                                        <button class="save-btn hover-btn" type="submit" [disabled]="productForm.invalid">{{isEditProduct ? 'Update':'Add'}} Product <i class="fa fa-spin" style="font-size:24px" [class.fa-spinner]="loading"></i></button>
                                     </div> 
 
                             </form>
