@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ColDef, GridOptions } from 'ag-grid-community';
 import { GridColumnType } from '@enums';
 import { Product } from '../../core/models/products-models/products.model';
-import { UtilityService , ConfigService, ToasterService } from '@shared';
+import { UtilityService , ConfigService, ToasterService, imagesPathUrl } from '@shared';
 import { ProductsService } from './products.service';
 import { LinksRenderComponent } from '../../shared/components';
 
@@ -104,9 +104,10 @@ export class ProductsComponent implements OnInit {
       headerName: 'Image',
       field: 'productImage',
       headerClass: 'header_one',
+      cellRenderer: params =>  params.data.productImage ? '<img border="0" width = "50" height="50" src='+`${imagesPathUrl}/Images/${params.data.productImage}`+' >':'',
       cellClass:"text-center",
       sortable: false,
-      width:100,
+      width:150,
     },
    {
      headerName: 'Product Name',

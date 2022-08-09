@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   apiUrl: "http://flyeats.somee.com/api/",
+  imagesPathUrl: "http://flyeats.somee.com",
   BusinessId:0
 };
 

@@ -736,6 +736,9 @@ export const DefaultItems = ['copy'];
 
 export const BusinessId = environment.BusinessId; //localStorage.getItem("bussinessId");
 
+
+export const imagesPathUrl = environment.imagesPathUrl
+
 // export const GetContextMenu = (isDefaultItems, addDefaultItems) => {
 //   let allDefaultItems;
 

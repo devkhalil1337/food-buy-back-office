@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { BusinessId, ConfigService, ToasterService } from '@shared';
+import { BusinessId, ConfigService, imagesPathUrl, ToasterService } from '@shared';
+import { forkJoin } from 'rxjs';
+import { finalize } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 import { CategoryService } from '../../category/category.service';
 import { ProductsService } from '../products.service';
 
@@ -13,7 +16,8 @@ import { ProductsService } from '../products.service';
 export class AddProductComponent implements OnInit {
 
   loading:boolean = false;
-  filePath:string;
+  filePath:String;
+  productImage:any;
   productForm:FormGroup;
   categoryList:any;
   selectedCategoryId:number = 0;
@@ -68,26 +72,36 @@ export class AddProductComponent implements OnInit {
     })
   }
 
-  onProductAdd(){
+  onProductAdd() {
     this.loading = true;
-    if(this.isEditProduct){
-      this.productService.updateProduct(this.productForm.value).subscribe(response => {
-        this.toasterService.success("Product Updated");
+    if(this.isEditProduct) {
+      this.productService.updateProduct(this.productForm.value).pipe(finalize(() => {
+        if(this.productImage) this.onImageUpload();
+      })).subscribe(response => {
+        if(response && response.message && response.message.length > 0)
+          this.toasterService.error(response.message)
+        else
+          this.toasterService.success("Product updated!")
         this.loading = false;
-        },error => {
-          console.log(error)
-          this.loading = false;
-          this.toasterService.error(error)
-        })
-    }else{
-      this.productService.addNewProduct(this.productForm.value).subscribe(response => {
-        this.toasterService.success("Product created")
+      }, error => {
+        console.log(error)
         this.loading = false;
-        },error => {
-          console.log(error)
-          this.loading = false;
-          this.toasterService.error(error)
-        })
+        this.toasterService.error(error)
+      })
+    } else {
+      this.productService.addNewProduct(this.productForm.value).pipe(finalize(() => {
+        if(this.productImage) this.onImageUpload();
+      })).subscribe(response => {
+        if(response && response.message && response.message.length > 0)
+          this.toasterService.error(response.message)
+        else
+          this.toasterService.success("Product created!")
+        this.loading = false;
+      }, error => {
+        console.log(error)
+        this.loading = false;
+        this.toasterService.error(error)
+      })
     }
   }
 
@@ -99,7 +113,7 @@ export class AddProductComponent implements OnInit {
 
   getProductById(){
     this.productService.getProductById(this.selectedProductId).subscribe(response => {
-      response.productImage = "";
+      this.filePath = `${imagesPathUrl}/Images/${response.productImage}`
       this.productForm.patchValue(response);
       },error => {
         console.log(error)
@@ -115,11 +129,28 @@ export class AddProductComponent implements OnInit {
 
   imagePreview(e) {
     const file = (e.target as HTMLInputElement).files[0];
+    this.productImage = file;
+    this.productForm.patchValue({
+      productImage:file.name
+    })
     const reader = new FileReader();
     reader.onload = () => {
       this.filePath = reader.result as string;
     }
     reader.readAsDataURL(file)
+  }
+
+
+  onImageUpload(): void {
+    const formData = new FormData();
+    formData.append('file', this.productImage, this.productImage.name);
+    this.productService.updateProductImage(formData).subscribe(response => {
+      this.loading = false;
+    }, error => {
+      console.log(error)
+      this.loading = false;
+      this.toasterService.error(error)
+    })
   }
 
 }

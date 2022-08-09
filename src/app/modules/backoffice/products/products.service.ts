@@ -42,6 +42,10 @@ export class ProductsService {
     return this.apiService.request("put",`Products/UpdateProduct`,product);
   }
   
+
+  updateProductImage(formData){
+    return this.apiService.request("post",`Products/Upload`,formData);
+  }
   
 
 

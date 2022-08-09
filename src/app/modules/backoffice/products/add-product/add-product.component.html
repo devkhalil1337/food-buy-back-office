@@ -20,12 +20,11 @@
                                 <form [formGroup]="productForm" (ngSubmit)="onProductAdd()">
                                 <div class="news-content-right pd-20">
                                     <div class="form-group">
-                                        <label class="form-label">Category Image*</label>
+                                        <label class="form-label">Product Image*</label>
                                         <div class="input-group">
                                             <div class="custom-file">
-                                                <input type='file' (change)="imagePreview($event);" class="custom-file-input" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04"
-                                                formControlName="productImage">
-                                                <label class="custom-file-label"  for="inputGroupFile04">Choose Image</label>
+                                                <input type='file' (change)="imagePreview($event);" class="custom-file-input" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04">
+                                                <label class="custom-file-label"  for="inputGroupFile04" >Choose Image</label>
                                             </div>
                                         </div>
                                         <div class="add-cate-img-1">
