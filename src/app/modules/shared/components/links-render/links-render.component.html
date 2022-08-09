@@ -1,6 +1,6 @@
 
 
-<a [routerLink]="['/add-category']" [queryParams]="{CategoryId:queryParams.categoryId}" title="Edit Category" *ngIf="queryParams.categoryName">
+<a [routerLink]="['/add-category']" [queryParams]="{CategoryId:queryParams.categoryId}" title="Edit Category" *ngIf="queryParams.categoryName && !queryParams.productName">
     <i class="fa fa-edit"></i>
 </a>
 
