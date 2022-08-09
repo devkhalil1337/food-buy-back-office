@@ -1,14 +1,14 @@
 
 
-<a [routerLink]="['/add-category']" [queryParams]="{CategoryId:queryParams.categoryId}" title="Edit" *ngIf="queryParams.categoryId && !queryParams.productId">
+<a [routerLink]="['/add-category']" [queryParams]="{CategoryId:queryParams.categoryId}" title="Edit Category" *ngIf="queryParams.categoryName">
     <i class="fa fa-edit"></i>
 </a>
 
-<a [routerLink]="['/add-product']" [queryParams]="{CategoryId:queryParams.categoryId,productId:queryParams.productId}" title="Edit" *ngIf="queryParams.productId">
+<a [routerLink]="['/add-product']" [queryParams]="{CategoryId:queryParams.categoryId,productId:queryParams.productId}" title="Edit Product" *ngIf="queryParams.productName">
     <i class="fa fa-edit"></i>
 </a>
 
-<a [routerLink]="['/add-choice']" [queryParams]="{choiceId:queryParams.selectionId}" *ngIf="queryParams.selectionId" title="Edit">
+<a [routerLink]="['/add-choice']" [queryParams]="{choiceId:queryParams.selectionId}" *ngIf="queryParams.selectionName" title="Edit Choice">
     <i class="fa fa-edit"></i>
 </a>
 
