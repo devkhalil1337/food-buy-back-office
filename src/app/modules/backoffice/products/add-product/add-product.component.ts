@@ -24,6 +24,7 @@ export class AddProductComponent implements OnInit {
   selectedProductId:number = 0;
   isEditProduct:boolean = false;
   selectizeConfig:any;
+  categorySelectizeConfig:any;
   selections:any;
   constructor(private productService:ProductsService, private CategoryService: CategoryService,
     private toasterService:ToasterService,
@@ -38,6 +39,7 @@ export class AddProductComponent implements OnInit {
       });
 
     this.selectizeConfig = this.configService.getSelectizeConfig();
+    this.categorySelectizeConfig = this.configService.getSelectizeConfig(1);
     this.getTheListOfCategories();
     this.getListOfSelections();
 
@@ -107,6 +109,7 @@ export class AddProductComponent implements OnInit {
 
   getTheListOfCategories(){
     this.CategoryService.getListOfCategories().subscribe(response => {
+      console.log(response);
       this.categoryList = response;
     },error => console.log(error));
   }

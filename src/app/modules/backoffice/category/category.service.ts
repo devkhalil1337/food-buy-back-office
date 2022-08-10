@@ -14,7 +14,13 @@ export class CategoryService {
   getListOfCategories(){
     const businessId = BusinessId;
     return this.apiService.request("get",`Categories/GetAllCategories?businessId=${businessId}`).pipe(map((response:any) => {
-      return response || [];
+      return response && response.map(element => {
+        return {
+          id:element.categoryId,
+          label:element.categoryName,
+          value:element.categoryId
+        }
+      }) || [];
     }));
   }
 

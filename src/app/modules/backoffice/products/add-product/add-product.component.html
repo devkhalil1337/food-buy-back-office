@@ -35,26 +35,8 @@
 
                                     <div class="form-group">
                                         <label class="form-label">Category*</label>
-                                        <select id="categtory" name="categtory" class="form-control" formControlName="categoryId" 
-                                        [ngClass]="{'border border-danger': productForm.get('categoryId').hasError('required') && productForm.get('categoryId').touched}"
-                                        >
-                                            <option value="0" selected disabled>--Select Category--</option>
-                                            <option value="{{category.categoryId}}" *ngFor="let category of categoryList;">{{category.categoryName}}</option>
-                                            <!-- <option value="1">Fruits & Vegetables</option>
-                                            <option value="2">Grocery & Staples</option>
-                                            <option value="3">Dairy & Eggs</option>
-                                            <option value="4">Beverages</option>
-                                            <option value="5">Snacks</option>
-                                            <option value="6">Home Care</option>
-                                            <option value="7">Noodles & Sauces</option>
-                                            <option value="8">Personal Care</option>
-                                            <option value="9">Pet Care</option>
-                                            <option value="10">Meat & Seafood</option>
-                                            <option value="11">Electronics</option> -->
-                                        </select>
-
-                                        <!-- <ng-selectize required [config]="config" [options] = "categoryList" formControlName="categoryId"   id="categtory" name="categtory"
-                                        [ngClass]="{'border border-danger': productForm.get('categoryId').hasError('required') && productForm.get('categoryId').touched}"></ng-selectize>                                        -->
+                                        <ng-selectize required [config]="categorySelectizeConfig" [options]="categoryList" id="categories" name="categories" formControlName="categoryId"
+                                        [ngClass]="{'border border-danger': productForm.get('categoryId').hasError('required') && productForm.get('categoryId').touched}"></ng-selectize>                                       
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Name*</label>
