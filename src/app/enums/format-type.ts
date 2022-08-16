@@ -86,7 +86,7 @@ export enum FormatType {
   }
 
   export const ToasterDefaults = {
-    toasterTimeout: 36000,
+    toasterTimeout: 3600,
     exportToasterTimeout: 3000,
     theme: 'metroui',
     layout: 'topRight',
