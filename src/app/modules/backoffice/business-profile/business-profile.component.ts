@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ConfigService, FormatterService,ToasterService, BusinessId } from '@shared';
+import { supportedCurrencies } from 'src/app/enums/const';
 import { BusinessProfileService } from './business-profile.service';
 
 @Component({
@@ -14,12 +15,14 @@ export class BusinessProfileComponent implements OnInit {
   isTempraryClose:boolean = false;
   loading:boolean = false;
   businessProfileForm:FormGroup;
-
-
+  selectizeConfig:any;
+  currenciesList:any;
   constructor(private configService:ConfigService,
     private formatterService:FormatterService,
     private buProfileService:BusinessProfileService,
     private toasterService:ToasterService) {
+      this.selectizeConfig = this.configService.getSelectizeConfig(1);
+      this.currenciesList = supportedCurrencies;
       this.getBusinessProfile();
    }
 

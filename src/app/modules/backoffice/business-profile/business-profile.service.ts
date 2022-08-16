@@ -17,7 +17,7 @@ export class BusinessProfileService {
   }
 
   onUpdateBusinessProfile(businessProfile){
-    return this.apiService.request("put",`BusinessInfo/UpdateBusinessUnit`,businessProfile).pipe(map((response:any) => {
+    return this.apiService.request("post",`BusinessInfo/UpdateBusinessUnit`,businessProfile).pipe(map((response:any) => {
       return response || [];
     }));
   }
