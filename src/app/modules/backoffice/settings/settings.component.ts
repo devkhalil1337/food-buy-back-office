@@ -35,6 +35,7 @@ export class SettingsComponent implements OnInit {
       vat: new FormControl(0,Validators.required),
       vatType: new FormControl("Inclusive",Validators.required),
       serviceCharges: new FormControl(0),
+      deliveryCharges: new FormControl(0),
       minimumOrder: new FormControl(0,Validators.required),
       averagePrepareTime: new FormControl(0),
       deliveryTime: new FormControl(0),
