@@ -108,8 +108,7 @@ export class AddProductComponent implements OnInit {
   }
 
   getTheListOfCategories(){
-    this.CategoryService.getListOfCategories().subscribe(response => {
-      console.log(response);
+    this.CategoryService.getCategoriesSelectize().subscribe(response => {
       this.categoryList = response;
     },error => console.log(error));
   }

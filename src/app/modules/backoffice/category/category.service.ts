@@ -11,7 +11,7 @@ export class CategoryService {
   constructor(private apiService:ApiService,private configService:ConfigService) { }
 
 
-  getListOfCategories(){
+  getCategoriesSelectize(){
     const businessId = BusinessId;
     return this.apiService.request("get",`Categories/GetAllCategories?businessId=${businessId}`).pipe(map((response:any) => {
       return response && response.map(element => {
@@ -24,6 +24,12 @@ export class CategoryService {
     }));
   }
 
+  getListOfCategories(){
+    const businessId = BusinessId;
+    return this.apiService.request("get",`Categories/GetAllCategories?businessId=${businessId}`).pipe(map((response:any) => {
+      return response || [];
+    }));
+  }
   
   getCategoryById(categoryId){
     return this.apiService.request("get",`Categories/GetCategoryById?categoryId=${categoryId}`).pipe(map((response:any) => {
