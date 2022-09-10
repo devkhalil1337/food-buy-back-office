@@ -213,7 +213,11 @@ export class AddProductComponent implements OnInit {
   checkIfVariantionExisits(){
     if(this.VariationsArray.value && this.VariationsArray.value.length > 0){
       console.log(this.VariationsArray.value);
-      const _varProduct = this.VariationsArray.value.filter(elm => elm.variationName && !elm.isDeleted)[0]
+      let _varProduct = this.VariationsArray.value.filter(elm => elm.variationName && !elm.isDeleted)
+      if(_varProduct && _varProduct.length > 0)
+        _varProduct = _varProduct[0];
+      else  
+        return;
       this.productForm.patchValue({
         productName:_varProduct.variationName,
         productDeliveryPrice:_varProduct.variationPrice
