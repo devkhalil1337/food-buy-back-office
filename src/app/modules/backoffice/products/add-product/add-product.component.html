@@ -1,91 +1,134 @@
 <app-header></app-header>
 <div id="layoutSidenav">
-    <app-sidepanel></app-sidepanel>
-    <div id="layoutSidenav_content">
-        <main>
-            <div class="container-fluid">
-                <h2 class="mt-30 page-title">Products</h2>
-                <ol class="breadcrumb mb-30">
-                    <li class="breadcrumb-item"><a routerLink="/dasboard">Dashboard</a></li>
-                    <li class="breadcrumb-item"><a routerLink="/products">Products</a></li>
-                    <li class="breadcrumb-item active">Add Product</li>
-                </ol>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="card card-static-2 mb-30">
-                            <div class="card-title-2">
-                                <h4>{{isEditProduct ? 'Edit' : 'Add'}} Product</h4>
-                            </div>
-                            <div class="card-body-table">
-                                <form [formGroup]="productForm" (ngSubmit)="onProductAdd()">
-                                <div class="news-content-right pd-20">
-                                    <div class="form-group">
-                                        <label class="form-label">Product Image*</label>
-                                        <div class="input-group">
-                                            <div class="custom-file">
-                                                <input type='file' (change)="imagePreview($event);" class="custom-file-input" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04">
-                                                <label class="custom-file-label"  for="inputGroupFile04" >Choose Image</label>
-                                            </div>
-                                        </div>
-                                        <div class="add-cate-img-1">
-                                            <img [src]="filePath" alt="">
-                                        </div>
-                                    </div>
-
-
-                                    <div class="form-group">
-                                        <label class="form-label">Category*</label>
-                                        <ng-selectize required [config]="categorySelectizeConfig" [options]="categoryList" id="categories" name="categories" formControlName="categoryId"
-                                        [ngClass]="{'border border-danger': productForm.get('categoryId').hasError('required') && productForm.get('categoryId').touched}"></ng-selectize>                                       
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label">Name*</label>
-                                        <input type="text" class="form-control" placeholder="Product Name" formControlName="productName"
-                                        [ngClass]="{'border border-danger': productForm.get('productName').hasError('required') && productForm.get('productName').touched}">
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label">Price*</label>
-                                        <input type="text" class="form-control" placeholder="$0" formControlName="productDeliveryPrice" 
-                                        [ngClass]="{'border border-danger': productForm.get('productDeliveryPrice').hasError('required') && productForm.get('productDeliveryPrice').touched}">
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label">Selections</label>
-                                        <ng-selectize  [config]="selectizeConfig" [options]="selections" id="selections" name="selections" formControlName="selectionId"></ng-selectize>                                       
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label">Description</label>
-                                        <div class="card card-editor">
-                                            <div class="content-editor">
-                                                <textarea class="text-control" placeholder="Enter Description" formControlName="productDescription"></textarea>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row form-group ">
-                                        <div class="col-sm-3">
-                                            <label class="form-label">Status*</label>
-                                            <div class="custom-control custom-checkbox">
-                                              <input type="checkbox" class="custom-control-input" name="productStatus" id="productStatus" formControlName="active">
-                                              <label class="custom-control-label" for="productStatus">Active</label>
-                                            </div>
-                                          </div>
-                                        <div class="col-sm-3">
-                                            <label class="form-label">Feature*</label>
-                                            <div class="custom-control custom-checkbox">
-                                              <input type="checkbox" class="custom-control-input" name="productFeature" id="productFeature" formControlName="featured">
-                                              <label class="custom-control-label" for="productFeature">Active</label>
-                                            </div>
-                                          </div>
-                                        </div>
-                                        <button class="save-btn hover-btn" type="submit" [disabled]="productForm.invalid">{{isEditProduct ? 'Update':'Add'}} Product <i class="fa fa-spin" style="font-size:24px" [class.fa-spinner]="loading"></i></button>
-                                    </div> 
-
-                            </form>
-                            </div>
-                        </div>
+  <app-sidepanel></app-sidepanel>
+  <div id="layoutSidenav_content">
+    <main>
+      <div class="container-fluid">
+        <h2 class="mt-30 page-title">Products</h2>
+        <ol class="breadcrumb mb-30">
+          <li class="breadcrumb-item"><a routerLink="/dasboard">Dashboard</a></li>
+          <li class="breadcrumb-item"><a routerLink="/products">Products</a></li>
+          <li class="breadcrumb-item active">Add Product</li>
+        </ol>
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card card-static-2 mb-30">
+              <div class="card-title-2">
+                <h4>{{isEditProduct ? 'Edit' : 'Add'}} Product</h4>
+              </div>
+              <div class="card-body-table">
+                <form [formGroup]="productForm" (ngSubmit)="onProductAdd()">
+                <div class="news-content-right pd-20 row">
+                  <div class="form-group  col-sm-6">
+                    <label class="form-label">Category*</label>
+                    <ng-selectize required [config]="categorySelectizeConfig" [options]="categoryList" id="categories" name="categories" formControlName="categoryId"
+                    [ngClass]="{'border border-danger': productForm.get('categoryId').hasError('required') && productForm.get('categoryId').touched}"></ng-selectize>                                       
+                  </div>
+                  <div class="form-group  col-sm-6">
+                    <label class="form-label">Selections</label>
+                    <ng-selectize  [config]="selectizeConfig" [options]="selections" id="selections" name="selections" formControlName="selectionId"></ng-selectize>                                       
+                  </div>
+                  <div class="form-group  col-sm-5" *ngIf="!isVariantExsits">
+                    <label class="form-label">Name*</label>
+                    <input type="text" class="form-control" placeholder="Product Name" formControlName="productName"
+                      [ngClass]="{'border border-danger': productForm.get('productName').hasError('required') && productForm.get('productName').touched}">
+                  </div>
+                  <div class="form-group  col-sm-5" *ngIf="!isVariantExsits">
+                    <label class="form-label">Price*</label>
+                    <input type="text" class="form-control" placeholder="$0" formControlName="productDeliveryPrice" 
+                      [ngClass]="{'border border-danger': productForm.get('productDeliveryPrice').hasError('required') && productForm.get('productDeliveryPrice').touched}">
+                  </div>
+                  <div class="form-group col-sm-10" *ngIf="isVariantExsits">
+                      <div formArrayName="productVariants" *ngFor="let t of VariationsArray.controls; let i = index" >
+                          <div class="row" [formGroupName]="i" *ngIf="!t.get('isDeleted').value">
+                              <div class="col-xs-6 col-sm-6 col-md-6" >
+                                  <div class="form-group" >
+                                      <label class="form-label">Variation Name*</label>
+                                      <input type="text" class="form-control" placeholder="Choice Name"  formControlName='variationName' id="{{'variationName'+i}}"
+                                      [ngClass]="{'border border-danger': t.get('variationName').hasError('required') && t.get('variationName').touched}">
+                                  </div>
+                              </div>
+                              <div class="col-xs-4 col-sm-4">
+                                  <div class="form-group">
+                                      <label class="form-label">Variation Price*</label>
+                                      <input type="text" class="form-control border border-danger" formControlName='variationPrice' id="{{'variationPrice' + i}}"
+                                      [ngClass]="{'border border-danger': t.get('variationPrice').hasError('required') && t.get('variationPrice').touched}"
+                                      >
+                                  </div>
+                              </div>
+                              <div class="col-xs-2 col-sm-2 trash-icon">
+                                  <a  (click)="onRemoveModifer(i);"><i class="fa fa-trash"></i></a>
+                              </div>
+                          </div>
+                      </div>
+                      <!-- <button class="save-btn hover-btn" type="button" (click)='addMoreFields()'>+ Add more</button> -->
+                    <!-- <div class="news-content-right pd-20">
+                    </div>  -->
+                  </div>
+                  <!-- <div class="form-group  col-sm-5"  *ngIf="isVariantExsits">
+                    <label class="form-label">Var Name*</label>
+                    <input type="text" class="form-control" placeholder="Product Name" formControlName="productName"
+                      [ngClass]="{'border border-danger': productForm.get('productName').hasError('required') && productForm.get('productName').touched}">
+                  </div>
+                  <div class="form-group  col-sm-5"  *ngIf="isVariantExsits">
+                    <label class="form-label">Var Price*</label>
+                    <input type="text" class="form-control" placeholder="$0" formControlName="productDeliveryPrice" 
+                      [ngClass]="{'border border-danger': productForm.get('productDeliveryPrice').hasError('required') && productForm.get('productDeliveryPrice').touched}">
+                  </div> -->
+                  <div class="form-group col-sm-2">
+                    
+                    <a (click)="onAddVaritians();">
+                        <label class="form-label">Add vartians</label>
+                        <i class="fa fa-plus"></i>
+                    </a>
+                        
+                  </div>
+                  <div class="form-group col-sm-6">
+                    <label class="form-label">Product Image*</label>
+                    <div class="input-group">
+                      <div class="custom-file">
+                        <input type='file' (change)="imagePreview($event);" class="custom-file-input" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04">
+                        <label class="custom-file-label"  for="inputGroupFile04" >Choose Image</label>
+                      </div>
                     </div>
+                    <div class="add-cate-img-1">
+                      <img [src]="filePath" alt="">
+                      </div>
                 </div>
+
+                  <div class="form-group  col-sm-6">
+                    <label class="form-label">Description</label>
+                    <div class="card card-editor">
+                      <div class="content-editor">
+                        <textarea class="text-control" placeholder="Enter Description" formControlName="productDescription"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row form-group col-sm-6 ">
+                    <div class="col-sm-6">
+                      <label class="form-label">Status*</label>
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" name="productStatus" id="productStatus" formControlName="active">
+                        <label class="custom-control-label" for="productStatus">Active</label>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <label class="form-label">Feature*</label>
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" name="productFeature" id="productFeature" formControlName="featured">
+                        <label class="custom-control-label" for="productFeature">Active</label>
+                      </div>
+                    </div>
+                  </div>
+                  <button class="save-btn hover-btn" type="submit" [disabled]="productForm.invalid">{{isEditProduct ? 'Update':'Add'}} Product <i class="fa fa-spin" style="font-size:24px" [class.fa-spinner]="loading"></i></button>
+                </div>
+                </form>
+              </div>
             </div>
-        </main>
-        <app-footer></app-footer>
-    </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <app-footer></app-footer>
+  </div>
 </div>

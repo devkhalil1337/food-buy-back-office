@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { BusinessId, ConfigService, imagesPathUrl, ToasterService } from '@shared';
 import { forkJoin } from 'rxjs';
@@ -26,10 +26,20 @@ export class AddProductComponent implements OnInit {
   selectizeConfig:any;
   categorySelectizeConfig:any;
   selections:any;
+
+  isVariantExsits:boolean = false;
+
+  get VariationsArray():FormArray{
+    return <FormArray> this.productForm.get('productVariants');
+  }
+
+
+
   constructor(private productService:ProductsService, private CategoryService: CategoryService,
     private toasterService:ToasterService,
     private activatedRoute: ActivatedRoute,
-    private configService:ConfigService) { 
+    private configService:ConfigService,
+    private fb: FormBuilder) { 
       this.activatedRoute.queryParams.subscribe(params => {
         this.selectedCategoryId = params['CategoryId'];
         this.selectedProductId = params['productId'];
@@ -50,15 +60,14 @@ export class AddProductComponent implements OnInit {
   }
 
   initlizeProductForm():void {
-    this.productForm = new FormGroup({
+    this.productForm = this.fb.group({
       productId: new FormControl(Number(this.selectedProductId)),
       businessId: new FormControl(Number(BusinessId)),
       selectionId:  new FormControl([]),
-      productName: new FormControl("",Validators.required),
+      productName: new FormControl(""),
       categoryId: new FormControl(this.selectedCategoryId ? this.selectedCategoryId: 0,Validators.required),
       productDescription: new FormControl(""),
       productImage: new FormControl(""),
-      productVariants: new FormControl([]),
       productTablePrice: new FormControl(0),
       productTableVat: new FormControl(0),
       productPickupPrice: new FormControl(0),
@@ -71,11 +80,13 @@ export class AddProductComponent implements OnInit {
       featured: new FormControl(false),
       isDeleted: new FormControl(false),
       active: new FormControl(true),
+      productVariants:this.fb.array([])
     })
   }
 
   onProductAdd() {
     this.loading = true;
+    this.checkIfVariantionExisits();
     if(this.isEditProduct) {
       this.productService.updateProduct(this.productForm.value).pipe(finalize(() => {
         if(this.productImage) this.onImageUpload();
@@ -116,6 +127,14 @@ export class AddProductComponent implements OnInit {
   getProductById(){
     this.productService.getProductById(this.selectedProductId).subscribe(response => {
       this.filePath = `${imagesPathUrl}/Images/${response.productImage}`
+
+      if(response && response.productVariants && response.productVariants.length > 0){
+        this.isVariantExsits = true;
+        response.productVariants.forEach(element => {
+          this.addMoreFields();
+        });
+      }
+
       this.productForm.patchValue(response);
       },error => {
         console.log(error)
@@ -154,5 +173,53 @@ export class AddProductComponent implements OnInit {
       this.toasterService.error(error)
     })
   }
+
+  onAddVaritians(){
+    
+    if(this.VariationsArray.value && this.VariationsArray.value.length > 0)
+      this.isVariantExsits = true;
+    else
+      this.isVariantExsits = !this.isVariantExsits;
+
+    this.addMoreFields();
+
+    console.log(this.VariationsArray.value);
+  }
+
+
+  addMoreFields() {
+    this.VariationsArray.push(this.onAddMoreModifiers());
+  }
+
+  onAddMoreModifiers():FormGroup{
+    return this.fb.group({
+      variantId:null,
+      variationName:null,
+      variationPrice:null,
+      isDeleted:false,
+      Active:true,
+    })
+  }
+  onRemoveModifer(index:number){
+    (this.productForm.get('productVariants') as FormArray).controls[index].patchValue({
+      isDeleted:true
+    });
+    if(this.productForm.get('productVariants').value.every(elm => elm.isDeleted))
+      this.isVariantExsits = false;
+    // (this.productForm.get('productVariants') as FormArray).removeAt(index);
+  }
+
+
+  checkIfVariantionExisits(){
+    if(this.VariationsArray.value && this.VariationsArray.value.length > 0){
+      console.log(this.VariationsArray.value);
+      const _varProduct = this.VariationsArray.value.filter(elm => elm.variationName && !elm.isDeleted)[0]
+      this.productForm.patchValue({
+        productName:_varProduct.variationName,
+        productDeliveryPrice:_varProduct.variationPrice
+      })
+    }
+  }
+
 
 }
