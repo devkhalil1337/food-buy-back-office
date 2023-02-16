@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ColDef, GridOptions } from 'ag-grid-community';
 import { GridColumnType } from '@enums';
 import { UtilityService , ConfigService} from '@shared';
+import { OrdersService } from './orders.service';
 
 @Component({
   selector: 'app-orders',
@@ -15,7 +16,7 @@ export class OrdersComponent  implements OnInit {
   gridOptions: GridOptions
 
   StatusTypes = [
-    {label:"In Progress","value":"In Progress"},
+    {label:"In Progress","value":"In-Progress"},
     {label:"On the way","value":"On the way"},
     {label:"Cancelled","value":"Cancelled"},
   ];
@@ -30,7 +31,8 @@ export class OrdersComponent  implements OnInit {
   }
   
 
-  constructor(private utils:UtilityService, private configService:ConfigService) { 
+  constructor(private utils:UtilityService, private configService:ConfigService,
+    private ordersService:OrdersService) { 
 
     this.initGridConfig();
     this.getGridData();
@@ -41,10 +43,11 @@ export class OrdersComponent  implements OnInit {
   }
 
   getGridData(){
-      this.gridOptions.api?.showLoadingOverlay();
-      setTimeout(() => 
-      this.utils.setGridData(this.gridOptions,this.rowData)
-      ,3000)
+      // this.gridOptions.api?.showLoadingOverlay();
+      this.ordersService.getAllOrders().subscribe(response => {
+        console.log(response);
+        this.utils.setGridData(this.gridOptions,response)
+      })
   }
 
 
@@ -72,7 +75,7 @@ export class OrdersComponent  implements OnInit {
     this.gridOptions.onPaginationChanged = this.onPageChange.bind(this);
     this.gridOptions.onGridReady = params => {
       params.api.sizeColumnsToFit();
-      params.api.showLoadingOverlay();
+      // params.api.showLoadingOverlay();
     }
   }
 
@@ -89,7 +92,7 @@ export class OrdersComponent  implements OnInit {
       },{
       headerName: 'Status',
       headerClass:'header_one',
-      field: 'status',
+      field: 'orderStatus',
       editable:true,
       sortable: true, 
       sort: 'desc',
@@ -108,7 +111,7 @@ export class OrdersComponent  implements OnInit {
       },
       cellEditor: 'agSelectCellEditor',
       valueGetter: (params) => {
-        const val = params.data.status;
+        const val = params.data.orderStatus;
         return val ? val.toUpperCase() : val;
       },
       cellEditorParams: (params) => {
@@ -122,14 +125,14 @@ export class OrdersComponent  implements OnInit {
     },
     {
       headerName: 'Order Number',
-      field: 'orderNumber',
+      field: 'orderInvoiceNumber',
       headerClass: 'header_one',
       cellClass:"text-center",
       sortable: false,
       width:100,
     },{
       headerName: 'Amount',
-      field: 'totalAmount',
+      field: 'orderTotalAmount',
       cellClass:"text-center",
       width:100,
       headerClass: 'header_one',
@@ -137,7 +140,7 @@ export class OrdersComponent  implements OnInit {
       type:GridColumnType.currency
     }, {
       headerName: 'Date',
-      field: 'orderDate',
+      field: 'creationDate',
       cellClass:"text-center",
       headerClass: 'header_one',
       sortable: false,

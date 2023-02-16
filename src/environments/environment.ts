@@ -4,9 +4,9 @@
 
 export const environment = {
   production: false,
-  apiUrl: "http://flyeats.somee.com/api/",
+  apiUrl: "http://localhost:5112/api/",
   imagesPathUrl: "http://flyeats.somee.com",
-  BusinessId:6
+  BusinessId:1
 };
 
 /*
