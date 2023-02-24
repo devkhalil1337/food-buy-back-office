@@ -3,6 +3,7 @@ import { ColDef, GridOptions } from 'ag-grid-community';
 import { GridColumnType } from '@enums';
 import { UtilityService , ConfigService} from '@shared';
 import { OrdersService } from './orders.service';
+import { RouterlinkrendererComponent } from '../../shared/components/routerlinkrenderer/routerlinkrenderer.component';
 
 @Component({
   selector: 'app-orders',
@@ -130,6 +131,7 @@ export class OrdersComponent  implements OnInit {
       cellClass:"text-center",
       sortable: false,
       width:100,
+      cellRenderer:RouterlinkrendererComponent
     },{
       headerName: 'Amount',
       field: 'orderTotalAmount',

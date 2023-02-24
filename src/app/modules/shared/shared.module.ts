@@ -4,11 +4,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LinksRenderComponent } from './components/links-render/links-render.component';
 import { RouterModule } from '@angular/router';
 import { NgSelectizeModule } from 'ng-selectize';
+import { RouterlinkrendererComponent } from './components/routerlinkrenderer/routerlinkrenderer.component';
 
 
 @NgModule({
   declarations: [
-    LinksRenderComponent
+    LinksRenderComponent,
+    RouterlinkrendererComponent
   ],
   imports: [
     CommonModule,
