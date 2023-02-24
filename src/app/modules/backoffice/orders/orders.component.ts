@@ -72,7 +72,7 @@ export class OrdersComponent  implements OnInit {
     this.gridOptions = this.configService.getGridConfig(false,true);
     this.gridOptions.columnDefs = this.getGridColumnDefs();
     this.gridOptions.pagination = true;
-    this.gridOptions.paginationPageSize = 10;
+    this.gridOptions.paginationPageSize = 100;
     this.gridOptions.onPaginationChanged = this.onPageChange.bind(this);
     this.gridOptions.onGridReady = params => {
       params.api.sizeColumnsToFit();
@@ -95,8 +95,6 @@ export class OrdersComponent  implements OnInit {
       headerClass:'header_one',
       field: 'orderStatus',
       editable:true,
-      sortable: true, 
-      sort: 'desc',
       comparator: (valueA, valueB) => (valueA == valueB) ? 0 : (valueA > valueB) ? 1 : -1,
       // filterParams: {
       //   data: this.StatusTypes
@@ -146,6 +144,7 @@ export class OrdersComponent  implements OnInit {
       cellClass:"text-center",
       headerClass: 'header_one',
       sortable: false,
+      sort: 'desc',
       width:100,
       type:GridColumnType.dateTime
     }];

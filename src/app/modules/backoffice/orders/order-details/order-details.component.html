@@ -15,24 +15,23 @@
                         <div class="card card-static-2 mb-30">
                             <div class="card-title-2">
                                 <h2 class="title1458">Invoice</h2>
-                                <span class="order-id">Order #ORDR-123456</span>
+                                <span class="order-id">Order {{Order?.orderInvoiceNumber}}</span>
                             </div>
                             <div class="invoice-content">
                                 <div class="row">
                                     <div class="col-lg-6 col-sm-6">
                                         <div class="ordr-date">
-                                            <b>Order Date :</b> 29 May 2020
+                                            <b>Order Date :</b> {{Order?.creationDate | date:'MMM d, y, h:mm:ss a'}}
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-sm-6">
                                         <div class="ordr-date right-text">
-                                            <b>Order Date :</b><br>
-                                            #0000, St No. 8,<br>
-                                            Shahid Karnail Singh Nagar,<br>
-                                            MBD Mall,<br>
-                                            Frozpur road,<br>
-                                            Ludhiana,<br>
-                                            141001<br>
+                                            <b>Order Address :</b><br>
+                                            {{address?.zipPostalCode}}<br>
+                                            {{address?.addressLine1}}<br>
+                                            {{address?.addressLine2}}<br>
+                                            {{address?.city}}<br>
+                                            {{address?.stateProvince}}<br>
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
@@ -53,23 +52,22 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr>
-                                                                <td>1</td>
+                                                            <tr *ngFor="let orderdetail of OrderDetails;index as i">
+                                                                <td>{{i+1}}</td>
                                                                 <td>
-                                                                    <a href="#" target="_blank">Product Title Here</a>
+                                                                    <a>{{orderdetail.productName}}</a>
+                                                                    <ul>
+                                                                        <li
+                                                                            *ngFor="let selection of orderdetail.productVariants">
+                                                                            {{selection.choiceName}}</li>
+                                                                    </ul>
                                                                 </td>
-                                                                <td class="text-center">$15</td>
-                                                                <td class="text-center">1</td>
-                                                                <td class="text-center">$15</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>2</td>
-                                                                <td>
-                                                                    <a href="#" target="_blank">Product Title Here</a>
+                                                                <td class="text-center">{{orderdetail.productPrice}}
                                                                 </td>
-                                                                <td class="text-center">$12</td>
-                                                                <td class="text-center">1</td>
-                                                                <td class="text-center">$12</td>
+                                                                <td class="text-center">{{orderdetail.productQuantity}}
+                                                                </td>
+                                                                <td class="text-center">{{orderdetail.productPrice *
+                                                                    orderdetail.productQuantity}}</td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
@@ -84,7 +82,7 @@
                                                 Sub Total
                                             </div>
                                             <div class="order-total-right-text">
-                                                $27
+                                                {{Order?.orderTotalAmount-Order?.orderVoucherDiscountAmount}}
                                             </div>
                                         </div>
                                         <div class="order-total-dt">
@@ -92,7 +90,7 @@
                                                 Delivery Fees
                                             </div>
                                             <div class="order-total-right-text">
-                                                $0
+                                                {{Order?.orderServiceCharges}}
                                             </div>
                                         </div>
                                         <div class="order-total-dt">
@@ -100,7 +98,7 @@
                                                 Total Amount
                                             </div>
                                             <div class="order-total-right-text fsz-18">
-                                                $27
+                                                {{Order?.orderTotalAmount}}
                                             </div>
                                         </div>
                                     </div>
@@ -109,7 +107,7 @@
                                         <div class="select-status">
                                             <label for="status">Status*</label>
                                             <div class="status-active">
-                                                Pending
+                                                {{Order?.orderStatus}}
                                             </div>
                                         </div>
                                     </div>
