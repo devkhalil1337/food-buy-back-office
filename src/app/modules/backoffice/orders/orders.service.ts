@@ -13,4 +13,10 @@ export class OrdersService {
     return this.apiService.request("get",`Order/GetAllProducts?businessId=${environment.BusinessId}`);
   }
 
+  updateOrderStatus(orderNumber,orderStatus){
+    return this.apiService.request("put",`Order/updateOrderStatus?orderNumber=${orderNumber}&orderStatus=${orderStatus}`);
+  }
+
+  
+
 }

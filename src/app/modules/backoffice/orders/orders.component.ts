@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ColDef, GridOptions } from 'ag-grid-community';
-import { GridColumnType } from '@enums';
-import { UtilityService , ConfigService} from '@shared';
+import { GridColumnType, OrderStatus } from '@enums';
+import { UtilityService , ConfigService, ToasterService} from '@shared';
 import { OrdersService } from './orders.service';
 import { RouterlinkrendererComponent } from '../../shared/components/routerlinkrenderer/routerlinkrenderer.component';
 
@@ -15,13 +15,7 @@ import { RouterlinkrendererComponent } from '../../shared/components/routerlinkr
 export class OrdersComponent  implements OnInit {
 
   gridOptions: GridOptions
-
-  StatusTypes = [
-    {label:"In Progress","value":"In-Progress"},
-    {label:"On the way","value":"On the way"},
-    {label:"Cancelled","value":"Cancelled"},
-  ];
-
+  StatusTypes = OrderStatus
 
   get isEditButtonEnable(){
     if(this.gridOptions){
@@ -33,7 +27,7 @@ export class OrdersComponent  implements OnInit {
   
 
   constructor(private utils:UtilityService, private configService:ConfigService,
-    private ordersService:OrdersService) { 
+    private ordersService:OrdersService,private toasterService:ToasterService) { 
 
     this.initGridConfig();
     this.getGridData();
@@ -44,43 +38,28 @@ export class OrdersComponent  implements OnInit {
   }
 
   getGridData(){
-      // this.gridOptions.api?.showLoadingOverlay();
+    this.toggleGridOverlay(true);
       this.ordersService.getAllOrders().subscribe(response => {
-        console.log(response);
         this.utils.setGridData(this.gridOptions,response)
+        this.toggleGridOverlay(false);
+      },(error) => {
+        this.toggleGridOverlay(true);
+        this.toasterService.error(error);
       })
   }
 
-
-  rowData = [
-    { status: "Pending",orderNumber:"123-2312d" , orderDate: "2023/06/10 04:47:49", totalAmount: 35000 },
-    { status: "Delivered", orderNumber:"123-2312d" ,orderDate: "2022/07/20 06:04:01", totalAmount: 32000 },
-    { status: "Pending", orderNumber:"123-2312d" ,orderDate: "2022/12/11 04:22:00", totalAmount: 32000 },
-    { status: "Delivered", orderNumber:"123-2312d" ,orderDate: "2023/01/23 05:54:19", totalAmount: 32000 },
-    { status: "On the way", orderNumber:"123-2312d" ,orderDate: "2023/02/17 15:41:59", totalAmount: 32000 },
-    { status: "Preparing", orderNumber:"123-2312d" ,orderDate: "2023/05/06 00:13:20", totalAmount: 32000 },
-    { status: "Pending", orderNumber:"123-2312d" ,orderDate: "2022/12/08 06:57:42", totalAmount: 32000 },
-    { status: "On the way", orderNumber:"123-2312d" ,orderDate: "2022/10/09 13:37:44", totalAmount: 32000 },
-    { status: "Pending", orderNumber:"123-2312d" ,orderDate: "2022/10/09 13:37:44", totalAmount: 32000 },
-    { status: "Preparing", orderNumber:"123-2312d" ,orderDate: "2022/10/09 13:37:44", totalAmount: 32000 },
-    { status: "Pending", orderNumber:"123-2312d" ,orderDate: "2023/06/15 00:31:00", totalAmount: 32000 },
-    { status: "In Pgoress", orderNumber:"123-2312d" ,orderDate: "2023/06/15 00:31:00", totalAmount: 72000 }
-  ]
-
   private initGridConfig(){
-     
     this.gridOptions = this.configService.getGridConfig(false,true);
     this.gridOptions.columnDefs = this.getGridColumnDefs();
     this.gridOptions.pagination = true;
     this.gridOptions.paginationPageSize = 100;
-    this.gridOptions.onPaginationChanged = this.onPageChange.bind(this);
     this.gridOptions.onGridReady = params => {
       params.api.sizeColumnsToFit();
-      // params.api.showLoadingOverlay();
     }
   }
 
-  private onPageChange = (params:GridOptions) => {
+  private toggleGridOverlay(showLoading:boolean = false):void{
+    this.utils.toggleGridOverlay(this.gridOptions,showLoading)
   }
 
 
@@ -95,30 +74,23 @@ export class OrdersComponent  implements OnInit {
       headerClass:'header_one',
       field: 'orderStatus',
       editable:true,
-      comparator: (valueA, valueB) => (valueA == valueB) ? 0 : (valueA > valueB) ? 1 : -1,
-      // filterParams: {
-      //   data: this.StatusTypes
-      // },
-      // headerComponentFramework: HeaderInfoTooltipComponent,
-      // headerComponentParams: {
-      //   headerToolTip:MediaTooltips.disableEnableRBB
-      // },
+      sortable:false,
       onCellValueChanged: (params) => {
-        if(params.newValue != params.oldValue)
-          console.log(params.newValue)
-        // this.onStatusUpdate(params,true);
+        if(params.newValue != params.oldValue){
+          this.updateStatus(params)
+        }
       },
       cellEditor: 'agSelectCellEditor',
       valueGetter: (params) => {
         const val = params.data.orderStatus;
-        return val ? val.toUpperCase() : val;
+        return val;
       },
       cellEditorParams: (params) => {
         let statusTypes = this.StatusTypes;
-          return { values: statusTypes.map(({ value }) => value) };
+        return { values: statusTypes.map(({ value }) => value) };
       },
       cellRenderer: (params) => { 
-        return `<span class='badge-item badge-status w-100'>${params.value || ''}</span>`
+        return `<span class='badge-item badge-status w-100'>${params.value.toUpperCase() || ''}</span>`
       },
       maxWidth:150
     },
@@ -146,9 +118,22 @@ export class OrdersComponent  implements OnInit {
       sortable: false,
       sort: 'desc',
       width:100,
+      comparator: (valueA, valueB) => (valueA == valueB) ? 0 : (valueA > valueB) ? 1 : -1,
       type:GridColumnType.dateTime
     }];
   }
 
+
+
+  updateStatus(params:any){
+    const orderNumber = params.data.orderInvoiceNumber;
+    const orderStatus = params.newValue;
+    this.ordersService.updateOrderStatus(orderNumber,orderStatus).subscribe(response => {
+      if(response){
+        this.toasterService.success(`Order Status has been updated to ${orderStatus}`)
+      }
+      this.getGridData();
+    })
+  }
 
 }
