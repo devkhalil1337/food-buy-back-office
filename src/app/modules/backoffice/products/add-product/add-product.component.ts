@@ -68,6 +68,7 @@ export class AddProductComponent implements OnInit {
       categoryId: new FormControl(this.selectedCategoryId ? Number(this.selectedCategoryId): 0,Validators.required),
       productDescription: new FormControl(""),
       productImage: new FormControl(""),
+      isTableProduct: new FormControl(false),
       tablePrice: new FormControl(0),
       tableVat: new FormControl(0),
       isPickupProduct: new FormControl(false),
