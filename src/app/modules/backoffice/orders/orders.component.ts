@@ -104,15 +104,15 @@ export class OrdersComponent  implements OnInit {
       cellRenderer:RouterlinkrendererComponent
     },{
       headerName: 'Amount',
-      field: 'orderTotalAmount',
+      field: 'totalAmount',
       cellClass:"text-center",
       width:100,
       headerClass: 'header_one',
       sortable: false,
       type:GridColumnType.currency
-    }, {
+    },{
       headerName: 'Date',
-      field: 'creationDate',
+      field: 'createdDate',
       cellClass:"text-center",
       headerClass: 'header_one',
       sortable: false,
