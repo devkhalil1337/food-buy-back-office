@@ -41,7 +41,7 @@ export class AddProductComponent implements OnInit {
     private configService:ConfigService,
     private fb: FormBuilder) { 
       this.activatedRoute.queryParams.subscribe(params => {
-        this.selectedCategoryId = params['CategoryId'];
+        this.selectedCategoryId = Number(params['CategoryId'])
         this.selectedProductId = params['productId'];
         this.isEditProduct = this.selectedProductId > -1;
         if(this.selectedProductId)
@@ -65,19 +65,21 @@ export class AddProductComponent implements OnInit {
       businessId: new FormControl(Number(BusinessId)),
       selectionId:  new FormControl([]),
       productName: new FormControl(""),
-      categoryId: new FormControl(this.selectedCategoryId ? this.selectedCategoryId: 0,Validators.required),
+      categoryId: new FormControl(this.selectedCategoryId ? Number(this.selectedCategoryId): 0,Validators.required),
       productDescription: new FormControl(""),
       productImage: new FormControl(""),
-      productTablePrice: new FormControl(0),
-      productTableVat: new FormControl(0),
-      productPickupPrice: new FormControl(0),
-      productPickupVat: new FormControl(0),
-      productDeliveryPrice: new FormControl(0),
-      productDeliveryVat: new FormControl(0),
-      productSortBy: new FormControl(0),
-      productQuantity: new FormControl(0),
+      tablePrice: new FormControl(0),
+      tableVat: new FormControl(0),
+      isPickupProduct: new FormControl(false),
+      pickupPrice: new FormControl(0),
+      pickupVat: new FormControl(0),
+      isDeliveryProduct: new FormControl(false),
+      deliveryPrice: new FormControl(0),
+      deliveryVat: new FormControl(0),
       hasVariations: new FormControl(false),
       featured: new FormControl(false),
+      productSortBy: new FormControl(0),
+      productQuantity: new FormControl(0),
       isDeleted: new FormControl(false),
       active: new FormControl(true),
       productVariants:this.fb.array([])
