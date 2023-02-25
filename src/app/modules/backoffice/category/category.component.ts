@@ -95,7 +95,6 @@ export class CategoryComponent implements OnInit {
     this.gridOptions.onPaginationChanged = this.onPageChange.bind(this);
     this.gridOptions.onGridReady = params => {
       params.api.sizeColumnsToFit();
-      params.api.showLoadingOverlay();
     }
   }
 
