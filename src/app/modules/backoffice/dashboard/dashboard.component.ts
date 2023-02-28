@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import * as Highcharts from 'highcharts';
 import HighchartsMore from 'highcharts/highcharts-more';
 import HighchartsSolidGauge from 'highcharts/modules/solid-gauge';
+import { forkJoin } from 'rxjs';
+import { NumberOfOrders } from 'src/app/models/dashboard.model';
+import { DashboardService } from './dashboard.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -10,10 +13,34 @@ import HighchartsSolidGauge from 'highcharts/modules/solid-gauge';
 export class DashboardComponent implements OnInit {
   highcharts = Highcharts;
 
-  constructor() { }
+
+  NumberOfOrders:NumberOfOrders;
+
+  constructor(private dashboardService:DashboardService) {
+
+    this.NumberOfOrders = new NumberOfOrders();
+    this.getTheNumberofOrders();
+   }
 
   ngOnInit(): void {
     this.loadChart();
+  }
+
+
+  getTheNumberofOrders(){
+    forkJoin(
+      this.dashboardService.getOpenOrders(),
+      this.dashboardService.getInProcessOrdersType(),
+      this.dashboardService.getCompleteOrders(),
+      this.dashboardService.getCancelledOrders(),
+    ).subscribe(([openResponse,inProcessResponse,completedResponse,cancelledResponse]) => {
+      this.NumberOfOrders.open = openResponse;
+      this.NumberOfOrders.InProcess = inProcessResponse;
+      this.NumberOfOrders.completed = completedResponse;
+      this.NumberOfOrders.cancelled = cancelledResponse;
+    },(error) => {
+      console.log(error);
+    });
   }
   
   loadChart(){

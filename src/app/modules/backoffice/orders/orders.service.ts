@@ -10,7 +10,7 @@ export class OrdersService {
   constructor(private apiService:ApiService,) { }
 
   getAllOrders(){
-    return this.apiService.request("get",`Order/GetAllProducts?businessId=${environment.BusinessId}`);
+    return this.apiService.request("get",`Order/GetAllOrders`);
   }
 
   updateOrderStatus(orderNumber,orderStatus){
