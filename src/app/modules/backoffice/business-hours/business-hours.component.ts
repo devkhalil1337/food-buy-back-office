@@ -12,7 +12,7 @@ import { BusinessHoursService } from './business-hours.service';
 export class BusinessHoursComponent implements OnInit {
 
   loading:boolean = false;
-  businessHours:Array<BusinessHours>;
+  businessHours:Array<any>;
 
   constructor(private _businessHoursService:BusinessHoursService,
     private toasterService:ToasterService) { 
@@ -26,7 +26,15 @@ export class BusinessHoursComponent implements OnInit {
 
   getBusinessHours(){
     this._businessHoursService.getBusinessHours().subscribe(response => {
+      console.log(response)
       this.businessHours = response;
+      // if(this.businessHours.every(business => business.businessTimes.length == 0)){
+      //   this.businessHours.filter((el,index) => {
+      //     el.businessTimes = this._businessHoursService.getTheDetaulfTime(index)
+      //     return el;
+      //   })
+      //   console.log(this.businessHours)
+      // }      
     })
   }
 
@@ -47,12 +55,12 @@ export class BusinessHoursComponent implements OnInit {
     });
   }
 
-  onDateChange(dateObj:BusinessTimes,type){
-    if(type === 'startDate'){
-      dateObj.startDate = moment('2016-10-01' + " " + dateObj.startTime, 'DD-MM-YYYY HH:mm').format('YYYY-MM-DD HH:mm')
-    }else{
-      dateObj.endDate = moment('2016-10-01' + " " + dateObj.endTime, 'DD-MM-YYYY HH:mm').format('YYYY-MM-DD HH:mm')
-    }
-  }
+  // onDateChange(dateObj:BusinessTimes,type){
+  //   if(type === 'startDate'){
+  //     dateObj.startDate = moment('2016-10-01' + " " + dateObj.startTime, 'DD-MM-YYYY HH:mm').format('YYYY-MM-DD HH:mm')
+  //   }else{
+  //     dateObj.endDate = moment('2016-10-01' + " " + dateObj.endTime, 'DD-MM-YYYY HH:mm').format('YYYY-MM-DD HH:mm')
+  //   }
+  // }
 
 }

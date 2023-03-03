@@ -13,14 +13,14 @@ export class BusinessHoursService {
 
   getBusinessHours(){
     const businessId = BusinessId;
-    return this.apiService.request("get",`BusinessHours/GetBusinessHours?BusinessId=${businessId}`).pipe(map((response:BusinessHours[]) => {
-      return response && response.map((element:BusinessHours) => {
+    return this.apiService.request("get",`BusinessHours/GetBusinessHours`).pipe(map((response:BusinessHours[]) => {
+      return response && response.map((element:BusinessHours,index:number) => {
         return {
           businessDaysId:element.businessDaysId,
           businessId:element.businessId,
           weekDayName:element.weekDayName,
           active:element.active,
-          businessTimes:element.businessTimes.map((elm:BusinessTimes) => new BusinessTimes(elm))
+          businessTimes:element.businessTimes.length > 0 ? element.businessTimes: this.getTheDetaulfTime(index)
         }
       }) || [];
     }));
@@ -28,6 +28,18 @@ export class BusinessHoursService {
 
   onUpdateBusinessHours(businessHours){
     return this.apiService.request("post",`BusinessHours/UpdateBusinessHours`,businessHours);
+  }
+
+
+
+  getTheDetaulfTime(day:number){
+    // let weekDays = ['Sunday','Monday','Tuesday','Wednesday','Thuresday','Friday','Saturday']
+     return [
+        {
+          startDate:"08:00",
+          endDate:"18:00",
+        },
+      ]
   }
 
 }
