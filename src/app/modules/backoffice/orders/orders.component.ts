@@ -52,7 +52,7 @@ export class OrdersComponent  implements OnInit {
         this.toggleGridOverlay(false);
         this.checkOrderStatus();
       },(error) => {
-        this.toggleGridOverlay(true);
+        this.toggleGridOverlay(false);
         this.toasterService.error(error);
       })
   }

@@ -21,7 +21,7 @@
                                 <div class="row">
                                     <div class="col-lg-6 col-sm-6">
                                         <div class="ordr-date">
-                                            <b>Order Date :</b> {{Order?.creationDate | date:'MMM d, y, h:mm:ss a'}}
+                                            <b>Order Date :</b> {{Order?.createdDate | date:'MMM d, y, h:mm:ss a'}}
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-sm-6">
@@ -82,7 +82,7 @@
                                                 Sub Total
                                             </div>
                                             <div class="order-total-right-text">
-                                                {{Order?.orderTotalAmount-Order?.orderVoucherDiscountAmount}}
+                                                {{Order?.voucherDiscountAmount}}
                                             </div>
                                         </div>
                                         <div class="order-total-dt">
@@ -90,7 +90,7 @@
                                                 Delivery Fees
                                             </div>
                                             <div class="order-total-right-text">
-                                                {{Order?.orderServiceCharges}}
+                                                {{Order?.deliveryCharges}}
                                             </div>
                                         </div>
                                         <div class="order-total-dt">
@@ -98,7 +98,7 @@
                                                 Total Amount
                                             </div>
                                             <div class="order-total-right-text fsz-18">
-                                                {{Order?.orderTotalAmount}}
+                                                {{Order?.totalAmount}}
                                             </div>
                                         </div>
                                     </div>

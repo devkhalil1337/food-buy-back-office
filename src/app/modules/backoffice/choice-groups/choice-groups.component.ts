@@ -111,7 +111,7 @@ export class ChoiceGroupsComponent implements OnInit {
     width:100,
   }, {
      headerName: 'Date',
-     field: 'updateDate',
+     field: 'modifyDate',
      cellClass:"text-center",
      headerClass: 'header_one',
      sortable: false,
