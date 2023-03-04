@@ -4,7 +4,9 @@ import { GridColumnType, OrderStatus } from '@enums';
 import { UtilityService , ConfigService, ToasterService} from '@shared';
 import { OrdersService } from './orders.service';
 import { RouterlinkrendererComponent } from '../../shared/components/routerlinkrenderer/routerlinkrenderer.component';
-
+import { interval, Subscription } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+import { OrderStatusEnums } from 'src/app/enums/OrderStatusEnum';
 @Component({
   selector: 'app-orders',
   templateUrl: './orders.component.html',
@@ -16,6 +18,8 @@ export class OrdersComponent  implements OnInit {
 
   gridOptions: GridOptions
   StatusTypes = OrderStatus
+
+  private statusSubscription: Subscription;
 
   get isEditButtonEnable(){
     if(this.gridOptions){
@@ -37,11 +41,16 @@ export class OrdersComponent  implements OnInit {
     
   }
 
+  ngOnDestroy(): void {
+    this.statusSubscription.unsubscribe();
+  }
+
   getGridData(){
     this.toggleGridOverlay(true);
       this.ordersService.getAllOrders().subscribe(response => {
         this.utils.setGridData(this.gridOptions,response)
         this.toggleGridOverlay(false);
+        this.checkOrderStatus();
       },(error) => {
         this.toggleGridOverlay(true);
         this.toasterService.error(error);
@@ -89,8 +98,19 @@ export class OrdersComponent  implements OnInit {
         let statusTypes = this.StatusTypes;
         return { values: statusTypes.map(({ value }) => value) };
       },
-      cellRenderer: (params) => { 
-        return `<span class='badge-item badge-status w-100'>${params.value.toUpperCase() || ''}</span>`
+      cellRenderer: (params:any) => {
+        switch(params.value.toUpperCase()){
+          case OrderStatusEnums.Open:
+            return `<span class="badge badge-primary p-2 w-100">${params.value.toUpperCase()}</span>`;
+          case OrderStatusEnums.OnTheWay:
+            return `<span class="badge badge-primary p-2 w-100">${params.value.toUpperCase()}</span>`;
+          case OrderStatusEnums.Cancelled:
+            return `<span class="badge badge-danger p-2 w-100">${params.value.toUpperCase()}</span>`;
+          case OrderStatusEnums.Completed:
+            return `<span class="badge badge-success p-2 w-100">${params.value.toUpperCase()}</span>`;
+          default:
+            return `<span class="badge badge-primary p-2 w-100">${params.value.toUpperCase()}</span>`;
+          }
       },
       maxWidth:150
     },
@@ -134,6 +154,17 @@ export class OrdersComponent  implements OnInit {
       }
       this.getGridData();
     })
+  }
+
+  checkOrderStatus(){
+    this.statusSubscription = interval(15000) // Check every 15 seconds
+    .pipe(
+      switchMap(() => this.ordersService.getAllOrders())
+    )
+    .subscribe(response => {
+      this.gridOptions.api?.setRowData(response);
+    });
+
   }
 
 }
