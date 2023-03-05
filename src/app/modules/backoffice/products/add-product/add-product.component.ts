@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BusinessId, ConfigService, imagesPathUrl, ToasterService } from '@shared';
 import { forkJoin } from 'rxjs';
 import { finalize } from 'rxjs/operators';
@@ -39,7 +39,8 @@ export class AddProductComponent implements OnInit {
     private toasterService:ToasterService,
     private activatedRoute: ActivatedRoute,
     private configService:ConfigService,
-    private fb: FormBuilder) { 
+    private fb: FormBuilder,
+    private _router: Router) { 
       this.activatedRoute.queryParams.subscribe(params => {
         this.selectedCategoryId = Number(params['CategoryId'])
         this.selectedProductId = params['productId'];
@@ -77,7 +78,6 @@ export class AddProductComponent implements OnInit {
       isDeliveryProduct: new FormControl(false),
       deliveryPrice: new FormControl(0),
       deliveryVat: new FormControl(0),
-      hasVariations: new FormControl(false),
       featured: new FormControl(false),
       productSortBy: new FormControl(0),
       productQuantity: new FormControl(0),
@@ -97,8 +97,9 @@ export class AddProductComponent implements OnInit {
         if(response && response.message && response.message.length > 0)
           this.toasterService.error(response.message)
         else
-          this.toasterService.success("Product updated!")
+          this.toasterService.success(`${this.productForm.value.productName} has updated successfully!`)
         this.loading = false;
+        this._router.navigate(['products'])
       }, error => {
         console.log(error)
         this.loading = false;
@@ -111,8 +112,9 @@ export class AddProductComponent implements OnInit {
         if(response && response.message && response.message.length > 0)
           this.toasterService.error(response.message)
         else
-          this.toasterService.success("Product created!")
+          this.toasterService.success(`${this.productForm.value.productName} has added successfully!`)
         this.loading = false;
+        this._router.navigate(['products'])
       }, error => {
         console.log(error)
         this.loading = false;
@@ -215,16 +217,13 @@ export class AddProductComponent implements OnInit {
 
   checkIfVariantionExisits(){
     if(this.VariationsArray.value && this.VariationsArray.value.length > 0){
-      console.log(this.VariationsArray.value);
-      let _varProduct = this.VariationsArray.value.filter(elm => elm.variationName && !elm.isDeleted)
-      if(_varProduct && _varProduct.length > 0)
-        _varProduct = _varProduct[0];
-      else  
-        return;
-      this.productForm.patchValue({
-        productName:_varProduct.variationName,
-        productDeliveryPrice:_varProduct.variationPrice
-      })
+      let _varProduct = this.VariationsArray.value.find(elm => elm.variationName && !elm.isDeleted)
+      if(_varProduct){
+        this.productForm.patchValue({
+          productName:_varProduct.variationName,
+          deliveryPrice:_varProduct.variationPrice
+        })
+      }
     }
   }
 

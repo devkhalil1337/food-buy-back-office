@@ -139,6 +139,9 @@ export class ProductsComponent implements OnInit {
     cellClass:"text-center",
     width:150,
     headerClass: 'header_one',
+    valueGetter:params => {
+      return params.data.hasVariations ? params.data.productPrice:params.data.deliveryPrice
+    },
     sortable: false,
     type:GridColumnType.currency
   }, {
