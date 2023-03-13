@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: "http://localhost:5112/api/",
+  apiUrl: "http://flyeats.somee.com/api/",
   imagesPathUrl: "http://flyeats.somee.com",
   BusinessId:1
 };
