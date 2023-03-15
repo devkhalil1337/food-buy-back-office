@@ -5,6 +5,8 @@
         <main>
             <div class="container-fluid">
                 <h2 class="mt-30 page-title">Dashboard</h2>
+                <app-date-range-picker [dateRange]="dateRange"
+                    (rangeSubmit)="onDateChange($event)"></app-date-range-picker>
                 <ol class="breadcrumb mb-30">
                     <li class="breadcrumb-item active">Dashboard</li>
                 </ol>

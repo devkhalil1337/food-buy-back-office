@@ -1,3 +1,5 @@
+import * as moment from "moment";
+
 export enum FormatType {
     currency = 'currency',
     currencyFixed = 'currencyFixed',
@@ -54,7 +56,7 @@ export enum FormatType {
   };
 
   export const AppDefaults = {
-    // minDate: moment('2015-01-01'),
+    minDate: moment('2015-01-01'),
     fractionDigits: 2,
     shortHandDigits: 3,
     chartAutoRotationLimit: 7,

@@ -3,7 +3,9 @@ import * as Highcharts from 'highcharts';
 import HighchartsMore from 'highcharts/highcharts-more';
 import HighchartsSolidGauge from 'highcharts/modules/solid-gauge';
 import { forkJoin } from 'rxjs';
+import { DateRangeType } from 'src/app/enums/date-range';
 import { NumberOfOrders } from 'src/app/models/dashboard.model';
+import { DateRange } from 'src/app/models/date-range.model';
 import { DashboardService } from './dashboard.service';
 @Component({
   selector: 'app-dashboard',
@@ -14,10 +16,12 @@ export class DashboardComponent implements OnInit {
   highcharts = Highcharts;
 
 
+   dateRange:any
+
   NumberOfOrders:NumberOfOrders;
 
   constructor(private dashboardService:DashboardService) {
-
+    this.dateRange = new DateRange(DateRangeType.Last14Days);
     this.NumberOfOrders = new NumberOfOrders();
     this.getTheNumberofOrders();
    }
@@ -30,6 +34,9 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  onDateChange($event:any){
+    console.log({$event})
+  }
 
   getTheNumberofOrders(){
     forkJoin(

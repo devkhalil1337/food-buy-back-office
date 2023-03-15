@@ -5,6 +5,7 @@ import { LinksRenderComponent } from './components/links-render/links-render.com
 import { RouterModule } from '@angular/router';
 import { NgSelectizeModule } from 'ng-selectize';
 import { RouterlinkrendererComponent } from './components/routerlinkrenderer/routerlinkrenderer.component';
+import { DateRangePickerComponent } from './components/date-range-picker/date-range-picker.component';
 
 
 @NgModule({

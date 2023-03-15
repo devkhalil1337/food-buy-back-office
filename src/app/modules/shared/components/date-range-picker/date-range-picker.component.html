@@ -1,0 +1,9 @@
+<div class="row m-0" title="Choose Date Range"
+    text="Choose the desired interval and date range to evaluate performance trends overtime." id="ddlDateRange">
+    <span class="mr-2 pt-1" *ngIf="componentLabel">{{componentLabel}}: </span>
+    <span class="date-picker-control pull-right" [ngClass]="{'disabled-date-picker': disabled}" #datePickerRef>
+        <i class="date-picker-calendar fa fa-calendar mr-2"></i>
+        <span class="date-picker-label">{{label}}</span>
+        <b class="date-picker-caret fa fa-caret-down mx-1"></b>
+    </span>
+</div>

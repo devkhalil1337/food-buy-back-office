@@ -16,6 +16,7 @@ import { ChoiceGroupsComponent } from './choice-groups/choice-groups.component';
 import { AddChoiceComponent } from './choice-groups/add-choice/add-choice.component';
 import { SettingsComponent } from './settings/settings.component';
 import { BusinessHoursComponent } from './business-hours/business-hours.component';
+import { DateRangePickerComponent } from '../shared/components';
 
 const routes: Routes = [{
 	path: 'dashboard',
@@ -71,6 +72,7 @@ const routes: Routes = [{
 }];
 @NgModule({
   declarations: [
+    DashboardComponent,
     ProductsComponent,
     AddProductComponent,
     CategoryComponent,
@@ -81,7 +83,8 @@ const routes: Routes = [{
     ChoiceGroupsComponent,
     AddChoiceComponent,
     SettingsComponent,
-    BusinessHoursComponent
+    BusinessHoursComponent,
+    DateRangePickerComponent
   ],
   imports: [
     CommonModule,
