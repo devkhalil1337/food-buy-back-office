@@ -13,7 +13,7 @@ export class SettingsService {
 
   getSettings(){
     const businessId = BusinessId;
-    return this.apiService.request("get",`Settings/GetSettingsById?businessId=${businessId}`).pipe(map((response:BusinessSettings) => response && response[0] || {}));
+    return this.apiService.request("get",`Settings/GetSettingsById`).pipe(map((response:BusinessSettings) => response && response[0] || {}));
   }
 
   AddNewSettings(settings){

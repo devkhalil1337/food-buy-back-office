@@ -25,7 +25,7 @@ export class ProductsService {
 
   getListOfProducts(){
     const businessId = BusinessId;
-    return this.apiService.request("get",`Products/GetAllProducts?businessId=${businessId}`);
+    return this.apiService.request("get",`Products/GetAllProducts`);
   }
   
   getProductById(productId){

@@ -12,7 +12,7 @@ export class ChoiceGroupsService {
 
   getListOfSelections(){
     const businessId = BusinessId;
-    return this.apiService.request("get",`Selections/GetAllSelections?businessId=${businessId}`);
+    return this.apiService.request("get",`Selections/GetAllSelections`);
   }
   
   
