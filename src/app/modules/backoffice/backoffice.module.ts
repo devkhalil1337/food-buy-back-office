@@ -17,6 +17,8 @@ import { AddChoiceComponent } from './choice-groups/add-choice/add-choice.compon
 import { SettingsComponent } from './settings/settings.component';
 import { BusinessHoursComponent } from './business-hours/business-hours.component';
 import { DateRangePickerComponent } from '../shared/components';
+import { UserComponent } from './user/user.component';
+import { ModalService } from '../shared/modal.service';
 
 const routes: Routes = [{
 	path: 'dashboard',
@@ -64,6 +66,9 @@ const routes: Routes = [{
 },{
   path:'business-hours',
   component:BusinessHoursComponent
+},{
+  path:'internal-users',
+  component:UserComponent
 }];
 @NgModule({
   declarations: [
@@ -79,7 +84,8 @@ const routes: Routes = [{
     AddChoiceComponent,
     SettingsComponent,
     BusinessHoursComponent,
-    DateRangePickerComponent
+    DateRangePickerComponent,
+    UserComponent
   ],
   imports: [
     CommonModule,
@@ -88,7 +94,7 @@ const routes: Routes = [{
     SharedModule,
     RouterModule.forChild(routes)
   ],
-  providers:[ConfigService,UtilityService,ToasterService],
+  providers:[ConfigService,UtilityService,ToasterService,ModalService],
   exports:[RouterModule]
 })
 export class BackofficeModule { }

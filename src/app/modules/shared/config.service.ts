@@ -5,6 +5,7 @@ import { DateFormats, FormatType } from '@enums';
 import { environment } from 'src/environments/environment';
 import { DateRange } from 'src/app/models/date-range.model';
 import { DateRangeType } from 'src/app/enums/date-range';
+import { NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 
 const MIN_HEIGHT = 56;
 @Injectable()
@@ -526,17 +527,17 @@ export class ConfigService {
   
 
 
-  // getNgbModalOptions(size: 'sm' | 'md' | 'lg' | 'llg' | 'xl' | 'xxl' = 'md', easyClose: boolean = false): NgbModalOptions {
-  //   const config: NgbModalOptions = {
-  //     backdrop: easyClose || 'static',
-  //     keyboard: easyClose,
-  //   };
-  //   if (size !== 'md') {
-  //     config.size = size as any;
-  //   }
+  getNgbModalOptions(size: 'sm' | 'md' | 'lg' | 'llg' | 'xl' | 'xxl' = 'md', easyClose: boolean = false): NgbModalOptions {
+    const config: NgbModalOptions = {
+      backdrop: easyClose || 'static',
+      keyboard: easyClose,
+    };
+    if (size !== 'md') {
+      config.size = size as any;
+    }
 
-  //   return config;
-  // }
+    return config;
+  }
 
   // getCountrySelectize(maxItems?: any, labelField?: string, valueField?: string): any {
   //   const config = this.getSelectizeConfig(maxItems, labelField, valueField);
