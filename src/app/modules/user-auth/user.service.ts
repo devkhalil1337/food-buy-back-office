@@ -8,7 +8,10 @@ export class UserService {
 
   constructor(private apiService:ApiService) { }
 
-  onLogin(formData:LoginModel){
-    return this.apiService.request("post",`Login`,{Email:formData.email,Password:formData.password});
+  onLogin(userCredentials:any){
+    return this.apiService.request("post",`InternalUsers/CheckUserCredentials`,userCredentials);
   }
+
+
+ 
 }

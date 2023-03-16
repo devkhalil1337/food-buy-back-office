@@ -12,22 +12,27 @@
                                 <div class="card-body">
                                     <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
                                         <div class="form-group">
-                                            <label class="form-label" for="inputEmailAddress">Email*</label>
-                                            <input class="form-control py-3" id="inputEmailAddress" type="email" placeholder="Enter email address" formControlName="userName"
-                                            [ngClass]="{'border border-danger': loginForm.get('userName').hasError('required') && loginForm.get('userName').touched}">
+                                            <label class="form-label" for="inputEmailAddress">Username*</label>
+                                            <input class="form-control py-3" id="inputEmailAddress" type="email"
+                                                placeholder="Enter userName" formControlName="userName"
+                                                [ngClass]="{'border border-danger': loginForm.get('userName').hasError('required') && loginForm.get('userName').touched}">
                                         </div>
                                         <div class="form-group">
                                             <label class="form-label" for="inputPassword">Password*</label>
-                                            <input class="form-control py-3" id="inputPassword" type="password" placeholder="Enter password"  formControlName="password"
-                                            [ngClass]="{'border border-danger': loginForm.get('password').hasError('required') && loginForm.get('password').touched}">
+                                            <input class="form-control py-3" id="inputPassword" type="password"
+                                                placeholder="Enter password" formControlName="password"
+                                                [ngClass]="{'border border-danger': loginForm.get('password').hasError('required') && loginForm.get('password').touched}">
                                         </div>
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox">
-                                                <input class="custom-control-input" id="rememberPasswordCheck" type="checkbox"  formControlName="isRemember" />
-                                                <label class="custom-control-label" for="rememberPasswordCheck">Remember password</label>
+                                                <input class="custom-control-input" id="rememberPasswordCheck"
+                                                    type="checkbox" formControlName="isRemember" />
+                                                <label class="custom-control-label" for="rememberPasswordCheck">Remember
+                                                    password</label>
                                             </div>
                                         </div>
-                                        <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
+                                        <div
+                                            class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
                                             <button class="btn btn-sign hover-btn" type="submit">Login</button>
                                         </div>
                                     </form>

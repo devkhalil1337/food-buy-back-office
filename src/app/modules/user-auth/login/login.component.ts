@@ -27,10 +27,7 @@ export class LoginComponent implements OnInit {
 
 
   onLogin(){
-    let formData = new LoginModel();
-    formData.email = this.loginForm.value.userName;
-    formData.password = this.loginForm.value.password;
-    this.userService.onLogin(formData).subscribe(response => {
+    this.userService.onLogin(this.loginForm.value).subscribe(response => {
       if(response.result == 0){
         alert("Login not found")
         return;
@@ -40,6 +37,7 @@ export class LoginComponent implements OnInit {
       this.invalidLogin = false; 
       localStorage.setItem("jwt", token);
       localStorage.setItem("businessId",businessId);
+      localStorage.setItem("user",JSON.stringify(response));
       this.router.navigate(["/dashboard"]);
     })
   }

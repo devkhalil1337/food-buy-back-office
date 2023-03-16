@@ -7,14 +7,21 @@ export class HttpInterceptorService implements HttpInterceptor {
   constructor() { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler) {
-    const businessId = String(environment.BusinessId) // replace with your business id
-
-    // Clone the request and add the businessId header
-    const modifiedReq = request.clone({
-      headers: request.headers.set('businessId', businessId)
-    });
-
-    return next.handle(modifiedReq);
-    return next.handle(request);
+    let token = localStorage.getItem("jwt");
+    let businessId = localStorage.getItem("businessId");
+    let  modifiedRequest = request;
+    if (token) {
+      token = `Bearer ${token}`;
+    }
+    if(!request.url.includes('CheckUserCredentials')){
+      modifiedRequest = request.clone({
+        headers: request.headers
+          .set("businessId", businessId)
+          .set("Authorization", token)
+      });
+    }
+  
+    return next.handle(modifiedRequest);
   }
+  
 }

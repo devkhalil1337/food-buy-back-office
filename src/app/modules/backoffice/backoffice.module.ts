@@ -64,11 +64,6 @@ const routes: Routes = [{
 },{
   path:'business-hours',
   component:BusinessHoursComponent
-}
-,{
-	path: "**",
-	redirectTo: "dashboard",
-	pathMatch: "full"
 }];
 @NgModule({
   declarations: [
