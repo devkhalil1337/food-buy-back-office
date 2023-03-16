@@ -3,6 +3,8 @@ import { GridOptions } from 'ag-grid-community';
 import { AppRegex } from '@enums';
 import { FormatterService } from './format.service';
 import * as $ from "jquery"
+import { DateRangeType } from 'src/app/enums/date-range';
+import { DefaultRanges, getDateRangeByType } from 'src/app/constants/date-range';
 
 @Injectable()
 export class UtilityService {
@@ -284,9 +286,9 @@ export class UtilityService {
   //   return arr;
   // }
 
-  // getDateRanges(rangeTypes: DateRangeType[], offsetDays?: number, fiscalStart?: string) {
-  //   return (rangeTypes || DefaultRanges).map(rangeType => getDateRangeByType(rangeType, offsetDays, fiscalStart));
-  // }
+  getDateRanges(rangeTypes: DateRangeType[], offsetDays?: number, fiscalStart?: string) {
+    return (rangeTypes || DefaultRanges).map(rangeType => getDateRangeByType(rangeType, offsetDays, fiscalStart));
+  }
 
   // hideOrShowChartLoader(chartConfig: Chart, showLoading: boolean): void {
   //   if (chartConfig) {

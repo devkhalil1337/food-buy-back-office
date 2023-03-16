@@ -20,7 +20,7 @@ export const DefaultRanges = [
 ];
 
 export const getDateRangeByType = (rangeType: DateRangeType, offsetDays?: number, fiscalStart?: string, maxDate?: string, interval?: string): DateRange => {
-  offsetDays = (offsetDays != null || offsetDays != undefined) ? 1 : offsetDays;
+  offsetDays = (offsetDays == null || offsetDays == undefined) ? 1 : offsetDays;
   switch (rangeType) {
     case DateRangeType.Today:
       return { startDate: moment(maxDate), endDate: moment(maxDate), label: DateRangeType.Today, allowInterval: IntervalType.daily };

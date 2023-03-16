@@ -8,6 +8,7 @@ export class DateRange {
   endDate: Moment;
   label: DateRangeType;
   allowInterval?: IntervalType;
+  
   // getRange?: () => [Moment, Moment]
 
   constructor(selectedRange: DateRangeType = DateRangeType.Last7Days, fiscalStart?: string, offsetDays?: number, startDate?: string, endDate?: string, maxDate?: string) {

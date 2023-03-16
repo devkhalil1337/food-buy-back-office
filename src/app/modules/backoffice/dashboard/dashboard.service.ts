@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { DateRange } from 'src/app/models/date-range.model';
 import { ApiService } from '../../shared';
 
 @Injectable({
@@ -8,24 +9,16 @@ export class DashboardService {
 
   constructor(private apiService:ApiService) { }
 
-  getOpenOrders(){
-    return this.apiService.request("get",`ReportingDashboard/GetNumberOfOrders?orderStatus=open&Datefrom=2023-01-01&Dateto=2023-03-01`);
-  }
-
-  getInProcessOrdersType(){
-    return this.apiService.request("get",`ReportingDashboard/GetNumberOfOrders?orderStatus=in process&Datefrom=2023-01-01&Dateto=2023-03-01`);
+  getOrdersKPIS(orderStatus:any,dateRange:DateRange){
+    const startDate = dateRange.startDate.format("YYYY-MM-DD")
+    const endDate = dateRange.endDate.format("YYYY-MM-DD")
+    return this.apiService.request("post",`ReportingDashboard/GetNumberOfOrders?Datefrom=${startDate}&Dateto=${endDate}`,orderStatus);
   }
   
-  getCompleteOrders(){
-    return this.apiService.request("get",`ReportingDashboard/GetNumberOfOrders?orderStatus=completed&Datefrom=2023-01-01&Dateto=2023-03-01`);
-  }
-  
-  getCancelledOrders(){
-    return this.apiService.request("get",`ReportingDashboard/GetNumberOfOrders?orderStatus=cancelled&Datefrom=2023-01-01&Dateto=2023-03-01`);
-  }
-
-  getNetSalesForGraph(){
-    return this.apiService.request("get",`ReportingDashboard/GetGrossSalesByDay?Datefrom=2023-01-01&Dateto=2023-03-01`);
+  getNetSalesForGraph(dateRange:DateRange){
+    const startDate = dateRange.startDate.format("YYYY-MM-DD")
+    const endDate = dateRange.endDate.format("YYYY-MM-DD")
+    return this.apiService.request("get",`ReportingDashboard/GetGrossSalesByDay?Datefrom=${startDate}&Dateto=${endDate}`);
   }
   
 }

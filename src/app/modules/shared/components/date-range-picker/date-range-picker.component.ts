@@ -129,6 +129,8 @@ export class DateRangePickerComponent implements OnInit, OnChanges, AfterViewIni
 
     if (this.maxDate) {
       this.config.ranges = this.ranges;
+    }else{
+      this.config.ranges = this.utils.getDateRanges(this.ranges,this.offsetDays,"0");
     }
     if (this.dateRange) {
       // if (this.dateRange.label === DateRangeType.FYTD) {
