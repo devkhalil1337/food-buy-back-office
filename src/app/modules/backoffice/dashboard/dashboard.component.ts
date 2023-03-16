@@ -26,7 +26,6 @@ export class DashboardComponent implements OnInit {
     this.reportingDashboardFilter = new ReportingDashboardFilter();
     this.reportingDashboardFilter.dateRange = new DateRange(DateRangeType.Last30Days);
     this.reportingDashboardFilter.orderStatus = ['open','in process','completed','cancelled','delivered']
-    this.setDateRangeByBaseDate(this.reportingDashboardFilter.dateRange,this.reportingDashboardFilter.startDate,this.reportingDashboardFilter.endDate);
    }
 
    setDateRangeByBaseDate(dtRange?: DateRange, sDate?: string, eDate?: string) {
@@ -52,6 +51,7 @@ export class DashboardComponent implements OnInit {
   }
 
   onSubmit(){
+    this.setDateRangeByBaseDate(this.reportingDashboardFilter.dateRange,this.reportingDashboardFilter.startDate,this.reportingDashboardFilter.endDate);
     this.getTheNumberofOrders();
     this.loadChart();
   }
