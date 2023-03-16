@@ -10,16 +10,12 @@ export class DashboardService {
 
   constructor(private apiService:ApiService) { }
 
-  getOrdersKPIS(orderStatus:any,filter:ReportingDashboardFilter){
-    const startDate = filter.dateRange.startDate.format("YYYY-MM-DD")
-    const endDate = filter.dateRange.endDate.format("YYYY-MM-DD")
-    return this.apiService.request("post",`ReportingDashboard/GetNumberOfOrders?Datefrom=${startDate}&Dateto=${endDate}`,orderStatus);
+  getOrdersKPIS(filter:ReportingDashboardFilter){
+    return this.apiService.request("post",`ReportingDashboard/GetNumberOfOrders`,filter);
   }
   
   getNetSalesForGraph(filter:ReportingDashboardFilter){
-    const startDate = filter.dateRange.startDate.format("YYYY-MM-DD")
-    const endDate = filter.dateRange.endDate.format("YYYY-MM-DD")
-    return this.apiService.request("get",`ReportingDashboard/GetGrossSalesByDay?Datefrom=${startDate}&Dateto=${endDate}`);
+    return this.apiService.request("post",`ReportingDashboard/GetGrossSalesByDay`,filter);
   }
   
 }

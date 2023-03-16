@@ -4,6 +4,7 @@ import { FormatterService } from './format.service';
 import { DateFormats, FormatType } from '@enums';
 import { environment } from 'src/environments/environment';
 import { DateRange } from 'src/app/models/date-range.model';
+import { DateRangeType } from 'src/app/enums/date-range';
 
 const MIN_HEIGHT = 56;
 @Injectable()
@@ -652,9 +653,9 @@ export class ConfigService {
   //   }
   // }
 
-  // getNewDateRange(selectedRange: DateRangeType = DateRangeType.Last7Days, offsetDays?: number, startDate?: string, endDate?: string, maxDate?: string) {
-  //   return new DateRange(selectedRange, this.userService.getSelectedBusinessUnitFiscalStart(), offsetDays, startDate, endDate, maxDate);
-  // }
+  getNewDateRange(selectedRange: DateRangeType = DateRangeType.Last7Days, offsetDays?: number, startDate?: string, endDate?: string, maxDate?: string) {
+    return new DateRange(selectedRange, "0", offsetDays, startDate, endDate, maxDate);
+  }
 
   // initHighchartSync(): void {
   //   (Highcharts as any).Point.prototype.highlight = function (event) {
