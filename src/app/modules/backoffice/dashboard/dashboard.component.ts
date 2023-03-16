@@ -6,6 +6,7 @@ import { forkJoin } from 'rxjs';
 import { DateRangeType } from 'src/app/enums/date-range';
 import { NumberOfOrders } from 'src/app/models/dashboard.model';
 import { DateRange } from 'src/app/models/date-range.model';
+import { ReportingDashboardFilter } from 'src/app/models/reporting-dashboard-filter';
 import { DashboardService } from './dashboard.service';
 @Component({
   selector: 'app-dashboard',
@@ -14,14 +15,13 @@ import { DashboardService } from './dashboard.service';
 })
 export class DashboardComponent implements OnInit {
   highcharts = Highcharts;
-
-
-  dateRange:DateRange
-
+  reportingDashboardFilter:ReportingDashboardFilter
   NumberOfOrders:NumberOfOrders;
   OrderStatus:Array<string>;
+  isLoading:boolean = false;
   constructor(private dashboardService:DashboardService) {
-    this.dateRange = new DateRange(DateRangeType.Last30Days);
+    this.reportingDashboardFilter = new ReportingDashboardFilter();
+    this.reportingDashboardFilter.dateRange = new DateRange(DateRangeType.Last30Days);
     this.NumberOfOrders = new NumberOfOrders();
     this.OrderStatus = ['open','in process','completed','cancelled','delivered']
     this.getTheNumberofOrders();
@@ -32,8 +32,6 @@ export class DashboardComponent implements OnInit {
   }
 
   onDateChange($event:any){
-    console.log({$event})
-    console.log(this.dateRange)
     this.onSubmit();
   }
 
@@ -43,17 +41,22 @@ export class DashboardComponent implements OnInit {
   }
 
   getTheNumberofOrders(){
-    this.dashboardService.getOrdersKPIS(this.OrderStatus,this.dateRange).subscribe(KPISResponse => {
+    this.isLoading = true;
+    this.dashboardService.getOrdersKPIS(this.OrderStatus,this.reportingDashboardFilter).subscribe(KPISResponse => {
     KPISResponse.forEach(orderObj => {
       this.NumberOfOrders[orderObj.orderStatus] = orderObj.numberOfOrders
     })
-    },(error) => {
+    this.isLoading = false;
+  },(error) => {
       console.log(error);
+      this.isLoading = false;
     });
   }
   
   loadChart() {
-    this.dashboardService.getNetSalesForGraph(this.dateRange).subscribe(data => {
+    this.isLoading = true;
+    this.dashboardService.getNetSalesForGraph(this.reportingDashboardFilter).subscribe(data => {
+      this.isLoading = false;
 
       const chart = Highcharts.chart('chart-gauge', {
         chart: {
