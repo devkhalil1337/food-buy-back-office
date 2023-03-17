@@ -4,6 +4,7 @@ import { DateRangeType, IntervalType } from '../enums/date-range';
 import { DateRange } from '../models/date-range.model';
 
 export const DefaultRanges = [
+  DateRangeType.Today,
   DateRangeType.Yesterday,
   DateRangeType.Last7Days,
   DateRangeType.Last14Days,
