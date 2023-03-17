@@ -5,10 +5,11 @@ export const StatusTypes = [
 
 
   export const OrderStatus = [
-    {label:"pending","value":"pending"},
-    {label:"in process","value":"in process"},
-    {label:"ready","value":"ready"},
-    {label:"on the way","value":"on the way"},
-    {label:"cancelled","value":"cancelled"},
-    {label:"completed","value":"completed"},
+    {label:"PENDING","value":"PENDING"},
+    {label:"OPEN","value":"OPEN"},
+    {label:"IN PROCESS","value":"IN PROCESS"},
+    {label:"READY","value":"READY"},
+    {label:"ON THE WAY","value":"ON THE WAY"},
+    {label:"CANCELLED","value":"CANCELLED"},
+    {label:"COMPLETED","value":"COMPLETED"},
   ];
