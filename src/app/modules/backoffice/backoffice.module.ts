@@ -19,6 +19,7 @@ import { BusinessHoursComponent } from './business-hours/business-hours.componen
 import { DateRangePickerComponent } from '../shared/components';
 import { UserComponent } from './user/user.component';
 import { ModalService } from '../shared/modal.service';
+import { PaymentSettingsComponent } from './payment-settings/payment-settings.component';
 
 const routes: Routes = [{
 	path: 'dashboard',
@@ -69,6 +70,9 @@ const routes: Routes = [{
 },{
   path:'internal-users',
   component:UserComponent
+},{
+  path:'payment-settings',
+  component:PaymentSettingsComponent
 }];
 @NgModule({
   declarations: [
@@ -85,7 +89,8 @@ const routes: Routes = [{
     SettingsComponent,
     BusinessHoursComponent,
     DateRangePickerComponent,
-    UserComponent
+    UserComponent,
+    PaymentSettingsComponent
   ],
   imports: [
     CommonModule,
