@@ -1,21 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BusinessSettings } from 'src/app/models/settings.model';
 import { BusinessId, ConfigService, ToasterService } from '@shared';
 import { SettingsService } from './settings.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { forkJoin } from 'rxjs';
+import { forkJoin, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss']
 })
-export class SettingsComponent implements OnInit {
+export class SettingsComponent implements OnInit,OnDestroy {
 
   businessSettings:FormGroup;
   VATTypes:any;
   selectizevatTypeConfig:any;
   loading:boolean = false;
+  private Subscription: Subscription;
   constructor(private _settingServices:SettingsService,
     private toasterService:ToasterService,
     private configService:ConfigService) { 
@@ -47,9 +48,13 @@ export class SettingsComponent implements OnInit {
 
   }
 
+  ngOnDestroy(): void {
+    this.Subscription.unsubscribe();
+  }
+
 
   getBusinessSettings(){
-    this._settingServices.getSettings().subscribe((response:BusinessSettings) => {
+    this.Subscription = this._settingServices.getSettings().subscribe((response:BusinessSettings) => {
       this.businessSettings.patchValue(response);
     }, error => {
       console.log(error)

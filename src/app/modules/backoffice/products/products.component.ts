@@ -1,22 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ColDef, GridOptions } from 'ag-grid-community';
 import { GridColumnType } from '@enums';
 import { Product } from '../../core/models/products-models/products.model';
 import { UtilityService , ConfigService, ToasterService, imagesPathUrl } from '@shared';
 import { ProductsService } from './products.service';
 import { LinksRenderComponent } from '../../shared/components';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss']
 })
-export class ProductsComponent implements OnInit {
+export class ProductsComponent implements OnInit, OnDestroy {
 
   StatusTypes = [
     {label:"Active","value":"Active"},
     {label:"In Active","value":"In Active"}
   ];
+
+    
+  private Subscription: Subscription;
+  gridOptions: GridOptions
+
 
   get isEditButtonEnable(){
     if(this.gridOptions){
@@ -25,9 +31,6 @@ export class ProductsComponent implements OnInit {
     }
     return false;
   }
-  
-
-  gridOptions: GridOptions
 
   constructor(private utils:UtilityService, 
     private configService:ConfigService,
@@ -41,9 +44,13 @@ export class ProductsComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  ngOnDestroy(): void {
+    this.Subscription.unsubscribe();
+  }
+
   getGridData(){
     this.gridOptions.api?.showLoadingOverlay();
-    this.productService.getListOfProducts().subscribe(response => {
+    this.Subscription = this.productService.getListOfProducts().subscribe(response => {
       this.utils.setGridData(this.gridOptions,response);
       this.toggleGridOverlay()
     },(error) => {
