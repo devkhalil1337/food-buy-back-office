@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Category } from 'src/app/modules/core';
+import { Category } from 'src/app/models/category.model';
 import { ToasterService } from 'src/app/modules/shared';
 import { FormatterService } from 'src/app/modules/shared/format.service';
 import { CategoryService } from '../category.service';

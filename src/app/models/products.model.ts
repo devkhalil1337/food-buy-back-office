@@ -1,4 +1,4 @@
-export class Product{
+export class Product {
     productName:String;
     productImage:string;
     productStatus:boolean;

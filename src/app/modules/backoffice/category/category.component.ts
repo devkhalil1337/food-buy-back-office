@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ColDef, GridOptions } from 'ag-grid-community';
 import { GridColumnType, StatusTypes } from '@enums';
 import { UtilityService , ConfigService, ToasterService} from '@shared';
-import { Category } from '@models';
 import { CategoryService } from './category.service';
 import { LinksRenderComponent } from '../../shared/components';
 import { Statuses } from 'src/app/enums/const';

@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ColDef, GridOptions } from 'ag-grid-community';
 import { GridColumnType } from '@enums';
-import { Product } from '../../core/models/products-models/products.model';
+import { Product } from '../../../models/products.model';
 import { UtilityService , ConfigService, ToasterService, imagesPathUrl } from '@shared';
 import { ProductsService } from './products.service';
 import { LinksRenderComponent } from '../../shared/components';

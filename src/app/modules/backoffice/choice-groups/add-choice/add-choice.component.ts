@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { choiceGroupsItems } from 'src/app/models/choice-groups.models';
 import { BusinessId, ToasterService } from 'src/app/modules/shared';
 import { ChoiceGroupsService } from '../choice-groups.service';
 
