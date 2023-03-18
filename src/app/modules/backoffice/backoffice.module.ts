@@ -1,25 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { ProductsComponent } from './products/products.component';
 import { CoreModule } from '../core/core.module';
-import { AddProductComponent } from './products/add-product/add-product.component';
-import { CategoryComponent } from './category/category.component';
-import { AddCategoryComponent } from './category/add-category/add-category.component';
-import { OrdersComponent } from './orders/orders.component';
-import { OrderDetailsComponent } from './orders/order-details/order-details.component';
 import { AgGridModule } from 'ag-grid-angular';
 import { ConfigService, UtilityService,  ToasterService , SharedModule } from '@shared';
-import { BusinessProfileComponent } from './business-profile/business-profile.component';
-import { ChoiceGroupsComponent } from './choice-groups/choice-groups.component';
-import { AddChoiceComponent } from './choice-groups/add-choice/add-choice.component';
-import { SettingsComponent } from './settings/settings.component';
-import { BusinessHoursComponent } from './business-hours/business-hours.component';
 import { DateRangePickerComponent } from '../shared/components';
-import { UserComponent } from './user/user.component';
 import { ModalService } from '../shared/modal.service';
-import { PaymentSettingsComponent } from './payment-settings/payment-settings.component';
+import { AddCategoryComponent, AddChoiceComponent, AddProductComponent, BusinessHoursComponent, BusinessProfileComponent, CategoryComponent, ChoiceGroupsComponent, DashboardComponent, OrderDetailsComponent, OrdersComponent, PaymentSettingsComponent, ProductsComponent, SettingsComponent, UserComponent } from '@modeuls';
 
 const routes: Routes = [{
 	path: 'dashboard',

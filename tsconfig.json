@@ -28,6 +28,7 @@
       "@enums":["src/app/enums/"],
       "@shared":["src/app/modules/shared/","src/app/modules/shared/components/"],
       "@models":["src/app/modules/core/"],
+      "@modeuls":["src/app/modules/backoffice/"],
     }
   },
   "angularCompilerOptions": {
