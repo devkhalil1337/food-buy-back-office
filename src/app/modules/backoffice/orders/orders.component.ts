@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ColDef, GridOptions } from 'ag-grid-community';
-import { GridColumnType, OrderStatus } from '@enums';
+import { DateFormats, GridColumnType, OrderStatus } from '@enums';
 import { UtilityService , ConfigService, ToasterService} from '@shared';
 import { OrdersService } from './orders.service';
 import { RouterlinkrendererComponent } from '../../shared/components/routerlinkrenderer/routerlinkrenderer.component';
 import { interval, Subscription } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { OrderStatusEnums } from 'src/app/enums/OrderStatusEnum';
+import { OrderFilter } from 'src/app/models/orders-filter';
+import { DateRange } from 'src/app/models/date-range.model';
+import { DateRangeType } from 'src/app/enums/date-range';
 @Component({
   selector: 'app-orders',
   templateUrl: './orders.component.html',
@@ -16,11 +19,12 @@ import { OrderStatusEnums } from 'src/app/enums/OrderStatusEnum';
 
 export class OrdersComponent  implements OnInit {
 
+  private statusSubscription: Subscription;
   gridOptions: GridOptions
   StatusTypes = OrderStatus
-
-  private statusSubscription: Subscription;
-
+  OrderFilter:OrderFilter
+  selectizeConfig:any;
+  
   get isEditButtonEnable(){
     if(this.gridOptions){
       const rows = this.gridOptions.api?.getSelectedRows();
@@ -32,13 +36,14 @@ export class OrdersComponent  implements OnInit {
 
   constructor(private utils:UtilityService, private configService:ConfigService,
     private ordersService:OrdersService,private toasterService:ToasterService) { 
-
+    this.OrderFilter = new OrderFilter();
+    this.OrderFilter.dateRange = new DateRange(DateRangeType.Last7Days,"0",0);
+    this.selectizeConfig = this.configService.getSelectizeConfig(1);
     this.initGridConfig();
-    this.getGridData();
   }
 
   ngOnInit(): void {
-    
+    this.onSubmit();
   }
 
   ngOnDestroy(): void {
@@ -48,7 +53,7 @@ export class OrdersComponent  implements OnInit {
 
   getGridData(){
     this.toggleGridOverlay(true);
-      this.ordersService.getAllOrders().subscribe(response => {
+      this.ordersService.getAllOrders(this.OrderFilter).subscribe(response => {
         this.utils.setGridData(this.gridOptions,response)
         this.toggleGridOverlay(false);
         this.checkOrderStatus();
@@ -62,7 +67,7 @@ export class OrdersComponent  implements OnInit {
     this.gridOptions = this.configService.getGridConfig(false,true);
     this.gridOptions.columnDefs = this.getGridColumnDefs();
     this.gridOptions.pagination = true;
-    this.gridOptions.paginationPageSize = 100;
+    this.gridOptions.paginationPageSize = 10;
     this.gridOptions.onGridReady = params => {
       params.api.sizeColumnsToFit();
     }
@@ -158,14 +163,38 @@ export class OrdersComponent  implements OnInit {
   }
 
   checkOrderStatus(){
-    this.statusSubscription = interval(15000) // Check every 15 seconds
+    this.statusSubscription = interval(1500000) // Check every 15 seconds
     .pipe(
-      switchMap(() => this.ordersService.getAllOrders())
+      switchMap(() => this.ordersService.getAllOrders(this.OrderFilter))
     )
     .subscribe(response => {
       this.gridOptions.api?.setRowData(response);
     });
 
+  }
+
+  setDateRangeByBaseDate(dtRange?: DateRange, sDate?: string, eDate?: string) {
+    if (dtRange) {
+      if (dtRange.label === DateRangeType.customRange) {
+        this.OrderFilter.dateRange = this.configService.getNewDateRange(dtRange.label, undefined, sDate, eDate);
+      } else {
+        this.OrderFilter.dateRange = this.configService.getNewDateRange(dtRange.label,0);
+      }
+    } else {
+      this.OrderFilter.dateRange = this.configService.getNewDateRange(DateRangeType.Last7Days);
+    }
+    this.OrderFilter.startDate = this.OrderFilter.dateRange.startDate.format(DateFormats.default);
+    this.OrderFilter.endDate = this.OrderFilter.dateRange.endDate.format(DateFormats.default);
+  }
+
+
+  onSubmit(){
+    this.setDateRangeByBaseDate(this.OrderFilter.dateRange,this.OrderFilter.startDate,this.OrderFilter.endDate);
+    this.getGridData();
+  }
+
+  onDateChange($event:any){
+    this.onSubmit();
   }
 
 }

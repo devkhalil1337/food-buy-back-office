@@ -5,6 +5,8 @@
     <main>
       <div class="container-fluid">
         <h2 class="mt-30 page-title">Orders</h2>
+        <app-date-range-picker [dateRange]="OrderFilter.dateRange"
+          (rangeSubmit)="onDateChange($event)"></app-date-range-picker>
         <ol class="breadcrumb mb-30">
           <li class="breadcrumb-item"><a routerLink="/dashboard">Dashboard</a></li>
           <li class="breadcrumb-item active"><a routerLink="/orders" routerLinkActive="active">Orders</a></li>
@@ -30,18 +32,14 @@
           <div class="col-lg-5 col-md-6">
             <div class="bulk-section mb-30">
               <div class="search-by-name-input">
-                <input type="text" class="form-control" placeholder="Search">
+                <div class="text-right w-100">
+                  <a (click)="OrderFilter.OrderStatus = '' "><i class="fa fa-clear">clear</i></a>
+                </div>
+                <ng-selectize [config]="selectizeConfig" [options]="StatusTypes" id="StatusTypes" name="StatusTypes"
+                  [(ngModel)]="OrderFilter.OrderStatus"></ng-selectize>
               </div>
               <div class="input-group">
-                <select id="categeory" name="categeory" class="form-control">
-                  <option value="1">Pending</option>
-                  <option value="2">Cancel</option>
-                  <option value="3">Process</option>
-                  <option value="4">Complete</option>
-                </select>
-                <div class="input-group-append">
-                  <button class="status-btn hover-btn" type="submit">Search Order</button>
-                </div>
+                <button class="status-btn hover-btn" type="submit" (click)="onSubmit();">Search Order</button>
               </div>
             </div>
           </div>
