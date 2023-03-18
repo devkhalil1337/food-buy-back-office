@@ -6,12 +6,14 @@ import { RouterModule } from '@angular/router';
 import { NgSelectizeModule } from 'ng-selectize';
 import { RouterlinkrendererComponent } from './components/routerlinkrenderer/routerlinkrenderer.component';
 import { DateRangePickerComponent } from './components/date-range-picker/date-range-picker.component';
+import { SkeletonLoaderComponent } from './components/skeleton-loader/skeleton-loader.component';
 
 
 @NgModule({
   declarations: [
     LinksRenderComponent,
-    RouterlinkrendererComponent
+    RouterlinkrendererComponent,
+    SkeletonLoaderComponent
   ],
   imports: [
     CommonModule,
@@ -20,6 +22,6 @@ import { DateRangePickerComponent } from './components/date-range-picker/date-ra
     RouterModule,
     NgSelectizeModule
   ],
-  exports:[FormsModule,ReactiveFormsModule,NgSelectizeModule]
+  exports:[FormsModule,ReactiveFormsModule,NgSelectizeModule,SkeletonLoaderComponent]
 })
 export class SharedModule { }

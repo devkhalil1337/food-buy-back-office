@@ -42,7 +42,8 @@ export class OrdersComponent  implements OnInit {
   }
 
   ngOnDestroy(): void {
-    this.statusSubscription.unsubscribe();
+    if(this.statusSubscription)
+      this.statusSubscription.unsubscribe();
   }
 
   getGridData(){

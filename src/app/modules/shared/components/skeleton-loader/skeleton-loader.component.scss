@@ -1,0 +1,16 @@
+.skeleton-loader {
+  display: flex;
+  flex-direction: column;
+}
+
+.skeleton-loader__item {
+  width: 60%;
+  height: 20px;
+  margin-bottom: 10px;
+  background-color: #ddd;
+  border-radius: 4px;
+}
+
+.skeleton-loader__item:last-child {
+  margin-bottom: 0;
+}

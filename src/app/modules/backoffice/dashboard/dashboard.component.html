@@ -15,7 +15,11 @@
                         <div class="dashboard-report-card purple">
                             <div class="card-content">
                                 <span class="card-title">Order Pending</span>
-                                <span class="card-count">{{NumberOfOrders?.open}}</span>
+
+                                <span class="card-count">
+                                    <app-skeleton-loader [count]="1" *ngIf="isLoading"></app-skeleton-loader>
+                                    {{NumberOfOrders?.open}}
+                                </span>
                             </div>
                             <div class="card-media">
                                 <i class="fab fa-rev"></i>
@@ -26,7 +30,9 @@
                         <div class="dashboard-report-card red">
                             <div class="card-content">
                                 <span class="card-title">Order Cancel</span>
-                                <span class="card-count">{{NumberOfOrders?.cancelled}}</span>
+                                <span class="card-count">
+                                    <app-skeleton-loader [count]="1" *ngIf="isLoading"></app-skeleton-loader>
+                                    {{NumberOfOrders?.cancelled}}</span>
                             </div>
                             <div class="card-media">
                                 <i class="far fa-times-circle"></i>
@@ -37,7 +43,9 @@
                         <div class="dashboard-report-card info">
                             <div class="card-content">
                                 <span class="card-title">Order Process</span>
-                                <span class="card-count">{{NumberOfOrders?.completed}}</span>
+                                <span class="card-count">
+                                    <app-skeleton-loader [count]="1" *ngIf="isLoading"></app-skeleton-loader>
+                                    {{NumberOfOrders?.completed}}</span>
                             </div>
                             <div class="card-media">
                                 <i class="fas fa-sync-alt rpt_icon"></i>

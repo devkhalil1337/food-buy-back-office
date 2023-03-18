@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import * as Highcharts from 'highcharts';
 import HighchartsMore from 'highcharts/highcharts-more';
 import HighchartsSolidGauge from 'highcharts/modules/solid-gauge';
-import { forkJoin } from 'rxjs';
+import { forkJoin, Subscription } from 'rxjs';
+import { finalize } from 'rxjs/operators';
 import { DateFormats } from 'src/app/enums';
 import { DateRangeType } from 'src/app/enums/date-range';
 import { NumberOfOrders } from 'src/app/models/dashboard.model';
@@ -15,12 +16,15 @@ import { DashboardService } from './dashboard.service';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit,OnDestroy  {
   highcharts = Highcharts;
   reportingDashboardFilter:ReportingDashboardFilter
   NumberOfOrders:NumberOfOrders;
   OrderStatus:Array<string>;
-  isLoading:boolean = false;
+  isLoading:boolean = true;
+
+  private httpSubscription: Subscription;
+  
   constructor(private dashboardService:DashboardService,private configService:ConfigService) {
     this.NumberOfOrders = new NumberOfOrders();
     this.reportingDashboardFilter = new ReportingDashboardFilter();
@@ -46,6 +50,12 @@ export class DashboardComponent implements OnInit {
     this.onSubmit();
   }
 
+  ngOnDestroy(): void {
+    if (this.httpSubscription) {
+      this.httpSubscription.unsubscribe();
+    }
+  }
+
   onDateChange($event:any){
     this.onSubmit();
   }
@@ -58,11 +68,11 @@ export class DashboardComponent implements OnInit {
 
   getTheNumberofOrders(){
     this.isLoading = true;
-    this.dashboardService.getOrdersKPIS(this.reportingDashboardFilter).subscribe(KPISResponse => {
+    this.httpSubscription = this.dashboardService.getOrdersKPIS(this.reportingDashboardFilter)
+    .pipe(finalize(() => this.isLoading = false)).subscribe(KPISResponse => {
     KPISResponse.forEach(orderObj => {
       this.NumberOfOrders[orderObj.orderStatus] = orderObj.numberOfOrders
     })
-    this.isLoading = false;
   },(error) => {
       console.log(error);
       this.isLoading = false;
@@ -70,11 +80,7 @@ export class DashboardComponent implements OnInit {
   }
   
   loadChart() {
-    console.log(this.reportingDashboardFilter)
-    this.isLoading = true;
-    this.dashboardService.getNetSalesForGraph(this.reportingDashboardFilter).subscribe(data => {
-      this.isLoading = false;
-
+    this.httpSubscription = this.dashboardService.getNetSalesForGraph(this.reportingDashboardFilter).subscribe(data => {
       const chart = Highcharts.chart('chart-gauge', {
         chart: {
           type: 'areaspline',
