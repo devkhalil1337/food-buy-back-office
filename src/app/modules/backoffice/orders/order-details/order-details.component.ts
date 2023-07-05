@@ -34,7 +34,7 @@ export class OrderDetailsComponent implements OnInit {
     
     
     getAddressById(){
-      this.orderDetailsService.getAddressById(this.Order.customerId).subscribe(response => {
+      this.orderDetailsService.getAddressById(this.Order.customerDeliveryId).subscribe(response => {
         this.address = response;
     })
   }
