@@ -11,7 +11,7 @@ const MIN_HEIGHT = 56;
 @Injectable()
 export class ConfigService {
 
-  constructor( private formatter: FormatterService) {
+  constructor(private formatter: FormatterService) {
   }
 
 
@@ -286,7 +286,7 @@ export class ConfigService {
           // Data already sorted from server; don't perform any sort on client side
           return 0;
         },
-        headerClass: (params:any) => {
+        headerClass: (params: any) => {
           let hClass = 'text-center';
           if (params.colDef.editable) {
             hClass += ' text-underline';
@@ -524,7 +524,7 @@ export class ConfigService {
     };
   }
 
-  
+
 
 
   getNgbModalOptions(size: 'sm' | 'md' | 'lg' | 'llg' | 'xl' | 'xxl' = 'md', easyClose: boolean = false): NgbModalOptions {
@@ -732,8 +732,11 @@ export class ConfigService {
   //   this.userService.updateSelectedBusinessUnitInfo(selectedBunit);
   //   this.businessUnitSource.next(selectedBunit);
   // }
+  sanitizeFileName(fileName, replacementChar) {
+    // Replace spaces with the specified replacement character
+    return fileName.replace(/ /g, replacementChar);
+  }
 
- 
 }
 
 
@@ -758,5 +761,5 @@ export const imagesPathUrl = environment.imagesPathUrl
 export interface ContextMenu {
   name: string;
   action: () => void;
-  icon? : any;
+  icon?: any;
 }
