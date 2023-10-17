@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ConfigService, FormatterService,ToasterService, BusinessId } from '@shared';
-import { supportedCurrencies } from 'src/app/enums/const';
+import { ConfigService, FormatterService, ToasterService, BusinessId } from '@shared';
+import { supportedCountries, supportedCurrencies } from 'src/app/enums/const';
 import { BusinessProfileService } from './business-profile.service';
 
 @Component({
@@ -11,20 +11,22 @@ import { BusinessProfileService } from './business-profile.service';
 })
 export class BusinessProfileComponent implements OnInit {
 
-  filePath:string;
-  isTempraryClose:boolean = false;
-  loading:boolean = false;
-  businessProfileForm:FormGroup;
-  selectizeConfig:any;
-  currenciesList:any;
-  constructor(private configService:ConfigService,
-    private formatterService:FormatterService,
-    private buProfileService:BusinessProfileService,
-    private toasterService:ToasterService) {
-      this.selectizeConfig = this.configService.getSelectizeConfig(1);
-      this.currenciesList = supportedCurrencies;
-      this.getBusinessProfile();
-   }
+  filePath: string;
+  isTempraryClose: boolean = false;
+  loading: boolean = false;
+  businessProfileForm: FormGroup;
+  selectizeConfig: any;
+  currenciesList: any;
+  CountriesList: any;
+  constructor(private configService: ConfigService,
+    private formatterService: FormatterService,
+    private buProfileService: BusinessProfileService,
+    private toasterService: ToasterService) {
+    this.selectizeConfig = this.configService.getSelectizeConfig(1);
+    this.currenciesList = supportedCurrencies;
+    this.CountriesList = supportedCountries;
+    this.getBusinessProfile();
+  }
 
   ngOnInit(): void {
     this.businessProfileForm = new FormGroup({
@@ -62,21 +64,21 @@ export class BusinessProfileComponent implements OnInit {
   }
 
 
-  getBusinessProfile(){
+  getBusinessProfile() {
     this.buProfileService.getBusinessProfile().subscribe(response => {
-        this.businessProfileForm.patchValue(response); 
-    },(error) => {
+      this.businessProfileForm.patchValue(response);
+    }, (error) => {
       console.log(error);
     });
   }
 
-  onSave():void {
+  onSave(): void {
     this.loading = true;
     this.buProfileService.onUpdateBusinessProfile(this.businessProfileForm.value).subscribe(response => {
       this.toasterService.success("business info updated");
       this.getBusinessProfile();
       this.loading = false;
-    },(error) => {
+    }, (error) => {
       console.log(error);
       this.loading = false;
       this.toasterService.error(error)
