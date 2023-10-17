@@ -8,6 +8,7 @@ import { BackofficeModule } from './modules/backoffice/backoffice.module';
 import { CoreModule } from './modules/core/core.module';
 import { HttpInterceptorService } from './modules/shared/http-interceptor.service';
 import { UserAuthModule } from './modules/user-auth/user-auth.module';
+import { DatePipe } from '@angular/common';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { UserAuthModule } from './modules/user-auth/user-auth.module';
       provide: HTTP_INTERCEPTORS,
       useClass: HttpInterceptorService,
       multi: true
-    }
+    },
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })
