@@ -12,3 +12,5 @@ export * from "./products/products.component";
 export * from "./products/add-product/add-product.component";
 export * from "./settings/settings.component"
 export * from "./user/user.component"
+export * from "./menus/menus.component"
+export * from "./user-profile/user-profile.component"

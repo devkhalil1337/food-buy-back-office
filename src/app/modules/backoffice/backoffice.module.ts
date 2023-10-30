@@ -6,8 +6,7 @@ import { AgGridModule } from 'ag-grid-angular';
 import { ConfigService, UtilityService, ToasterService, SharedModule } from '@shared';
 import { DateRangePickerComponent } from '../shared/components';
 import { ModalService } from '../shared/modal.service';
-import { AddCategoryComponent, AddChoiceComponent, AddProductComponent, BusinessHoursComponent, BusinessProfileComponent, CategoryComponent, ChoiceGroupsComponent, DashboardComponent, OrderDetailsComponent, OrdersComponent, PaymentSettingsComponent, ProductsComponent, SettingsComponent, UserComponent } from '@modeuls';
-import { MenusComponent } from './menus/menus.component';
+import { AddCategoryComponent, AddChoiceComponent, AddProductComponent, BusinessHoursComponent, BusinessProfileComponent, CategoryComponent, ChoiceGroupsComponent, DashboardComponent, OrderDetailsComponent, OrdersComponent, PaymentSettingsComponent, ProductsComponent, SettingsComponent, UserComponent, MenusComponent, UserProfileComponent } from '@modeuls';
 
 const routes: Routes = [{
   path: 'dashboard',
@@ -64,6 +63,9 @@ const routes: Routes = [{
 }, {
   path: 'menus',
   component: MenusComponent
+}, {
+  path: 'edit-user',
+  component: UserProfileComponent
 }];
 @NgModule({
   declarations: [
@@ -82,7 +84,8 @@ const routes: Routes = [{
     DateRangePickerComponent,
     UserComponent,
     PaymentSettingsComponent,
-    MenusComponent
+    MenusComponent,
+    UserProfileComponent
   ],
   imports: [
     CommonModule,
