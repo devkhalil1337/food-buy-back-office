@@ -1,17 +1,19 @@
 export class InternalUser {
-    id: number;
-    businessId: number;
-    fullName: string;
-    username: string;
-    email: string;
-    password: string;
-    mobileNumber: string;
-    accountType: number;
-    role: number;
-    creationDate: Date;
-    updateDate: Date;
-    isDeleted: boolean;
-    active: boolean;
-    token: string;
+  id: Number;
+  businessId: Number;
+  fullName: string;
+  username: string;
+  email: string;
+  password: string;
+  mobileNumber: string;
+  accountType: Number;
+  role: Number;
+  creationDate: Date;
+  updateDate: Date;
+  isDeleted: boolean;
+  active: boolean;
+  token: string;
+  constructor() {
+    this.businessId = Number(localStorage.getItem("businessId"));
   }
-  
+}

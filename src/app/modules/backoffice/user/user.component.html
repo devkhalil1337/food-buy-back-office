@@ -10,20 +10,36 @@
                     <li class="breadcrumb-item active">Users</li>
                 </ol>
                 <div class="row justify-content-between">
+
                     <div class="col-lg-3 col-md-4">
                         <div class="bulk-section mt-30">
                             <div class="col-lg-12">
-                                <a (click)="editUser(editUsers)" style="cursor: pointer;" class="add-btn hover-btn">Add
-                                    New User</a>
+                                <a routerLink="/internal-users" (click)="editUser(editUsers)"
+                                    class="add-btn hover-btn">Add New</a>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-12 col-md-12">
-                        <div class="card card-static-2 mb-30">
-                            <div class="card-title-2">
-                                <h4>All Users</h4>
+                    <!-- <div class="col-lg-5 col-md-6">
+                        <div class="bulk-section mt-30">
+                            <div class="search-by-name-input">
+                                <input type="text" class="form-control" placeholder="Search">
                             </div>
-
+                            <div class="input-group">
+                                <select id="categeory" name="categeory" class="form-control">
+                                    <option selected>Active</option>
+                                    <option value="1">Inactive</option>
+                                </select>
+                                <div class="input-group-append">
+                                    <button class="status-btn hover-btn" type="submit">Search Area</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="col-lg-12 col-md-12">
+                        <div class="card card-static-2 mt-30 mb-30">
+                            <div class="card-title-2">
+                                <h4>All Areas</h4>
+                            </div>
                             <div class="card-body-table">
                                 <div class="table-responsive">
                                     <table class="table ucp-table table-hover">
@@ -55,7 +71,8 @@
                                                             class="fas fa-eye"></i></a> -->
                                                     <a (click)="editUser(editUsers,user)" class="edit-btn"
                                                         title="Edit"><i class="fas fa-edit"></i></a>
-                                                    <a href="#" class="delete-btn" title="Edit"><i
+                                                    <a (click)="OnDeleteUser(user)" class="delete-btn"
+                                                        *ngIf="user.role != 1" title="Delete user"><i
                                                             class="fas fa-trash-alt"></i></a>
                                                 </td>
                                             </tr>
