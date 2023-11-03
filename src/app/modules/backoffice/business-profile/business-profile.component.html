@@ -89,8 +89,8 @@
                       </div>
                       <div class="form-group col-sm-6">
                         <label for="exipryDate">Expiry Date</label>
-                        <input class="form-control" type="date" placeholder="flyeats.co.uk  " id="exipryDate"
-                          name="exipryDate" readonly formControlName="expiryDate" />
+                        <input class="form-control" type="text" placeholder="" id="businessExpiryDate"
+                          name="businessExpiryDate" readonly formControlName="businessExpiryDate" [disabled]="true" />
                       </div>
                       <div class="form-group col-sm-6">
                         <div class="custom-file">
@@ -104,7 +104,7 @@
                       </div>
                       <div class="form-group col-sm-6" *ngIf="businessProfileForm.value.businessTempClose">
                         <label for="closeTillDate">Close Until</label>
-                        <input class="form-control" type="datetime-local" id="closeTillDate" name="closeTillDate"
+                        <input class="form-control" type="datetime" id="closeTillDate" name="closeTillDate"
                           formControlName="closetillDate" />
                       </div>
                     </div>

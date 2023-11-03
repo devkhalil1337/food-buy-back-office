@@ -742,7 +742,7 @@ export class ConfigService {
 
 export const DefaultItems = ['copy'];
 
-export const BusinessId = environment.BusinessId; //localStorage.getItem("bussinessId");
+export const BusinessId = localStorage.getItem("bussinessId") || environment.BusinessId;
 
 
 export const imagesPathUrl = environment.imagesPathUrl
