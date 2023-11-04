@@ -50,7 +50,7 @@ export class UserComponent implements OnInit {
   editUser(content: any, user?: InternalUser) {
     this.User = new InternalUser();
     if (user)
-      this.User = user;
+      this.User = { ...user };
     this.modalService.openModal(content);
   }
 
