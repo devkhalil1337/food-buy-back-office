@@ -7,6 +7,7 @@ import { ConfigService, UtilityService, ToasterService, SharedModule } from '@sh
 import { DateRangePickerComponent } from '../shared/components';
 import { ModalService } from '../shared/modal.service';
 import { AddCategoryComponent, AddChoiceComponent, AddProductComponent, BusinessHoursComponent, BusinessProfileComponent, CategoryComponent, ChoiceGroupsComponent, DashboardComponent, OrderDetailsComponent, OrdersComponent, PaymentSettingsComponent, ProductsComponent, SettingsComponent, UserComponent, MenusComponent, UserProfileComponent } from '@modeuls';
+import { BusinessManagementComponent } from './business-management/business-management.component';
 
 const routes: Routes = [{
   path: 'dashboard',
@@ -66,6 +67,9 @@ const routes: Routes = [{
 }, {
   path: 'edit-user',
   component: UserProfileComponent
+}, {
+  path: 'business-management',
+  component: BusinessManagementComponent
 }];
 @NgModule({
   declarations: [
@@ -85,7 +89,8 @@ const routes: Routes = [{
     UserComponent,
     PaymentSettingsComponent,
     MenusComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    BusinessManagementComponent
   ],
   imports: [
     CommonModule,

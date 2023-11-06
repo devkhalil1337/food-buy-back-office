@@ -1,0 +1,203 @@
+<app-header></app-header>
+<div id="layoutSidenav">
+    <app-sidepanel></app-sidepanel>
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid">
+                <h2 class="mt-30 page-title">Users</h2>
+                <ol class="breadcrumb mb-30">
+                    <li class="breadcrumb-item"><a routerLink="/dashboard">Dashboard</a></li>
+                    <li class="breadcrumb-item active">Business</li>
+                </ol>
+                <div class="row justify-content-between">
+
+                    <div class="col-lg-3 col-md-4">
+                        <div class="bulk-section mt-30">
+                            <div class="col-lg-12">
+                                <a routerLink="/business-management" class="add-btn hover-btn"
+                                    (click)="editBusiness(businessModal)">Add New Business</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="col-lg-5 col-md-6">
+                        <div class="bulk-section mt-30">
+                            <div class="search-by-name-input">
+                                <input type="text" class="form-control" placeholder="Search">
+                            </div>
+                            <div class="input-group">
+                                <select id="categeory" name="categeory" class="form-control">
+                                    <option selected>Active</option>
+                                    <option value="1">Inactive</option>
+                                </select>
+                                <div class="input-group-append">
+                                    <button class="status-btn hover-btn" type="submit">Search Area</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="col-lg-12 col-md-12">
+                        <div class="card card-static-2 mt-30 mb-30">
+                            <div class="card-title-2">
+                                <h4>All Businesses</h4>
+                            </div>
+                            <div class="card-body-table">
+                                <div class="table-responsive">
+                                    <table class="table ucp-table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 60px">Business ID</th>
+                                                <th>Business Name</th>
+                                                <!-- <th>Logo</th> -->
+                                                <th>Contact</th>
+                                                <th>Email</th>
+                                                <!-- <th>Address</th> -->
+                                                <!-- <th>Postcode</th> -->
+                                                <th>City</th>
+                                                <th>Country</th>
+                                                <!-- <th>Details</th>
+                                                <th>Latitude</th>
+                                                <th>Longitude</th> -->
+                                                <th>Currency</th>
+                                                <th>Website</th>
+                                                <th>Creation Date</th>
+                                                <th>Expiry Date</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let business of BusinessList">
+                                                <td>{{ business.businessId }}</td>
+                                                <td>{{ business.businessName }}</td>
+                                                <!-- <td><img [src]="business.businessLogo"
+                                                        alt="{{ business.businessName }} Logo" height="40"></td> -->
+                                                <td>{{ business.businessContact }}</td>
+                                                <td>{{ business.businessEmail }}</td>
+                                                <!-- <td>{{ business.businessAddress }}</td>
+                                                <td>{{ business.businessPostcode }}</td> -->
+                                                <td>{{ business.businessCity }}</td>
+                                                <td>{{ business.businessCountry }}</td>
+                                                <!-- <td>{{ business.businessDetails }}</td> -->
+                                                <!-- <td>{{ business.businessLatitude }}</td>
+                                                <td>{{ business.businessLongitude }}</td> -->
+                                                <td>{{ business.businessCurrency }}</td>
+                                                <td><a href="{{ business.businessWebsiteUrl }}" target="_blank">Visit
+                                                        Website</a></td>
+                                                <td>{{ business.createDate | date: 'yyyy-MM-dd HH:mm' }}
+                                                </td>
+                                                <td>{{ business.businessExpiryDate | date: 'yyyy-MM-dd HH:mm' }}</td>
+                                                <td>
+                                                    <a (click)="editBusiness(businessModal,business)" class="edit-btn"
+                                                        title="Edit"><i class="fas fa-edit"></i></a>
+                                                </td>
+
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <app-footer></app-footer>
+    </div>
+</div>
+
+<ng-template #businessModal let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h5 class="modal-title">
+            <i class="fa fa-building"></i>
+            <span>{{ 'Add Business' }}</span>
+        </h5>
+        <a class="pointer" title="Close" (click)="onModalAction(d)">
+            <i class="fa fa-times"></i>
+        </a>
+    </div>
+    <div class="modal-body">
+        <div class="card-body-table">
+            <div class="news-content-right pd-20">
+                <div class="form-group">
+                    <label class="form-label">Business Name*</label>
+                    <input type="text" class="form-control" placeholder="Enter Business Name" name="businessName"
+                        [(ngModel)]="business.businessName">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Business Logo*</label>
+                    <input type="text" class="form-control" placeholder="Enter Business Logo URL" name="businessLogo"
+                        [(ngModel)]="business.businessLogo">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Business Contact*</label>
+                    <input type="text" class="form-control" placeholder="Enter Business Contact" name="businessContact"
+                        [(ngModel)]="business.businessContact">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Business Email*</label>
+                    <input type="email" class="form-control" placeholder="Enter Business Email" name="businessEmail"
+                        [(ngModel)]="business.businessEmail">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Business Address*</label>
+                    <input type="text" class="form-control" placeholder="Enter Business Address" name="businessAddress"
+                        [(ngModel)]="business.businessAddress">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Business Postcode*</label>
+                    <input type="text" class="form-control" placeholder="Enter Business Postcode"
+                        name="businessPostcode" [(ngModel)]="business.businessPostcode">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Business City*</label>
+                    <input type="text" class="form-control" placeholder="Enter Business City" name="businessCity"
+                        [(ngModel)]="business.businessCity">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Business Country*</label>
+                    <input type="text" class="form-control" placeholder="Enter Business Country" name="businessCountry"
+                        [(ngModel)]="business.businessCountry">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Business Details*</label>
+                    <textarea class="form-control" rows="4" placeholder="Enter Business Details" name="businessDetails"
+                        [(ngModel)]="business.businessDetails"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Business Latitude*</label>
+                    <input type="text" class="form-control" placeholder="Enter Business Latitude"
+                        name="businessLatitude" [(ngModel)]="business.businessLatitude">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Business Longitude*</label>
+                    <input type="text" class="form-control" placeholder="Enter Business Longitude"
+                        name="businessLongitude" [(ngModel)]="business.businessLongitude">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Business Currency*</label>
+                    <input type="text" class="form-control" placeholder="Enter Business Currency"
+                        name="businessCurrency" [(ngModel)]="business.businessCurrency">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Business Website URL*</label>
+                    <input type="text" class="form-control" placeholder="Enter Business Website URL"
+                        name="businessWebsiteUrl" [(ngModel)]="business.businessWebsiteUrl">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Business Expiry Date*</label>
+                    <input type="datetime-local" class="form-control" name="businessExpiryDate"
+                        [(ngModel)]="business.businessExpiryDate">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Temporarily Closed</label>
+                    <input type="checkbox" class="form-control" name="businessTempClose"
+                        [(ngModel)]="business.businessTempClose">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-xs btn-default" (click)="onModalAction(d)">Cancel</button>
+        <button type="button" class="btn btn-xs btn-success" (click)="onBusinessSave(c)"><span>Save</span></button>
+    </div>
+</ng-template>
