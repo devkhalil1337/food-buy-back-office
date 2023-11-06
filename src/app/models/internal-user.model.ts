@@ -15,5 +15,6 @@ export class InternalUser {
   token: string;
   constructor() {
     this.businessId = Number(localStorage.getItem("businessId"));
+    this.active = true;
   }
 }
