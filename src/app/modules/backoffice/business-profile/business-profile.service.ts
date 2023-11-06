@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ApiService,BusinessId } from '@shared';
+import { ApiService, ConfigService } from '@shared';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -7,17 +7,16 @@ import { map } from 'rxjs/operators';
 })
 export class BusinessProfileService {
 
-  constructor(private apiService:ApiService) { }
+  constructor(private apiService: ApiService, private configService: ConfigService) { }
 
-  getBusinessProfile(){
-    const businessId = BusinessId;
-    return this.apiService.request("get",`BusinessInfo/GetBusinessUnitById?BusinessId=${businessId}`).pipe(map((response:any) => {
+  getBusinessProfile() {
+    return this.apiService.request("get", `BusinessInfo/GetBusinessUnitById?BusinessId=${this.configService.businessId}`).pipe(map((response: any) => {
       return response && response[0] || {};
     }));
   }
 
-  onUpdateBusinessProfile(businessProfile){
-    return this.apiService.request("post",`BusinessInfo/UpdateBusinessUnit`,businessProfile).pipe(map((response:any) => {
+  onUpdateBusinessProfile(businessProfile) {
+    return this.apiService.request("post", `BusinessInfo/UpdateBusinessUnit`, businessProfile).pipe(map((response: any) => {
       return response || [];
     }));
   }

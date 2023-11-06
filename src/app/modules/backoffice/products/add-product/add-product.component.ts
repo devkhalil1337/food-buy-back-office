@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BusinessId, ConfigService, imagesPathUrl, ToasterService } from '@shared';
+import { ConfigService, imagesPathUrl, ToasterService } from '@shared';
 import { forkJoin } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
@@ -63,7 +63,7 @@ export class AddProductComponent implements OnInit {
   initlizeProductForm(): void {
     this.productForm = this.fb.group({
       productId: new FormControl(Number(this.selectedProductId)),
-      businessId: new FormControl(Number(BusinessId)),
+      businessId: new FormControl(Number(this.configService.businessId)),
       selectionId: new FormControl([]),
       productName: new FormControl(""),
       categoryId: new FormControl(this.selectedCategoryId ? Number(this.selectedCategoryId) : 0, Validators.required),

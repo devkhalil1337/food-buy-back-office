@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { BusinessId, ToasterService } from 'src/app/modules/shared';
+import { ConfigService, ToasterService } from 'src/app/modules/shared';
 import { ChoiceGroupsService } from '../choice-groups.service';
 
 @Component({
@@ -11,26 +11,26 @@ import { ChoiceGroupsService } from '../choice-groups.service';
 })
 export class AddChoiceComponent implements OnInit {
 
-  loading:boolean = false;
-  selectedChoiceId:number;  
-  selectedSelection:any
-  get ModifersArray():FormArray{
-    return <FormArray> this.ChoiceForm.get('selectionChoices');
+  loading: boolean = false;
+  selectedChoiceId: number;
+  selectedSelection: any
+  get ModifersArray(): FormArray {
+    return <FormArray>this.ChoiceForm.get('selectionChoices');
   }
 
   ChoiceForm: FormGroup;
 
-  constructor(private fb: FormBuilder,private activeRoute: ActivatedRoute,private choiceOfGroupServices:ChoiceGroupsService,
-    private toasterService:ToasterService) { 
+  constructor(private fb: FormBuilder, private activeRoute: ActivatedRoute, private choiceOfGroupServices: ChoiceGroupsService,
+    private toasterService: ToasterService, private configService: ConfigService) {
     this.ChoiceForm = this.fb.group({
-      selectionId:this.selectedChoiceId ? this.selectedChoiceId: null,
-      businessId:[BusinessId],
+      selectionId: this.selectedChoiceId ? this.selectedChoiceId : null,
+      businessId: [this.configService.businessId],
       selectionName: [null, [Validators.required]],
       minimumSelection: [1],
       maximumSelection: [1],
-      active:[true],
-      isDeleted:[false],
-      selectionChoices:this.fb.array([])
+      active: [true],
+      isDeleted: [false],
+      selectionChoices: this.fb.array([])
     })
     this.onRouteActivateSubscribe();
 
@@ -40,22 +40,22 @@ export class AddChoiceComponent implements OnInit {
 
   OnAddChoice() {
     this.loading = true;
-    if(this.selectedChoiceId){
+    if (this.selectedChoiceId) {
       this.choiceOfGroupServices.onUpdateSelection(this.ChoiceForm.value).subscribe(response => {
-        if(response && response.success)
+        if (response && response.success)
           this.toasterService.success("Product has been updated")
-          this.loading = false;
-      },(error) => {
+        this.loading = false;
+      }, (error) => {
         console.log(error);
         this.loading = false;
         this.toasterService.error(error)
       })
-    }else{
+    } else {
       this.choiceOfGroupServices.onAddEditSelection(this.ChoiceForm.value).subscribe(response => {
-        if(response && response.success)
+        if (response && response.success)
           this.toasterService.success("Product has been added")
-          this.loading = false;
-      },(error) => {
+        this.loading = false;
+      }, (error) => {
         console.log(error);
         this.loading = false;
         this.toasterService.error(error)
@@ -68,37 +68,37 @@ export class AddChoiceComponent implements OnInit {
     this.ModifersArray.push(this.onAddMoreModifiers());
   }
 
-  onAddMoreModifiers():FormGroup{
+  onAddMoreModifiers(): FormGroup {
     return this.fb.group({
-      choicesId:null,
-      choiceName:null,
-      choicePrice:null,
-      choiceSortedBy:0,
-      isDeleted:false
+      choicesId: null,
+      choiceName: null,
+      choicePrice: null,
+      choiceSortedBy: 0,
+      isDeleted: false
     })
   }
 
-  onRemoveModifer(index:number){
+  onRemoveModifer(index: number) {
     (this.ChoiceForm.get('selectionChoices') as FormArray).controls[index].patchValue({
-      isDeleted:true
+      isDeleted: true
     });
     // (this.ChoiceForm.get('selectionChoices') as FormArray).removeAt(index);
   }
 
 
-  onRouteActivateSubscribe(){
+  onRouteActivateSubscribe() {
     this.activeRoute.queryParams.subscribe((queryParams) => {
       this.selectedChoiceId = queryParams['choiceId']
-      if(this.selectedChoiceId){
+      if (this.selectedChoiceId) {
         this.choiceOfGroupServices.getSelectionById(this.selectedChoiceId).subscribe(response => {
-          response.selectionChoices.forEach((element,index,array) => {
+          response.selectionChoices.forEach((element, index, array) => {
             this.addMoreFields();
-            if(index == array.length -1 )
+            if (index == array.length - 1)
               this.onRemoveModifer(index);
           });
           this.ChoiceForm.patchValue(response);
         })
-      }else{
+      } else {
         this.addMoreFields();
       }
     });

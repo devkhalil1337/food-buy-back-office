@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ConfigService, FormatterService, ToasterService, BusinessId } from '@shared';
 import { supportedCountries, supportedCurrencies } from 'src/app/enums/const';
 import { BusinessProfileService } from './business-profile.service';
+import { ConfigService, FormatterService, ToasterService } from '../../shared';
 
 @Component({
   selector: 'app-business-profile',
@@ -30,7 +30,7 @@ export class BusinessProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.businessProfileForm = new FormGroup({
-      BusinessId: new FormControl(Number(BusinessId)),
+      BusinessId: new FormControl(Number(this.configService.businessId)),
       localization: new FormControl(""),
       businessName: new FormControl(""),
       businessEmail: new FormControl(""),

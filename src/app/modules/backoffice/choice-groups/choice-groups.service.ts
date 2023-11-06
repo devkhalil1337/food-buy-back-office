@@ -1,33 +1,32 @@
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
-import { ApiService, BusinessId } from '../../shared';
+import { ApiService } from '@shared';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChoiceGroupsService {
 
-  constructor(private apiService:ApiService) { }
+  constructor(private apiService: ApiService) { }
 
 
-  getListOfSelections(){
-    const businessId = BusinessId;
-    return this.apiService.request("get",`Selections/GetAllSelections`);
-  }
-  
-  
-  onAddEditSelection(formData){
-    return this.apiService.request("post",`Selections/AddNewSelections`,formData);
-  }
-  
-  onUpdateSelection(formData){
-    return this.apiService.request("put",`Selections/UpdateSelections`,formData);
+  getListOfSelections() {
+    return this.apiService.request("get", `Selections/GetAllSelections`);
   }
 
-  getSelectionById(selectionId:number){
-    return this.apiService.request("get",`Selections/GetSelectionsById?selectionId=${selectionId}`).pipe(map((response:any) => {
+
+  onAddEditSelection(formData) {
+    return this.apiService.request("post", `Selections/AddNewSelections`, formData);
+  }
+
+  onUpdateSelection(formData) {
+    return this.apiService.request("put", `Selections/UpdateSelections`, formData);
+  }
+
+  getSelectionById(selectionId: number) {
+    return this.apiService.request("get", `Selections/GetSelectionsById?selectionId=${selectionId}`).pipe(map((response: any) => {
       return response && response[0] || [];
     }));
   }
-  
+
 }

@@ -737,12 +737,15 @@ export class ConfigService {
     return fileName.replace(/ /g, replacementChar);
   }
 
+  businessId(): Number {
+    return Number(localStorage.getItem("businessId"));
+  }
+
 }
 
 
 export const DefaultItems = ['copy'];
 
-export const BusinessId = localStorage.getItem("businessId");
 
 
 export const imagesPathUrl = environment.imagesPathUrl
