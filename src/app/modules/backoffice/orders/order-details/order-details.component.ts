@@ -11,31 +11,31 @@ import { OrdersDetailsService } from './orders-details.service';
 })
 export class OrderDetailsComponent implements OnInit {
 
-  OrderDetails:any;
-  Order:Order;
-  address:any;
-  constructor(private orderDetailsService:OrdersDetailsService,private activatedRoute: ActivatedRoute) { 
+  OrderDetails: any;
+  Order: Order;
+  address: any;
+  constructor(private orderDetailsService: OrdersDetailsService, private activatedRoute: ActivatedRoute) {
     console.log()
   }
 
   ngOnInit(): void {
     const orderId = this.activatedRoute.snapshot.paramMap.get('id');
-    if(!orderId)
+    if (!orderId)
       return;
-      forkJoin(
-        this.orderDetailsService.getOrder(orderId),
-        this.orderDetailsService.getOrderDetails(orderId),
-      ).subscribe(([orderResponse, OrderDetailsResponse]) => {
-        this.Order = new Order(orderResponse);
-        this.OrderDetails = OrderDetailsResponse;
-        this.getAddressById();
-      });
-    }
-    
-    
-    getAddressById(){
-      this.orderDetailsService.getAddressById(this.Order.customerId).subscribe(response => {
-        this.address = response;
+    forkJoin(
+      this.orderDetailsService.getOrder(orderId),
+      this.orderDetailsService.getOrderDetails(orderId),
+    ).subscribe(([orderResponse, OrderDetailsResponse]) => {
+      this.Order = new Order(orderResponse);
+      this.OrderDetails = OrderDetailsResponse;
+      this.getAddressById();
+    });
+  }
+
+
+  getAddressById() {
+    this.orderDetailsService.getAddressById(this.Order.customerDeliveryId).subscribe(response => {
+      this.address = response;
     })
   }
 
