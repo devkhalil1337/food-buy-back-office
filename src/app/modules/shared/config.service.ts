@@ -737,7 +737,7 @@ export class ConfigService {
     return fileName.replace(/ /g, replacementChar);
   }
 
-  businessId(): Number {
+  get businessId(): Number {
     return Number(localStorage.getItem("businessId"));
   }
 
