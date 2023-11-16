@@ -16,23 +16,24 @@ import { DashboardService } from './dashboard.service';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit,OnDestroy  {
+export class DashboardComponent implements OnInit, OnDestroy {
   highcharts = Highcharts;
-  reportingDashboardFilter:ReportingDashboardFilter
-  NumberOfOrders:NumberOfOrders;
-  OrderStatus:Array<string>;
-  isLoading:boolean = true;
+  reportingDashboardFilter: ReportingDashboardFilter
+  NumberOfOrders: NumberOfOrders;
+  OrderStatus: Array<string>;
+  isLoading: boolean = true;
 
   private httpSubscription: Subscription;
-  
-  constructor(private dashboardService:DashboardService,private configService:ConfigService) {
+
+  constructor(private dashboardService: DashboardService, private configService: ConfigService) {
     this.NumberOfOrders = new NumberOfOrders();
     this.reportingDashboardFilter = new ReportingDashboardFilter();
-    this.reportingDashboardFilter.dateRange = new DateRange(DateRangeType.Last30Days);
-    this.reportingDashboardFilter.orderStatus = ['open','in process','completed','cancelled','delivered']
-   }
+    debugger
+    this.reportingDashboardFilter.dateRange = new DateRange(DateRangeType.Last30Days, undefined, 0);
+    this.reportingDashboardFilter.orderStatus = ['open', 'in process', 'completed', 'cancelled', 'delivered']
+  }
 
-   setDateRangeByBaseDate(dtRange?: DateRange, sDate?: string, eDate?: string) {
+  setDateRangeByBaseDate(dtRange?: DateRange, sDate?: string, eDate?: string) {
     if (dtRange) {
       if (dtRange.label === DateRangeType.customRange) {
         this.reportingDashboardFilter.dateRange = this.configService.getNewDateRange(dtRange.label, undefined, sDate, eDate);
@@ -56,29 +57,29 @@ export class DashboardComponent implements OnInit,OnDestroy  {
     }
   }
 
-  onDateChange($event:any){
+  onDateChange($event: any) {
     this.onSubmit();
   }
 
-  onSubmit(){
-    this.setDateRangeByBaseDate(this.reportingDashboardFilter.dateRange,this.reportingDashboardFilter.startDate,this.reportingDashboardFilter.endDate);
+  onSubmit() {
+    this.setDateRangeByBaseDate(this.reportingDashboardFilter.dateRange, this.reportingDashboardFilter.startDate, this.reportingDashboardFilter.endDate);
     this.getTheNumberofOrders();
     this.loadChart();
   }
 
-  getTheNumberofOrders(){
+  getTheNumberofOrders() {
     this.isLoading = true;
     this.httpSubscription = this.dashboardService.getOrdersKPIS(this.reportingDashboardFilter)
-    .pipe(finalize(() => this.isLoading = false)).subscribe(KPISResponse => {
-    KPISResponse.forEach(orderObj => {
-      this.NumberOfOrders[orderObj.orderStatus] = orderObj.numberOfOrders
-    })
-  },(error) => {
-      console.log(error);
-      this.isLoading = false;
-    });
+      .pipe(finalize(() => this.isLoading = false)).subscribe(KPISResponse => {
+        KPISResponse.forEach(orderObj => {
+          this.NumberOfOrders[orderObj.orderStatus] = orderObj.numberOfOrders
+        })
+      }, (error) => {
+        console.log(error);
+        this.isLoading = false;
+      });
   }
-  
+
   loadChart() {
     this.httpSubscription = this.dashboardService.getNetSalesForGraph(this.reportingDashboardFilter).subscribe(data => {
       const chart = Highcharts.chart('chart-gauge', {
@@ -153,8 +154,8 @@ export class DashboardComponent implements OnInit,OnDestroy  {
       } as any);
 
     });
-    
+
   }
-  
+
 
 }

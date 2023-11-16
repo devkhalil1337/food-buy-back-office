@@ -8,7 +8,7 @@ export class DateRange {
   endDate: Moment;
   label: DateRangeType;
   allowInterval?: IntervalType;
-  
+
   // getRange?: () => [Moment, Moment]
 
   constructor(selectedRange: DateRangeType = DateRangeType.Last7Days, fiscalStart?: string, offsetDays?: number, startDate?: string, endDate?: string, maxDate?: string) {
@@ -16,6 +16,7 @@ export class DateRange {
     if (startDate && endDate) {
       [this.startDate, this.endDate] = [moment(startDate), moment(endDate)];
     } else {
+      offsetDays = Number(offsetDays);
       const range = getDateRangeByType(selectedRange, offsetDays, fiscalStart, maxDate, this.allowInterval);
       [this.startDate, this.endDate] = [range.startDate, range.endDate];
     }
