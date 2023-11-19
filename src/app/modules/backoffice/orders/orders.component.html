@@ -8,38 +8,27 @@
         <app-date-range-picker [dateRange]="OrderFilter.dateRange"
           (rangeSubmit)="onDateChange($event)"></app-date-range-picker>
         <ol class="breadcrumb mb-30">
-          <li class="breadcrumb-item"><a routerLink="/dashboard">Dashboard</a></li>
-          <li class="breadcrumb-item active"><a routerLink="/orders" routerLinkActive="active">Orders</a></li>
+          <li class="breadcrumb-item" routerLinkActive="active"><a routerLink="/dashboard">Dashboard</a></li>
+          <li class="breadcrumb-item " routerLinkActive="active"><a routerLink="/orders">Orders</a></li>
         </ol>
         <div class="row justify-content-between">
           <div class="col-lg-3 col-md-4">
             <div class="bulk-section mb-30">
-              <div class="input-group">
-                <select id="action" name="action" class="form-control" [disabled]="!isEditButtonEnable">
-                  <option selected>Bulk Actions</option>
-                  <option value="1">Pending</option>
-                  <option value="2">Cancel</option>
-                  <option value="3">Process</option>
-                  <option value="4">Complete</option>
-                  <option value="5">Delete</option>
-                </select>
-                <div class="input-group-append">
-                  <button class="status-btn hover-btn" type="submit" [disabled]="!isEditButtonEnable">Apply</button>
-                </div>
-              </div>
             </div>
           </div>
           <div class="col-lg-5 col-md-6">
             <div class="bulk-section mb-30">
               <div class="search-by-name-input">
-                <div class="text-right w-100">
-                  <a (click)="OrderFilter.OrderStatus = '' "><i class="fa fa-clear">clear</i></a>
-                </div>
-                <ng-selectize [config]="selectizeConfig" [options]="StatusTypes" id="StatusTypes" name="StatusTypes"
-                  [(ngModel)]="OrderFilter.OrderStatus"></ng-selectize>
+                <input type="text" class="form-control" placeholder="Search">
               </div>
               <div class="input-group">
-                <button class="status-btn hover-btn" type="submit" (click)="onSubmit();">Search Order</button>
+                <select id="categeory" name="categeory" class="form-control" [(ngModel)]="OrderFilter.OrderStatus">
+                  <option value=""></option>
+                  <option *ngFor="let status of StatusTypes" [value]="status.value">{{status.label}}</option>
+                </select>
+                <div class="input-group-append">
+                  <button class="status-btn hover-btn" type="submit" (click)="onSubmit();">Search Order</button>
+                </div>
               </div>
             </div>
           </div>
