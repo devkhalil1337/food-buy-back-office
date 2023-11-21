@@ -124,13 +124,13 @@ export class OrdersComponent implements OnInit {
           case OrderStatusEnums.Open:
             return `<span class="badge badge-primary p-2 w-100">${params.value.toUpperCase()}</span>`;
           case OrderStatusEnums.OnTheWay:
-            return `<span class="badge badge-primary p-2 w-100">${params.value.toUpperCase()}</span>`;
+            return `<span class="badge badge-warning p-2 w-100">${params.value.toUpperCase()}</span>`;
           case OrderStatusEnums.Cancelled:
             return `<span class="badge badge-danger p-2 w-100">${params.value.toUpperCase()}</span>`;
           case OrderStatusEnums.Completed:
             return `<span class="badge badge-success p-2 w-100">${params.value.toUpperCase()}</span>`;
           default:
-            return `<span class="badge badge-primary p-2 w-100">${params.value.toUpperCase()}</span>`;
+            return `<span class="badge badge-secondary p-2 w-100">${params.value.toUpperCase()}</span>`;
         }
       },
       maxWidth: 150

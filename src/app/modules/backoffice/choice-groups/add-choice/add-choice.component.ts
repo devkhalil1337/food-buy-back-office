@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ConfigService, ToasterService } from 'src/app/modules/shared';
 import { ChoiceGroupsService } from '../choice-groups.service';
 
@@ -21,7 +21,7 @@ export class AddChoiceComponent implements OnInit {
   ChoiceForm: FormGroup;
 
   constructor(private fb: FormBuilder, private activeRoute: ActivatedRoute, private choiceOfGroupServices: ChoiceGroupsService,
-    private toasterService: ToasterService, private configService: ConfigService) {
+    private toasterService: ToasterService, private configService: ConfigService, private _router: Router) {
     this.ChoiceForm = this.fb.group({
       selectionId: this.selectedChoiceId ? this.selectedChoiceId : null,
       businessId: [this.configService.businessId],
@@ -42,8 +42,10 @@ export class AddChoiceComponent implements OnInit {
     this.loading = true;
     if (this.selectedChoiceId) {
       this.choiceOfGroupServices.onUpdateSelection(this.ChoiceForm.value).subscribe(response => {
-        if (response && response.success)
+        if (response && response.success) {
           this.toasterService.success("Product has been updated")
+          this._router.navigate(['choice-groups']);
+        }
         this.loading = false;
       }, (error) => {
         console.log(error);
@@ -52,8 +54,10 @@ export class AddChoiceComponent implements OnInit {
       })
     } else {
       this.choiceOfGroupServices.onAddEditSelection(this.ChoiceForm.value).subscribe(response => {
-        if (response && response.success)
-          this.toasterService.success("Product has been added")
+        if (response && response.success) {
+          this.toasterService.success("Product has been added");
+          this._router.navigate(['choice-groups']);
+        }
         this.loading = false;
       }, (error) => {
         console.log(error);
@@ -71,8 +75,8 @@ export class AddChoiceComponent implements OnInit {
   onAddMoreModifiers(): FormGroup {
     return this.fb.group({
       choicesId: null,
-      choiceName: null,
-      choicePrice: null,
+      choiceName: [null, [Validators.required]],
+      choicePrice: [null, [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]],
       choiceSortedBy: 0,
       isDeleted: false
     })

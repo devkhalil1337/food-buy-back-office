@@ -8,82 +8,105 @@
                 <ol class="breadcrumb mb-30">
                     <li class="breadcrumb-item"><a routerLink="/dashboard">Dashboard</a></li>
                     <li class="breadcrumb-item"><a routerLink="/choice-groups">All Choice of groups</a></li>
-                    <li class="breadcrumb-item active" routerLink="/add-choice">Add Choice groups</li>
+                    <li class="breadcrumb-item active" routerLink="/add-choice">Add Choice</li>
                 </ol>
                 <form [formGroup]='ChoiceForm' novalidate (ngSubmit)="OnAddChoice()">
-                <div class="row">
-                    <div class="col-lg-6 col-md-6">
-                        <div class="card card-static-2 mb-30">
-                            <div class="card-title-2">
-                                <h4>{{selectedChoiceId ? 'Edit': 'Add New'}} Product</h4>
-                            </div>
-                            <div class="card-body-table">
-                                <div class="news-content-right pd-20">
-                                    <div class="form-group">
-                                        <label class="form-label">Choice Name*</label>
-                                        <input type="text" class="form-control" placeholder="Choice Name" formControlName='selectionName'
-                                        [ngClass]="{'border border-danger': ChoiceForm.get('selectionName').hasError('required') && ChoiceForm.get('selectionName').touched}">
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label">Minimum Number of Choice*</label>
-                                        <input type="text" class="form-control" placeholder="1" formControlName='minimumSelection'>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label">Maximum Number of Choice*</label>
-                                        <input type="text" class="form-control" placeholder="1" formControlName='maximumSelection'>
-                                    </div>
-                                    <div class="row form-group ">
-                                        <div class="col-sm-3">
-                                            <label class="form-label">Status*</label>
-                                            <div class="custom-control custom-checkbox">
-                                              <input type="checkbox" class="custom-control-input" name="status" id="status" formControlName="active">
-                                              <label class="custom-control-label" for="status">Active</label>
-                                            </div>
-                                          </div>
-                                    </div>
-                                    <button class="save-btn hover-btn" type="submit" [disabled]="ChoiceForm.invalid">{{selectedChoiceId ? 'Edit': 'Add New'}} Product <i class="fa fa-spin" style="font-size:24px" [class.fa-spinner]="loading"></i></button>
-                                </div> 
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6">
-                        <div class="card card-static-2 mb-30">
-                            <div class="card-title-2">
-                                <h4>Add Choices</h4>
-                            </div>
-                            <div class="card-body-table">
-                                <div class="news-content-right pd-20">
-                                    <div formArrayName="selectionChoices" *ngFor="let t of ModifersArray.controls; let i = index" >
-                                        <div class="row" [formGroupName]="i" *ngIf="!t.get('isDeleted').value">
-                                            <div class="col-xs-6 col-sm-6 col-md-6" >
-                                                <div class="form-group" >
-                                                    <label class="form-label">Choice Name*</label>
-                                                    <input type="text" class="form-control" placeholder="Choice Name"  formControlName='choiceName' id="{{'choiceName'+i}}"
-                                                    [ngClass]="{'border border-danger': t.get('choiceName').hasError('required') && t.get('choiceName').touched}">
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-3 col-sm-3">
-                                                <div class="form-group">
-                                                    <label class="form-label">Price*</label>
-                                                    <input type="text" class="form-control border border-danger" formControlName='choicePrice' id="{{'choicePrice' + i}}"
-                                                    [ngClass]="{'border border-danger': t.get('choicePrice').hasError('required') && t.get('choicePrice').touched}"
-                                                    >
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-3 col-sm-3">
-                                                <div class="trash-icon">
-                                                    <a  (click)="onRemoveModifer(i);"><i class="fa fa-trash"></i></a>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                            <div class="card card-static-2 mb-30">
+                                <div class="card-title-2">
+                                    <h4>{{selectedChoiceId ? 'Edit': 'Add New'}} Choice</h4>
+                                </div>
+                                <div class="card-body-table">
+                                    <div class="news-content-right pd-20">
+                                        <div class="form-group">
+                                            <label class="form-label">Choice Name*</label>
+                                            <input type="text" class="form-control" placeholder="Choice Name"
+                                                formControlName='selectionName'
+                                                [ngClass]="{'border border-danger': ChoiceForm.get('selectionName').hasError('required') && ChoiceForm.get('selectionName').touched}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">Minimum Number of Choice*</label>
+                                            <input type="text" class="form-control" placeholder="1"
+                                                formControlName='minimumSelection'>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">Maximum Number of Choice*</label>
+                                            <input type="text" class="form-control" placeholder="1"
+                                                formControlName='maximumSelection'>
+                                        </div>
+                                        <div class="row form-group ">
+                                            <div class="col-sm-3">
+                                                <label class="form-label">Status*</label>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" name="status"
+                                                        id="status" formControlName="active">
+                                                    <label class="custom-control-label" for="status">Active</label>
                                                 </div>
                                             </div>
                                         </div>
+                                        <button class="save-btn hover-btn" type="submit"
+                                            [disabled]="ChoiceForm.invalid">Save <i class="fa fa-spin"
+                                                style="font-size:24px" [class.fa-spinner]="loading"></i></button>
                                     </div>
-                                    <button class="save-btn hover-btn" type="button" (click)='addMoreFields()'>+ Add more</button>
-                                </div> 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="card card-static-2 mb-30">
+                                <div class="card-title-2">
+                                    <h4>Add Choices</h4>
+                                </div>
+                                <div class="card-body-table">
+                                    <div class="news-content-right pd-20">
+                                        <div formArrayName="selectionChoices"
+                                            *ngFor="let t of ModifersArray.controls; let i = index">
+                                            <div class="row" [formGroupName]="i" *ngIf="!t.get('isDeleted').value">
+                                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Choice Name*</label>
+                                                        <input type="text" class="form-control"
+                                                            placeholder="Choice Name" formControlName='choiceName'
+                                                            id="{{'choiceName'+i}}"
+                                                            [ngClass]="{'border border-danger': t.get('choiceName').hasError('required') && t.get('choiceName').touched}">
+                                                        <div *ngIf="t.get('choiceName').hasError('required') && t.get('choiceName').touched"
+                                                            class="text-danger">
+                                                            Choice Name is required.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-3 col-sm-3">
+                                                    <div class="form-group">
+                                                        <label class="form-label">Price*</label>
+                                                        <input type="text" class="form-control border border-danger"
+                                                            formControlName='choicePrice' id="{{'choicePrice' + i}}"
+                                                            [ngClass]="{'border border-danger': t.get('choicePrice').hasError('required') && t.get('choicePrice').touched || t.get('choicePrice').hasError('pattern') && t.get('choicePrice').touched}">
+                                                        <div *ngIf="t.get('choicePrice').hasError('required') && t.get('choicePrice').touched"
+                                                            class="text-danger">
+                                                            Price is required.
+                                                        </div>
+                                                        <div *ngIf="t.get('choicePrice').hasError('pattern') && t.get('choicePrice').touched"
+                                                            class="text-danger">
+                                                            Invalid format. Please enter up to two decimal numbers.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-3 col-sm-3">
+                                                    <div class="trash-icon">
+                                                        <a (click)="onRemoveModifer(i);"><i class="fa fa-trash"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button class="save-btn hover-btn" type="button" (click)="addMoreFields()">+ Add
+                                            more</button>
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </form>
+                </form>
             </div>
         </main>
         <app-footer></app-footer>

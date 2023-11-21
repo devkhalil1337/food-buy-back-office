@@ -11,7 +11,9 @@ export class ChoiceGroupsService {
 
 
   getListOfSelections() {
-    return this.apiService.request("get", `Selections/GetAllSelections`);
+    return this.apiService.request("get", `Selections/GetAllSelections`).pipe(map((response: any) => {
+      return response.filter(choice => !choice.isDeleted)
+    }));
   }
 
 
@@ -21,6 +23,10 @@ export class ChoiceGroupsService {
 
   onUpdateSelection(formData) {
     return this.apiService.request("put", `Selections/UpdateSelections`, formData);
+  }
+
+  onDeleteSelections(selections: number[]) {
+    return this.apiService.request("post", `Selections/DeleteSelectionsBy`, selections);
   }
 
   getSelectionById(selectionId: number) {

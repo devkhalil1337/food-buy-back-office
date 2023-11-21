@@ -7,20 +7,29 @@
         <h2 class="mt-30 page-title">Orders</h2>
         <ol class="breadcrumb mb-30">
           <li class="breadcrumb-item"><a routerLink="/dashboard">Dashboard</a></li>
-          <li class="breadcrumb-item active"><a routerLink="/choice-groups" routerLinkActive="active">All Choice of groups</a></li>
+          <li class="breadcrumb-item active"><a routerLink="/choice-groups" routerLinkActive="active">All Choice of
+              groups</a></li>
         </ol>
         <div class="row justify-content-between">
+          <div class="col-lg-12">
+            <a routerLink="/add-choice" class="add-btn hover-btn">Add New</a>
+          </div>
           <div class="col-lg-3 col-md-4">
-            <div class="bulk-section mb-30">
-                <div class="input-group">
-                    <div class="input-group-append">
-                      <button class="status-btn hover-btn" type="button" routerLink="/add-choice">Add New</button>
-                    </div>
-                  </div>
+            <div class="bulk-section mt-30">
+              <div class="input-group">
+                <select id="action" name="action" class="form-control" [(ngModel)]="actionType"
+                  [disabled]="!isEditButtonEnable">
+                  <option value="delete">Delete</option>
+                </select>
+                <div class="input-group-append">
+                  <button class="status-btn hover-btn" type="submit" (click)="onBulkAction()"
+                    [disabled]="!isEditButtonEnable">Apply</button>
+                </div>
+              </div>
             </div>
           </div>
           <div class="col-lg-5 col-md-6">
-            <div class="bulk-section mb-30">
+            <!-- <div class="bulk-section mt-30">
               <div class="search-by-name-input">
                 <input type="text" class="form-control" placeholder="Search">
               </div>
@@ -32,23 +41,20 @@
                   <option value="4">Complete</option>
                 </select>
                 <div class="input-group-append">
-                  <button class="status-btn hover-btn" type="submit">Search Order</button>
+                  <button class="status-btn hover-btn" type="submit">Search Choices</button>
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
           <div class="col-lg-12 col-md-12">
-            <div class="card card-static-2 mb-30">
+            <div class="card card-static-2 mt-30 mb-30">
               <div class="card-title-2">
                 <h4>Choice Groups</h4>
               </div>
               <div class="card-body-table">
                 <div class="table-responsive">
-                  <ag-grid-angular 
-                    style="width: 100%; height: 500px;" 
-                    appGridResizer
-                    class="ag-theme-material" [gridOptions]="gridOptions"  [rowDragManaged]="true"
-                    [suppressMoveWhenRowDragging]="true"
+                  <ag-grid-angular style="width: 100%; height: 500px;" appGridResizer class="ag-theme-material"
+                    [gridOptions]="gridOptions" [rowDragManaged]="true" [suppressMoveWhenRowDragging]="true"
                     [animateRows]="true">
                   </ag-grid-angular>
                 </div>

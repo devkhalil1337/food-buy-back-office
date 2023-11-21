@@ -1,5 +1,7 @@
-::ng-deep{
-    .trash-icon{
+::ng-deep {
+    .trash-icon {
         margin-top: 35px;
+        cursor: pointer;
+        color: red;
     }
 }
