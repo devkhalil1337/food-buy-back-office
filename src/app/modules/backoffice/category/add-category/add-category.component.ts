@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Category } from 'src/app/models/category.model';
 import { ToasterService } from 'src/app/modules/shared';
 import { FormatterService } from 'src/app/modules/shared/format.service';
@@ -13,35 +13,36 @@ import { CategoryService } from '../category.service';
 })
 export class AddCategoryComponent implements OnInit {
 
-  loading:boolean = false;
-  categoryForm:FormGroup;
-  selectedCategoryId:number;
-  constructor(private categoryService:CategoryService, 
-    private formatterServoce:FormatterService,
+  loading: boolean = false;
+  categoryForm: FormGroup;
+  selectedCategoryId: number;
+  constructor(private categoryService: CategoryService,
+    private formatterServoce: FormatterService,
     private activatedRoute: ActivatedRoute,
-    private toasterService:ToasterService) { 
-      this.activatedRoute.queryParams.subscribe(params => {
-        this.selectedCategoryId = params['CategoryId'];
-      });
+    private toasterService: ToasterService,
+    private _router: Router) {
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.selectedCategoryId = params['CategoryId'];
+    });
 
 
 
     this.categoryForm = new FormGroup({
       categoryId: new FormControl(null),
-      categoryName: new FormControl("",Validators.required),
+      categoryName: new FormControl("", Validators.required),
       categoryImage: new FormControl(""),
       categoryDetails: new FormControl(""),
-      categorySortBy : new FormControl(1),
+      categorySortBy: new FormControl(1),
       active: new FormControl(1),
       isDeleted: new FormControl(false),
       businessId: new FormControl(0)
-     });
+    });
 
-     if(this.selectedCategoryId){
-       this.categoryService.getCategoryById(this.selectedCategoryId).subscribe(response => {
+    if (this.selectedCategoryId) {
+      this.categoryService.getCategoryById(this.selectedCategoryId).subscribe(response => {
         this.categoryForm.patchValue(new Category(response));
       });
-     }
+    }
 
 
   }
@@ -50,23 +51,25 @@ export class AddCategoryComponent implements OnInit {
   }
 
 
-  onSubmit(){
+  onSubmit() {
     this.loading = true;
     let category = new Category(this.categoryForm.value);
-    if(this.selectedCategoryId){
+    if (this.selectedCategoryId) {
       this.categoryService.onUpdateCategory(category).subscribe(response => {
         this.toasterService.success("category updated");
         this.loading = false;
-      },error => {
+        this._router.navigate(['category']);
+      }, error => {
         console.log(error)
         this.loading = false;
         this.toasterService.error(error)
       })
-    }else{
+    } else {
       this.categoryService.onCreateCategory(category).subscribe(response => {
         this.toasterService.success("category created")
         this.loading = false;
-      },error => {
+        this._router.navigate(['category']);
+      }, error => {
         console.log(error)
         this.loading = false;
         this.toasterService.error(error)

@@ -28,7 +28,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   constructor(private dashboardService: DashboardService, private configService: ConfigService) {
     this.NumberOfOrders = new NumberOfOrders();
     this.reportingDashboardFilter = new ReportingDashboardFilter();
-    debugger
     this.reportingDashboardFilter.dateRange = new DateRange(DateRangeType.Last30Days, undefined, 0);
     this.reportingDashboardFilter.orderStatus = ['open', 'in process', 'completed', 'cancelled', 'delivered']
   }

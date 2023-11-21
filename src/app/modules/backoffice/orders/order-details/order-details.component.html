@@ -14,8 +14,20 @@
                     <div class="col-xl-12 col-md-12">
                         <div class="card card-static-2 mb-30">
                             <div class="card-title-2">
-                                <h2 class="title1458">Invoice</h2>
-                                <span class="order-id">Order {{Order?.orderInvoiceNumber}}</span>
+                                <h2 class="title1458">Invoice <h4> {{Order?.orderInvoiceNumber}}</h4>
+                                </h2>
+                                <span class="order-id"></span>
+                                <div class="col-lg-5">
+                                    <div class="select-status">
+                                        <label for="status">Status*</label>
+                                        <select id="categeory" name="categeory" class="form-control"
+                                            [disabled]="isloading" [(ngModel)]="Order.orderStatus"
+                                            (ngModelChange)="updateStatus(Order)">
+                                            <option *ngFor="let status of orderStatus" [value]="status.value">
+                                                {{status.label}}</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                             <div class="invoice-content">
                                 <div class="row">
@@ -37,7 +49,7 @@
                                     <div class="col-lg-12">
                                         <div class="card card-static-2 mb-30 mt-30">
                                             <div class="card-title-2">
-                                                <h4>Recent Orders</h4>
+                                                <h4>Order Details</h4>
                                             </div>
                                             <div class="card-body-table">
                                                 <div class="table-responsive">
@@ -58,16 +70,17 @@
                                                                     <a>{{orderdetail.productName}}</a>
                                                                     <ul>
                                                                         <li
-                                                                            *ngFor="let selection of orderdetail.productVariants">
+                                                                            *ngFor="let selection of orderdetail.productChoiceOfGroups">
                                                                             {{selection.choiceName}}</li>
                                                                     </ul>
                                                                 </td>
-                                                                <td class="text-center">{{orderdetail.productPrice}}
+                                                                <td class="text-center">{{orderdetail.productPrice |
+                                                                    currency}}
                                                                 </td>
                                                                 <td class="text-center">{{orderdetail.productQuantity}}
                                                                 </td>
-                                                                <td class="text-center">{{orderdetail.productPrice *
-                                                                    orderdetail.productQuantity}}</td>
+                                                                <td class="text-center">{{(orderdetail.productPrice *
+                                                                    orderdetail.productQuantity) | currency}}</td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
@@ -82,7 +95,7 @@
                                                 Sub Total
                                             </div>
                                             <div class="order-total-right-text">
-                                                {{Order?.voucherDiscountAmount}}
+                                                {{subtotal | currency}}
                                             </div>
                                         </div>
                                         <div class="order-total-dt">
@@ -90,7 +103,7 @@
                                                 Delivery Fees
                                             </div>
                                             <div class="order-total-right-text">
-                                                {{Order?.deliveryCharges}}
+                                                {{Order?.deliveryCharges | currency}}
                                             </div>
                                         </div>
                                         <div class="order-total-dt">
@@ -98,19 +111,11 @@
                                                 Total Amount
                                             </div>
                                             <div class="order-total-right-text fsz-18">
-                                                {{Order?.totalAmount}}
+                                                {{Order?.totalAmount | currency}}
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-7"></div>
-                                    <div class="col-lg-5">
-                                        <div class="select-status">
-                                            <label for="status">Status*</label>
-                                            <div class="status-active">
-                                                {{Order?.orderStatus}}
-                                            </div>
-                                        </div>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>

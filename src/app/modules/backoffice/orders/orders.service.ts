@@ -8,16 +8,27 @@ import { ApiService } from '../../shared';
 })
 export class OrdersService {
 
-  constructor(private apiService:ApiService,) { }
+  constructor(private apiService: ApiService,) { }
 
-  getAllOrders(filter:OrderFilter){
-    return this.apiService.request("post",`Order/GetAllOrders`,filter);
+  getAllOrders(filter: OrderFilter) {
+    return this.apiService.request("post", `Order/GetAllOrders`, filter);
   }
 
-  updateOrderStatus(orderNumber,orderStatus){
-    return this.apiService.request("put",`Order/updateOrderStatus?orderNumber=${orderNumber}&orderStatus=${orderStatus}`);
+  updateOrderStatus(orderNumber, orderStatus) {
+    return this.apiService.request("put", `Order/updateOrderStatus?orderNumber=${orderNumber}&orderStatus=${orderStatus}`);
   }
 
-  
+
+  getOrderDetails(orderId) {
+    return this.apiService.request("get", `OrderDetails/GetProductsById?OrderId=${orderId}`);
+  }
+
+  getOrder(orderId) {
+    return this.apiService.request("get", `Order/GetOrderById?orderId=${orderId}`);
+  }
+  getAddressById(addressId) {
+    return this.apiService.request("get", `AddressBook/GetAddressById/${addressId}`);
+  }
+
 
 }

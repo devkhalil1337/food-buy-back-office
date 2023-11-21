@@ -13,3 +13,12 @@ export const supportedCurrencies = [
 export const supportedCountries = [
     { label: 'United Kingdom', value: 'United Kingdom' },
 ]
+
+export const ORDERSTATUS = [
+    { label: 'Open', value: 'OPEN' },
+    { label: 'In process', value: 'IN PROCESS' },
+    { label: 'Completed', value: 'COMPLETED' },
+    { label: 'Cancelled', value: 'CANCELLED' },
+    { label: 'Delivered', value: 'DELIVERED' }
+]
+

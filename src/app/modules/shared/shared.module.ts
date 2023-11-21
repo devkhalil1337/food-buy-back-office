@@ -7,13 +7,15 @@ import { NgSelectizeModule } from 'ng-selectize';
 import { RouterlinkrendererComponent } from './components/routerlinkrenderer/routerlinkrenderer.component';
 import { DateRangePickerComponent } from './components/date-range-picker/date-range-picker.component';
 import { SkeletonLoaderComponent } from './components/skeleton-loader/skeleton-loader.component';
+import { MycurrencyPipe } from './pipes/mycurrency.pipe';
 
 
 @NgModule({
   declarations: [
     LinksRenderComponent,
     RouterlinkrendererComponent,
-    SkeletonLoaderComponent
+    SkeletonLoaderComponent,
+    MycurrencyPipe
   ],
   imports: [
     CommonModule,
@@ -22,6 +24,6 @@ import { SkeletonLoaderComponent } from './components/skeleton-loader/skeleton-l
     RouterModule,
     NgSelectizeModule
   ],
-  exports:[FormsModule,ReactiveFormsModule,NgSelectizeModule,SkeletonLoaderComponent]
+  exports: [FormsModule, ReactiveFormsModule, NgSelectizeModule, SkeletonLoaderComponent, MycurrencyPipe]
 })
 export class SharedModule { }
