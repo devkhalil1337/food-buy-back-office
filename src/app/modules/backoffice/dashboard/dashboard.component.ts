@@ -28,7 +28,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   constructor(private dashboardService: DashboardService, private configService: ConfigService) {
     this.NumberOfOrders = new NumberOfOrders();
     this.reportingDashboardFilter = new ReportingDashboardFilter();
-    this.reportingDashboardFilter.dateRange = new DateRange(DateRangeType.Last30Days, undefined, 0);
+    this.reportingDashboardFilter.dateRange = new DateRange(DateRangeType.Last7Days, "0", 0);
     this.reportingDashboardFilter.orderStatus = ['open', 'in process', 'completed', 'cancelled', 'delivered']
   }
 
@@ -37,7 +37,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       if (dtRange.label === DateRangeType.customRange) {
         this.reportingDashboardFilter.dateRange = this.configService.getNewDateRange(dtRange.label, undefined, sDate, eDate);
       } else {
-        this.reportingDashboardFilter.dateRange = this.configService.getNewDateRange(dtRange.label);
+        this.reportingDashboardFilter.dateRange = this.configService.getNewDateRange(dtRange.label, 0);
       }
     } else {
       this.reportingDashboardFilter.dateRange = this.configService.getNewDateRange(DateRangeType.Last7Days);
