@@ -32,6 +32,7 @@ export class AddCategoryComponent implements OnInit {
       categoryName: new FormControl("", Validators.required),
       categoryImage: new FormControl(""),
       categoryDetails: new FormControl(""),
+      categoryType: new FormControl(""),
       categorySortBy: new FormControl(1),
       active: new FormControl(1),
       isDeleted: new FormControl(false),

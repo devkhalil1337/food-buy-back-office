@@ -4,6 +4,7 @@ export class Category {
     categoryName: String;
     categoryImage: string;
     categoryDetails: string;
+    categoryType: string;
     categorySortBy: number;
     active: boolean;
     isDeleted: boolean;
@@ -13,6 +14,7 @@ export class Category {
         this.categoryName = category.categoryName || "";
         this.categoryImage = category.categoryImage || "";
         this.categoryDetails = category.categoryDetails;
+        this.categoryType = category.categoryType;
         this.categorySortBy = category.categorySortBy || 1;
         this.active = !!category.active;
         this.isDeleted = !!category.isDeleted;

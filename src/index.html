@@ -12,5 +12,13 @@
 <body class="sb-nav-fixed">
     <app-root></app-root>
 </body>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Toggle the side navigation
+        $("#sidebarToggle").on("click", function (e) {
+            $("body").toggleClass("sb-sidenav-toggled");
+        });
+    });
+</script>
 
 </html>

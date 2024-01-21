@@ -18,31 +18,40 @@
               </div>
               <div class="card-body-table">
                 <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
-                <div class="news-content-right pd-20">
-                  <div class="row">
-                    <div class="form-group col-sm-12">
-                      <label class="form-label">Name*</label>
-                      <input type="text" class="form-control" placeholder="Category Name" formControlName="categoryName"
-                        [ngClass]="{'border border-danger': categoryForm.get('categoryName').hasError('required') && categoryForm.get('categoryName').touched}">
-                    </div>
-                    <div class="form-group col-sm-12">
-                      <label class="form-label">Description</label>
-                      <div class="card card-editor">
-                        <div class="content-editor">
-                          <textarea class="text-control" placeholder="Enter Description" formControlName="categoryDetails"></textarea>
+                  <div class="news-content-right pd-20">
+                    <div class="row">
+                      <div class="form-group col-sm-12">
+                        <label class="form-label">Name*</label>
+                        <input type="text" class="form-control" placeholder="Category Name"
+                          formControlName="categoryName"
+                          [ngClass]="{'border border-danger': categoryForm.get('categoryName').hasError('required') && categoryForm.get('categoryName').touched}">
+                      </div>
+                      <div class="form-group col-sm-12">
+                        <label class="form-label">Category Type</label>
+                        <input type="text" class="form-control" placeholder="Category Type"
+                          formControlName="categoryType">
+                      </div>
+                      <div class="form-group col-sm-12">
+                        <label class="form-label">Description</label>
+                        <div class="card card-editor">
+                          <div class="content-editor">
+                            <textarea class="text-control" placeholder="Enter Description"
+                              formControlName="categoryDetails"></textarea>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group col-sm-3">
+                        <label class="form-label">Status*</label>
+                        <div class="custom-control custom-checkbox">
+                          <input type="checkbox" class="custom-control-input" name="active" id="active"
+                            formControlName="active">
+                          <label class="custom-control-label" for="active">Active</label>
                         </div>
                       </div>
                     </div>
-                    <div class="form-group col-sm-3">
-                      <label class="form-label">Status*</label>
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" name="active" id="active" formControlName="active">
-                        <label class="custom-control-label" for="active">Active</label>
-                      </div>
-                    </div>
+                    <button class="save-btn hover-btn" type="submit" [disabled]="categoryForm.invalid">Save <i
+                        class="fa fa-spin" style="font-size:24px" [class.fa-spinner]="loading"></i></button>
                   </div>
-                  <button class="save-btn hover-btn" type="submit" [disabled]="categoryForm.invalid">Save  <i class="fa fa-spin" style="font-size:24px" [class.fa-spinner]="loading"></i></button>
-                </div>
                 </form>
               </div>
             </div>
