@@ -48,6 +48,10 @@ export class CategoryService {
     }));
   }
 
+  onDeleteCategory(category: Category) {
+    return this.apiService.request("delete", `Categories/DeleteCategoryBy?categoryId=${category.categoryId}`);
+  }
+
 
 
 }
